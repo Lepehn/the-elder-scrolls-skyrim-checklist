@@ -1,0 +1,731 @@
+<html lang="en">
+  <head>
+    <meta name="google-site-verification" content="TM2JLp2z2ivvAbxCRiY7ekyg7shRkm4LJ23ywpbje1U" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Elder Scrolls V: Skyrim Checklist</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: sans-serif;
+        font-size: clamp(14px, 2vw, 16px);
+        margin: 20px;
+        background: #121212;
+        color: #ddd;
+      }
+
+      h1 {
+        text-align: center;
+        margin: 0 auto 20px;
+        max-width: 1280px;
+        border-radius: 8px;
+      }
+
+      /* Container & Layout */
+      .content-container {
+      display: flex;
+      flex-direction: row; /* horizontal layout by default */
+      align-items: flex-start;
+      gap: 20px;
+      max-width: 1280px;
+      width: 100%;
+      margin: 60px auto 0;
+      padding: 0 10px;
+    }
+
+      /* Content */
+      .content {
+        display: none;
+        border: none;
+        padding: 20px;
+        background: #212121;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .content.active {
+        display: block;
+      }
+
+      .content ul {
+        color: #a0a0a0;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        margin: 5px 0;
+        margin-bottom: 20px;
+      }
+      
+      input[type="checkbox"]:checked + label {
+        text-decoration: line-through;
+        color: #555;
+      }
+
+      /* Tags */
+      .tag {
+        font-size: clamp(0.8em, 1.5vw, 0.95em);
+        padding: 4px 8px;
+        border-radius: 8px;
+        display: inline-block;
+        margin-left: 10px;
+        color: #121212;
+      }
+
+      .tagRequired {
+        background: #ff8a80;
+      }
+      
+      .tagOptional {
+        background-color: #444;
+        color: #ccc;
+        padding: 4px 8px;
+        border-radius: 8px;
+        margin-left: 10px;
+        width: fit-content;
+        max-width: 100%;
+        word-wrap: break-word;
+      }
+      
+      .tagGiver {
+        background: #80d8ff;
+      }
+
+      .tagNote {
+        color: #aaa;
+        background: #1a1a1a;
+        padding: 4px 8px;
+        border-radius: 8px;
+        display: block;
+        margin-left: 20px;
+        margin-top: 4px;
+        width: fit-content;
+        max-width: 100%;
+        word-wrap: break-word;
+      }
+      
+      .tagCollegeWinterhold {
+        background: #1E90FF;
+      }
+      .tagBardsCollege {
+        background: #FFD700;
+      }
+      .tagBlades {
+        background: #A52A2A;
+      }
+      .tagCompanions {
+        background: #7D7D7D;
+      }
+      .tagDarkBrotherhood {
+        background: #8B0000;
+      }
+      .tagThieves {
+        background: #6A0DAD;
+      }
+      
+      .tagImperialLegion {
+        background: #B22222;
+      }
+      .tagStormcloaks {
+        background: #4682B4;
+      }
+
+      .tagDLC {
+        background: #f7bf00;
+      }
+      
+      .tagDawnguardFaction {
+      	background: #008080;
+       }
+       
+      .tagVolkiharFaction {
+       	background: #4B0082;
+	  }
+
+      /* Sidebar Styling */
+      .sidebar-wrapper {
+        width: 100%;
+        max-width: 324px;
+        height: 100%;
+        max-height: 496px;
+        flex-shrink: 0;
+      }
+
+      .sidebar {
+        background: #212121;
+        border-radius: 8px;
+        padding: 20px;
+        width: 100%;
+        color: #ccc;
+        font-size: clamp(0.9em, 1.5vw, 0.95em);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .profile-bg {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        background-image: url("https://images.igdb.com/igdb/image/upload/t_cover_big/co1vco.webp");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 8px;
+        flex-shrink: 0;
+      }
+
+      .sidebar h3 {
+        margin-top: 20px;
+        color: #a0a0a0;
+      }
+
+      .sidebar a {
+        color: #88c0d0;
+        text-decoration: none;
+      }
+      .sidebar a:hover {
+        text-decoration: underline;
+      }
+
+      /* Tabs & Buttons */
+      .tab-box {
+        background: #212121;
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 20px;
+      }
+
+      .tab-box2 {
+        background: #212121;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+
+      .tab-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .tab-buttons2 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        overflow-x: auto;
+        margin-top: 12px;
+      }
+
+      .tab-button {
+        padding: 10px;
+        background: #2a2a2a;
+        color: #ccc;
+        border-radius: 6px;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.2s;
+        flex-shrink: 0;
+      }
+
+      .tab-button:hover,
+      .tab-button.active {
+        background: #383838;
+        color: #f7bf00;
+      }
+
+      .scrollable-list {
+        margin-top: 12px;
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 8px;
+        scrollbar-color: #383838 #1a1a1a;
+      }
+
+      .content-section {
+        flex-grow: 1;
+        width: 100%;
+      }
+
+      /* Responsive Layout */
+      @media (max-width: 768px) {
+        .content-container {
+          flex-direction: column;
+        }
+        
+        .sidebar-wrapper {
+        margin-bottom: 75px;
+        }
+
+        .sidebar-wrapper,
+        .content-section {
+          width: 100%;
+        }
+      }
+</style>
+  </head>
+  <template id="github-link-template-faq">
+    <a href="https://github.com/Lepehn/the-elder-scrolls-skyrim-checklist" target="_blank" style="color: #88c0d0; text-decoration: none;">
+      GitHub repository
+    </a>
+  </template>
+  <template id="github-link-template-footer">
+    <a href="https://github.com/Lepehn/the-elder-scrolls-skyrim-checklist" target="_blank" style="color: #88c0d0; text-decoration: none;">
+      report an issue on GitHub
+    </a>
+  </template>
+  <body>
+    <h1>The Elder Scrolls V: Skyrim Checklist</h1>
+    <div class="content-container">
+      <div class="sidebar-wrapper">
+        <div class="sidebar">
+          <div class="profile-bg"></div>
+        </div>
+        <div class="tab-sidebar">
+          <div class="tab-box">
+            <div class="tab-buttons">
+              <div class="tab-button" data-target="faq">FAQ</div>
+              <div class="tab-button" onclick="exportChecklist()">Export Progress</div>
+              <div class="tab-button" onclick="importChecklist()">Import Progress <input type="file" id="import-file" style="display: none;" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-section">
+        <div class="tab-box2">
+          <div class="tab-buttons2">
+            <div class="tab-button" data-target="main">Main Quests</div>
+            <div class="tab-button" data-target="baseGameFaction">Faction</div>
+            <div class="tab-button" data-target="civilWar">Civil War</div>
+          </div>
+        </div>
+        <!-- Main Quests -->
+        <div class="content active" id="main">
+          <h2>Main Quests</h2>
+          <div class="progress" id="main-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list">
+            <ul id="main-Quests"></ul>
+          </div>
+        </div>
+
+        <!-- Civil War -->
+        <div class="content" id="civilWar">
+          <h2>Civil War</h2>
+          <div class="progress" id="civilWar-Progress">Completed 0 / 0</div>
+          <div id="civilWar-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
+          <div class="scrollable-list">
+            <ul id="civilWar-Factions"></ul>
+          </div>
+        </div>
+        
+        <!-- Base Game Factions -->
+        <div class="content" id="baseGameFaction">
+          <h2>Factions</h2>
+          <div class="progress" id="baseGame-faction-Progress">Completed 0 / 0</div>
+          <div id="faction-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
+          <div class="scrollable-list">
+            <ul id="baseGame-Factions"></ul>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="content" id="faq">
+          <h3>FAQ</h3>
+          <p>This project was built by a fan and is inspired by similar checklists for other games like Dark Souls.</p>
+          <p>
+            <strong>I have feedback, how can I contribute?</strong><br />
+            You can visit the <span id="faq-link-container"></span> and report Issues or create a fork and submit a Pull Request.
+          </p>
+          <p>
+            <strong>Is this a guide?</strong><br />
+            No, this is not a full walkthrough or guide. It simply helps you stay organized while playing by letting you check off content as you complete it.
+          </p>
+          <p>
+            <strong>How does the checklist status get saved?</strong><br />
+            Your progress is saved locally in your browser using localStorage. This means your checklist will stay saved as long as you don’t clear your browser data.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+      document.querySelectorAll(".tab-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          // Only run tab-switching code if data-target exists
+          const target = button.dataset.target;
+          if (!target) return;
+
+          document.querySelectorAll(".tab-button").forEach((btn) => btn.classList.remove("active"));
+          button.classList.add("active");
+
+          document.querySelectorAll(".content").forEach((c) => c.classList.remove("active"));
+          document.getElementById(target).classList.add("active");
+        });
+      });
+      
+      const mainQuests = [
+        { title: "Unbound", note: "Escape Imperial custody and a dragon raid."},
+        { title: "Before the Storm", note: "Inform the Jarl of Whiterun about the dragon attack on Helgen."},
+        { title: "Bleak Falls Barrow", note: "Retrieve the Dragonstone."},
+        { title: "Dragon Rising", note: "Investigate a Dragon sighting near Whiterun."},
+        { title: "The Way of the Voice", note: "Meet the Greybeards."},
+        { title: "The Horn of Jurgen Windcaller", note: "Retrieve a Greybeard artifact from Ustengrav."},
+        { title: "A Blade in the Dark", note: "Prove you are Dragonborn to Delphine by slaying the dragon Sahloknir."},
+        { title: "Diplomatic Immunity", note: "Infiltrate a party at the Thalmor Embassy."},
+        { title: "A Cornered Rat", note: "Locate Esbern."},
+        { title: "Alduin's Wall", note: "Locate the prophecy within Sky Haven Temple."},
+        { title: "The Throat of the World", note: "Receive a lesson from Paarthurnax."},
+        { title: "Elder Knowledge", note: "Locate an Elder Scroll."},
+        { title: "Alduin's Bane", note: "Exploit the Time Wound to learn Dragonrend."},
+        { title: "The Fallen", note: "Capture and interrogate one of Alduin's allies."},
+        { title: "Paarthurnax", optional: "Optional", note: "Deal with a potential threat."},
+        { title: "Season Unending", optional: "Optional", note: "Enforce a ceasefire to secure Dragonsreach."},
+        { title: "The World-Eater's Eyrie", note: "Battle through Skuldafn Temple to reach Alduin's portal to Sovngarde."},
+        { title: "Soverngarde", note: "Seek out Alduin within Sovngarde."},
+        { title: "Dragonslayer", note: "Put an end to the World Eater."}
+      ];
+      
+      const civilWarQuests = [
+        //Imperial Legion
+        {title: "Joining the Legion" , note: "Prove yourself worthy to join the Imperial Legion.", tag: "ImperialLegion"},
+        {title: "The Jagged Crown" , note: "Find the Jagged Crown for the Imperials.", tag: "ImperialLegion"},
+        {title: "Message to Whiterun" , note: "Deliver the message that will decide Whiterun's allegiance.", tag: "ImperialLegion"},
+        {title: "Battle for Whiterun" , note: "Protect Whiterun from the Stormcloak invasion.", tag: "ImperialLegion"},
+        {title: "Reunification of Skyrim" , note: "Re-unite Skyrim under the leadership of the Empire.", tag: "ImperialLegion"},
+
+        //Stormcloaks
+        {title: "Joining the Stormcloaks" , note: "Prove yourself worthy of being a Stormcloak rebel.", tag: "Stormcloaks"},
+        {title: "The Jagged Crown" , note: "Find this crown for Ulfric Stormcloak.", tag: "Stormcloaks"},
+        {title: "Message to Whiterun" , note: "Deliver an axe to the Jarl of Whiterun.", tag: "Stormcloaks"},
+        {title: "Battle for Whiterun" , note: "Take Whiterun in the name of the Stormcloaks.", tag: "Stormcloaks"},
+        {title: "Liberation of Skyrim" , note: "Overarching quest governing the individual battles of the war.", tag: "Stormcloaks"},
+      ];
+      
+      const baseFactions = [
+      	//College of Winterhold
+        { title: "College Objective Quest", note: "Visit the College of Winterhold.", tag: "CollegeWinterhold" },
+        { title: "First Lessons", note: "Join the College of Winterhold.", tag: "CollegeWinterhold" },
+        { title: "Under Saarthal", note: "Uncover the mysteries beneath this ancient ruin.", tag: "CollegeWinterhold" },
+        { title: "Hitting the Books", note: "Find the books needed to identify the artifact found in Saarthal.", tag: "CollegeWinterhold" },
+        { title: "Good Intentions", note: "Find and consult the Augur of Dunlain.s", tag: "CollegeWinterhold" },
+        { title: "Revealing the Unseen", note: "Discover the location of Magnus' staff.", tag: "CollegeWinterhold" },
+        { title: "Containment", note: "Deal with the aftermath of the Eye's power surge.", tag: "CollegeWinterhold" },
+        { title: "The Staff of Magnus", note: "Retrieve the Staff of Magnus.", tag: "CollegeWinterhold" },
+        { title: "The Eye of Magnus", note: "Reclaim the College and contain the Eye.", tag: "CollegeWinterhold" },
+        { title: "Arniel's Endeavor", note: "Uncover an ancient Dwemer secret.", tag: "CollegeWinterhold" },
+        { title: "Brelyna's Practice", note: "Help Brelyna Maryon test spells.", tag: "CollegeWinterhold" },
+        { title: "J'zargo's Experiment", note: "Help J'zargo test out a fiery new spell.", tag: "CollegeWinterhold" },
+        { title: "Onmund's Request", note: "Help Onmund negotiate the return of a family amulet.", tag: "CollegeWinterhold" },
+        { title: "Out of Balance", note: "Purify the focus points for magical energy around the College.", tag: "CollegeWinterhold" },
+        { title: "Rejoining the College", note: "Make amends for breaking the College of Winterhold rules.", tag: "CollegeWinterhold" },
+
+        //Bards College
+        { title: "Tending the Flames", note: "Unveil the truth about a King; become a member of Bards College.", tag: "BardsCollege" },
+        { title: "Investigate the Bards College", note: "Investigate the Bards College.", tag: "BardsCollege" },
+        { title: "Finn's Lute", note: "Return an invaluable lute to Inge Six Fingers.", tag: "BardsCollege" },
+        { title: "Pantea's Flute", note: "Find a missing flute for Pantea.", tag: "BardsCollege" },
+        { title: "Rjorn's Drum", note: "Retrieve a drum for Giraud Gemane.", tag: "BardsCollege" },
+
+        //Blades
+        { title: "Rebuilding the Blades", note: "Recruit new members for the Blades.", tag: "Blades" },
+        { title: "Dragon Hunting", note: "Kill a dragon at its lair.", tag: "Blades" },
+        { title: "Dragon Research", note: "Help Esbern complete his research on dragons.", tag: "Blades" },
+
+        //Companions
+        { title: "Take Up Arms", note: "Prove you are worthy to join the Companions.", tag: "Companions" },
+        { title: "Proving Honor", note: "Claim a Fragment of Wuuthrad from Dustman's Cairn.", tag: "Companions" },
+        { title: "The Silver Hand", note: "Join the Circle and clear Gallows Rock of werewolf hunters.", tag: "Companions" },
+        { title: "Blood's Honor", note: "Claim the head of a Glenmoril Witch for Kodlak Whitemane.", tag: "Companions" },
+        { title: "Purity of Revenge", note: "Retrieve the Fragments of Wuuthrad.", tag: "Companions" },
+        { title: "Glory of the Dead", note: "Cure Kodlak's spirit and prove yourself as a true Companion.", tag: "Companions" },
+
+        //The Dark Brotherhood
+        { title: "Delayed Burial", note: "Convince farmer to help a stranded jester outside of Whiterun.", tag: "DarkBrotherhood", optional: "Optional" },
+        { title: "Innocence Lost", note: "Help an orphaned child avoid being returned to a caretaker.", tag: "DarkBrotherhood" },
+        { title: "With Friends Like These...", note: "Show you are willing to kill on command.", tag: "DarkBrotherhood" },
+        { title: "Sanctuary", note: "Pick up your first contracts as a Brotherhood member.", tag: "DarkBrotherhood" },
+        { title: "Mourning Never Comes", note: "Help Muiri get her revenge.", tag: "DarkBrotherhood" },
+        { title: "Whispers in the Dark", note: "Spy on the Night Mother's keeper.", tag: "DarkBrotherhood" },
+        { title: "The Silence Has Been Broken", note: "Meet Amaund Motierre inside Volunruud.", tag: "DarkBrotherhood" },
+        { title: "Bound Until Death", note: "Assassinate Vittoria Vici at her own wedding.", tag: "DarkBrotherhood" },
+        { title: "Breaching Security", note: "Kill and frame the son of a high-ranking Imperial guard.", tag: "DarkBrotherhood" },
+        { title: "The Cure for Madness", note: "Confront the traitor among the Dark Brotherhood.", tag: "DarkBrotherhood" },
+        { title: "Recipe for Disaster", note: "Assume the identity of the famous Gourmet.", tag: "DarkBrotherhood" },
+        { title: "To Kill an Empire", note: "Attempt to assassinate the Emperor.", tag: "DarkBrotherhood" },
+        { title: "Death Incarnate", note: "Assist Brotherhood members in the fight against assault.", tag: "DarkBrotherhood" },
+        { title: "Hail Sithis!", note: "Fulfill the biggest contract in Brotherhood history.", tag: "DarkBrotherhood" },
+
+        //Thieves Guild
+        { title: "A Chance Arrangement", note: "Help teach a merchant to mind his own business.", tag: "Thieves" },
+        { title: "Taking Care of Business", note: "Help Brynjolf collect some debts for the Thieves Guild.", tag: "Thieves" },
+        { title: "Loud and Clear", note: "Send a message to a former Thieves Guild client.", tag: "Thieves" },
+        { title: "Dampened Spirits", note: "Put Maven Black-Briar's competition out of business.", tag: "Thieves" },
+        { title: "Scoundrel's Folly", note: "Squeeze a reluctant informer for information.", tag: "Thieves" },
+        { title: "Speaking With Silence", note: "Track down the Dunmer behind the Guild's misfortunes.", tag: "Thieves" },
+        { title: "Hard Answers", note: "Help translate Gallus' journal.", tag: "Thieves" },
+        { title: "The Pursuit", note: "Break into Mercer Frey's house and search for clues.", tag: "Thieves" },
+        { title: "Trinity Restored", note: "Become one of the Nightingales, Nocturnal's guardians.", tag: "Thieves" },
+        { title: "Blindsighted", note: "Stop Mercer Frey.", tag: "Thieves" },
+        { title: "Darkness Returns", note: "Return the Skeleton Key to its rightful place. (Daedric Quest)", tag: "Thieves" },
+        { title: "Under New Management", note: "Become the Guild master of the Thieves Guild.", tag: "Thieves" }
+      ];
+      
+      const civilWarFactions = [
+        "All", "ImperialLegion", "Stormcloaks"];
+      
+      const factions = [
+        "All", "CollegeWinterhold", "BardsCollege", "Blades", "Companions",
+        "DarkBrotherhood", "Thieves"
+      ];
+      
+      const factionFilters = document.getElementById("faction-filters");
+      factions.forEach((fac) => {
+        const btn = document.createElement("div");
+        btn.className = "tab-button";
+        btn.textContent = fac;
+        btn.addEventListener("click", () => filterFactionByFaction(fac));
+        factionFilters.appendChild(btn);
+      });
+      
+      const civilWarFilters = document.getElementById("civilWar-filters");
+      civilWarFactions.forEach(fac => {
+        const btn = document.createElement("div");
+        btn.className = "tab-button";
+        btn.textContent = fac;
+        btn.addEventListener("click", () => filterCivilWarByFaction(fac));
+        civilWarFilters.appendChild(btn);
+      });
+
+      function createTag(text, className) {
+        const span = document.createElement("span");
+        span.className = `tag ${className}`;
+        span.textContent = text;
+        return span;
+      }
+
+      function createChecklistItem(item, type, container) {
+        const STORAGE_PREFIX = "tes-skyrim";
+        const id = `${STORAGE_PREFIX}-${type}-${item.title.replace(/\s+/g, "-").toLowerCase()}`;
+        const li = document.createElement("li");
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = id;
+        checkbox.checked = localStorage.getItem(id) === "true";
+        const progressIdMap = {
+          "main-Quests": "main-Progress",
+          "baseGame-Factions": "baseGame-faction-Progress",
+          "civilWar-Factions": "civilWar-Progress"
+        };
+        checkbox.addEventListener("change", () => {
+          localStorage.setItem(id, checkbox.checked);
+          const progressId = progressIdMap[container.id];
+          if (progressId) updateProgress(progressId, type);
+        });
+
+        const label = document.createElement("label");
+        label.setAttribute("for", id);
+        label.textContent = ` ${item.title}`;
+
+        li.appendChild(checkbox);
+        li.appendChild(label);
+
+        if (["baseGameFaction", "civilWarFactions"].includes(type)) {
+          const tags = Array.isArray(item.tag) ? item.tag : [item.tag];
+          tags.forEach(t => {
+            if (!t) return;
+            const className = `tag${t.replace(/\s+/g, "")}`;
+            li.appendChild(createTag(t, className));
+          });
+        }
+        
+        if (item.giver) li.appendChild(createTag(item.giver, "tagGiver"));
+        if (item.optional) li.appendChild(createTag(item.optional, "tagOptional"));
+        if (item.note) li.appendChild(createTag(item.note, "tagNote"));
+
+        container.appendChild(li);
+        return checkbox;
+      }
+      
+      function filterFactionByFaction(faction) {
+        const factionList = document.getElementById("baseGame-Factions");
+        factionList.innerHTML = ""; // clear current list
+
+        // Filter baseFactions by tag
+        const filtered = faction === "All"
+          ? baseFactions
+          : baseFactions.filter(f => f.tag === faction);
+
+        filtered.forEach(f => createChecklistItem(f, "baseGameFaction", factionList));
+        updateProgress("baseGame-faction-Progress", "baseGameFaction");
+
+        // Update active state on buttons
+        document.querySelectorAll("#faction-filters .tab-button").forEach((btn) => {
+          btn.classList.remove("active");
+          if (btn.textContent === faction) btn.classList.add("active");
+        });
+      }
+      
+      function filterCivilWarByFaction(faction) {
+      const list = document.getElementById("civilWar-Factions");
+      list.innerHTML = ""; // clear current list
+
+      const filtered = faction === "All"
+        ? civilWarQuests
+        : civilWarQuests.filter(q => q.tag === faction);
+
+      filtered.forEach(q => createChecklistItem(q, "civilWarFactions", list));
+      updateProgress("civilWar-Progress", "civilWarFactions");
+
+      // update active state on buttons
+      document.querySelectorAll("#civilWar-filters .tab-button").forEach(btn => {
+        btn.classList.remove("active");
+        if (btn.textContent === faction) btn.classList.add("active");
+      });
+    }
+
+      // Update the progress text for a checklist
+      function updateProgress(progressId, type) {
+        const progressEl = document.getElementById(progressId);
+        if (!progressEl) return;
+
+        // Get the related list by converting progressId to listId
+        // e.g. main-progress → main-quests, boss-progress → baseGame-Bosses, weapon-progress → weapons
+        let listId;
+        if (progressId === "main-Progress") listId = "main-Quests";
+        else if (progressId === "baseGame-faction-Progress") listId = "baseGame-Factions";
+        else if (progressId === "civilWar-Progress") listId = "civilWar-Factions";
+        else return;
+
+        const list = document.getElementById(listId);
+        const checkboxes = list.querySelectorAll("input[type=checkbox]");
+
+        let completed = 0;
+        checkboxes.forEach((cb) => {
+          if (cb.checked) completed++;
+        });
+
+        progressEl.textContent = `Completed ${completed} / ${checkboxes.length}`;
+      }
+
+      const mainQuestList = document.getElementById("main-Quests");
+      mainQuests.forEach((q) => createChecklistItem(q, "main", mainQuestList));
+      updateProgress("main-Progress", "main");
+      
+      const baseFactionList = document.getElementById("baseGame-Factions");
+      baseFactions.forEach((q) => createChecklistItem(q, "baseGameFaction", baseFactionList));
+      updateProgress("baseGame-faction-Progress", "baseGameFaction");
+      
+      const civilWarList = document.getElementById("civilWar-Factions");
+      civilWarQuests.forEach((q) => createChecklistItem(q, "civilWarFactions", civilWarList));
+      updateProgress("civilWar-Progress", "civilWarFactions");
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const faqTemplate = document.getElementById("github-link-template-faq");
+        const footerTemplate = document.getElementById("github-link-template-footer");
+
+        // Clone templates
+        const faqClone = faqTemplate.content.cloneNode(true);
+        const footerClone = footerTemplate.content.cloneNode(true);
+
+        // Insert into containers
+        document.getElementById("faq-link-container").appendChild(faqClone);
+        document.getElementById("footer-link-container").appendChild(footerClone);
+      });
+      
+      function exportChecklist() {
+        const categories = ["main", "baseGameFaction", "civilWarFactions"];
+        
+        const STORAGE_PREFIX = "tes-skyrim";
+
+        const sortedData = {
+        prefix: STORAGE_PREFIX,
+        main: [],
+        baseGameFaction: [],
+        civilWarFactions: []
+      	};
+
+        categories.forEach((category) => {
+          const entries = [];
+
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith(`${STORAGE_PREFIX}-${category}-`) && localStorage.getItem(key) === "true") {
+            	const cleanTitle = key.slice(`${STORAGE_PREFIX}-${category}-`.length);
+      			sortedData[category].push(cleanTitle);
+            }
+          }
+          
+          sortedData[category].sort();
+        });
+
+        const blob = new Blob([JSON.stringify(sortedData, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "tes-skyrim-checklist.json";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function importChecklist() {
+        const fileInput = document.getElementById("import-file");
+        fileInput.click();
+
+        fileInput.onchange = (event) => {
+          const file = event.target.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            try {
+              const imported = JSON.parse(e.target.result);
+
+              const STORAGE_PREFIX = "tes-skyrim";
+
+              if (imported.prefix !== STORAGE_PREFIX) {
+                alert(`This checklist file is for a different game or project ("${imported.prefix}"). Import aborted.`);
+                return;
+              }
+
+              for (const category in imported) {
+                if (category === "prefix") continue;
+                const items = imported[category];
+                if (!Array.isArray(items)) continue;
+
+                items.forEach((slug) => {
+                  const key = `${STORAGE_PREFIX}-${category}-${slug}`;
+                  localStorage.setItem(key, "true");
+                });
+              }
+
+              alert("Checklist progress imported! Refresh the page to see updates.");
+            } catch (err) {
+              alert("Failed to import: Invalid file format.");
+            }
+          };
+
+          reader.readAsText(file);
+        };
+      }
+    </script>
+
+    <!-- Footer -->
+    <footer style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #aaa;">Check out the project or <span id="footer-link-container"></span>.</footer>
+  </body>
+</html>
+
