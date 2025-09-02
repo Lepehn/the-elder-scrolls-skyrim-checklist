@@ -588,6 +588,8 @@
           localStorage.setItem(id, checkbox.checked);
           const progressId = progressIdMap[container.id];
           if (progressId) updateProgress(progressId, type);
+          updateCompletedByCategory();
+    	  updateChart();
         });
 
         const label = document.createElement("label");
@@ -817,10 +819,10 @@
       }
 
       function updateChart() {
-        const combinedChart = updateCategoryChart(
-          null,               // Pass null if chart doesn't exist yet
-          'combinedChart',    // ID of the canvas in your HTML
-          ['main-Quests', 'baseGame-Factions', 'civilWar-Factions'] // List IDs
+        combinedChart = updateCategoryChart(
+          combinedChart,           // pass current chart instance
+          'combinedChart',         // canvas ID
+          ['main-Quests', 'baseGame-Factions', 'civilWar-Factions'] // list IDs
         );
       }
       
