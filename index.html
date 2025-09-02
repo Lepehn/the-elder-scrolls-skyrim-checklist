@@ -254,7 +254,27 @@
         padding-right: 8px;
         scrollbar-color: #383838 #1a1a1a;
       }
+      
+      .stats-layout {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
 
+      .stats-text {
+        flex: 1;
+        min-width: 200px;
+      }
+      
+      .stats-chart {
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
       .content-section {
         flex-grow: 1;
         width: 100%;
@@ -288,6 +308,7 @@
     </a>
   </template>
   <body>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <h1>The Elder Scrolls V: Skyrim Checklist</h1>
     <div class="content-container">
       <div class="sidebar-wrapper">
@@ -298,6 +319,7 @@
           <div class="tab-box">
             <div class="tab-buttons">
               <div class="tab-button" data-target="faq">FAQ</div>
+              <div class="tab-button" data-target="stats">Stats</div>
               <div class="tab-button" onclick="exportChecklist()">Export Progress</div>
               <div class="tab-button" onclick="importChecklist()">Import Progress <input type="file" id="import-file" style="display: none;" /></div>
             </div>
@@ -358,6 +380,29 @@
             Your progress is saved locally in your browser using localStorage. This means your checklist will stay saved as long as you don’t clear your browser data.
           </p>
         </div>
+        
+        <!-- Stats Section -->
+        <div class="content" id="stats">
+          <h2>Quests Overview</h2>
+          <div class="scrollable-list">
+            <div class="stats-chart">
+              <canvas id="combinedChart" style="max-width: 250px; max-height: 250px;"></canvas>
+            </div>
+            <div class="stats-layout">
+              <div class="stats-text">
+                <div id="totalGames" style="margin-bottom: 10px; font-size: 1.1em;"></div>
+                <div id="statusBreakdown"></div>
+
+                <div style="margin-top: 20px;">
+                  <div id="completed-by-type" style="margin-top: 20px;">
+                    <h2>Completed Quests</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
 
@@ -374,6 +419,12 @@
 
           document.querySelectorAll(".content").forEach((c) => c.classList.remove("active"));
           document.getElementById(target).classList.add("active");
+          
+          // Update chart when stats tab is opened
+          if (target === "stats") {
+            updateChart();
+            updateCompletedByCategory();
+          }
         });
       });
       
@@ -722,10 +773,111 @@
           reader.readAsText(file);
         };
       }
+      
+      ////
+      
+      let combinedChart;
+
+      function updateCategoryChart(chart, canvasId, listIds) {
+        const labels = ['Main Quests', 'Base Factions', 'Civil War'];
+        const completedCounts = [];
+        const totalCounts = [];
+
+        listIds.forEach((id) => {
+          const list = document.getElementById(id);
+          const checkboxes = list.querySelectorAll('input[type=checkbox]');
+          const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+          completedCounts.push(completed);
+          totalCounts.push(checkboxes.length);
+        });
+
+        const ctx = document.getElementById(canvasId).getContext('2d');
+
+        if (chart) chart.destroy(); // Destroy existing chart to avoid duplicates
+
+        chart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Completed Quests',
+              data: completedCounts,
+              backgroundColor: ['#f7bf00', '#1E90FF', '#4682B4']
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } }
+          }
+        });
+
+        return chart;
+      }
+
+      function updateChart() {
+        const combinedChart = updateCategoryChart(
+          null,               // Pass null if chart doesn't exist yet
+          'combinedChart',    // ID of the canvas in your HTML
+          ['main-Quests', 'baseGame-Factions', 'civilWar-Factions'] // List IDs
+        );
+      }
+      
+      function updateCompletedByCategory() {
+        const container = document.getElementById("completed-by-type");
+        container.querySelectorAll(".category-stats").forEach(el => el.remove());
+        container.querySelectorAll(".total-stats").forEach(el => el.remove());
+
+        const categories = [
+          { id: "main-Quests", name: "Main Quests" },
+          { id: "baseGame-Factions", name: "Factions" },
+          { id: "civilWar-Factions", name: "Civil War" }
+        ];
+
+        let totalCompleted = 0;
+        let totalQuests = 0;
+
+        // First, calculate totals
+        categories.forEach(cat => {
+          const listItems = document.querySelectorAll(`#${cat.id} li`);
+          listItems.forEach(li => {
+            const checkbox = li.querySelector("input[type=checkbox]");
+            if (checkbox && checkbox.checked) totalCompleted++;
+          });
+          totalQuests += listItems.length;
+        });
+
+        // Add total percentage at the top
+        const totalPercent = totalQuests ? ((totalCompleted / totalQuests) * 100).toFixed(1) : 0;
+        const totalDiv = document.createElement("div");
+        totalDiv.classList.add("total-stats");
+        totalDiv.style.marginBottom = "10px";
+        totalDiv.innerHTML = `<strong>Total quests:</strong> <span style="color:#aaa">${totalQuests}</span> <br> <strong>Completed:</strong> <span style="color:#aaa">${totalPercent}%</span>`;
+        container.appendChild(totalDiv);
+
+        // Now add each category breakdown
+        categories.forEach(cat => {
+          const listItems = document.querySelectorAll(`#${cat.id} li`);
+          let completed = 0;
+          listItems.forEach(li => {
+            const checkbox = li.querySelector("input[type=checkbox]");
+            if (checkbox && checkbox.checked) completed++;
+          });
+
+          const total = listItems.length;
+          const percent = total ? ((completed / total) * 100).toFixed(1) : 0;
+
+          const div = document.createElement("div");
+          div.classList.add("category-stats");
+          div.style.marginBottom = "10px";
+          div.innerHTML = `<strong>${cat.name}</strong>: ${completed} <span style="color:#aaa">(${percent}%)</span>`;
+          container.appendChild(div);
+        });
+      }
+      ////
+      
     </script>
 
     <!-- Footer -->
     <footer style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #aaa;">Check out the project or <span id="footer-link-container"></span>.</footer>
   </body>
 </html>
-
