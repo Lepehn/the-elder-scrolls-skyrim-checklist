@@ -116,7 +116,7 @@
         word-wrap: break-word;
       }
       
-      .tagCollegeWinterhold {
+      .tagCollegeofWinterhold {
         background: #1E90FF;
       }
       .tagBardsCollege {
@@ -131,7 +131,7 @@
       .tagDarkBrotherhood {
         background: #8B0000;
       }
-      .tagThieves {
+      .tagThievesGuild {
         background: #6A0DAD;
       }
       
@@ -388,7 +388,7 @@
           <h2>Quests Overview</h2>
           <div class="scrollable-list">
             <div class="stats-chart">
-              <canvas id="combinedChart" style="max-width: 250px; max-height: 250px;"></canvas>
+              <canvas id="combinedChart" style="width: 250px; max-height: 250px;"></canvas>
             </div>
             <div class="stats-layout">
               <div class="stats-text">
@@ -412,7 +412,6 @@
     <script>
       document.querySelectorAll(".tab-button").forEach((button) => {
         button.addEventListener("click", () => {
-          // Only run tab-switching code if data-target exists
           const target = button.dataset.target;
           if (!target) return;
 
@@ -422,127 +421,132 @@
           document.querySelectorAll(".content").forEach((c) => c.classList.remove("active"));
           document.getElementById(target).classList.add("active");
           
-          // Update chart when stats tab is opened
           if (target === "stats") {
-            updateChart();
-            updateCompletedByCategory();
+            updateAllStats();
           }
         });
       });
       
-      const mainQuests = [
-        { title: "Unbound", note: "Escape Imperial custody and a dragon raid."},
-        { title: "Before the Storm", note: "Inform the Jarl of Whiterun about the dragon attack on Helgen."},
-        { title: "Bleak Falls Barrow", note: "Retrieve the Dragonstone."},
-        { title: "Dragon Rising", note: "Investigate a Dragon sighting near Whiterun."},
-        { title: "The Way of the Voice", note: "Meet the Greybeards."},
-        { title: "The Horn of Jurgen Windcaller", note: "Retrieve a Greybeard artifact from Ustengrav."},
-        { title: "A Blade in the Dark", note: "Prove you are Dragonborn to Delphine by slaying the dragon Sahloknir."},
-        { title: "Diplomatic Immunity", note: "Infiltrate a party at the Thalmor Embassy."},
-        { title: "A Cornered Rat", note: "Locate Esbern."},
-        { title: "Alduin's Wall", note: "Locate the prophecy within Sky Haven Temple."},
-        { title: "The Throat of the World", note: "Receive a lesson from Paarthurnax."},
-        { title: "Elder Knowledge", note: "Locate an Elder Scroll."},
-        { title: "Alduin's Bane", note: "Exploit the Time Wound to learn Dragonrend."},
-        { title: "The Fallen", note: "Capture and interrogate one of Alduin's allies."},
-        { title: "Paarthurnax", optional: "Optional", note: "Deal with a potential threat."},
-        { title: "Season Unending", optional: "Optional", note: "Enforce a ceasefire to secure Dragonsreach."},
-        { title: "The World-Eater's Eyrie", note: "Battle through Skuldafn Temple to reach Alduin's portal to Sovngarde."},
-        { title: "Soverngarde", note: "Seek out Alduin within Sovngarde."},
-        { title: "Dragonslayer", note: "Put an end to the World Eater."}
-      ];
+      function quests(title, note, tag = null, optional = false) {
+        const quest = { title, note };
+        if (tag) quest.tag = tag;
+        if (optional) quest.optional = "Optional";
+        return quest;
+      }
       
-      const civilWarQuests = [
-        //Imperial Legion
-        {title: "Joining the Legion" , note: "Prove yourself worthy to join the Imperial Legion.", tag: "ImperialLegion"},
-        {title: "The Jagged Crown" , note: "Find the Jagged Crown for the Imperials.", tag: "ImperialLegion"},
-        {title: "Message to Whiterun" , note: "Deliver the message that will decide Whiterun's allegiance.", tag: "ImperialLegion"},
-        {title: "Battle for Whiterun" , note: "Protect Whiterun from the Stormcloak invasion.", tag: "ImperialLegion"},
-        {title: "Reunification of Skyrim" , note: "Re-unite Skyrim under the leadership of the Empire.", tag: "ImperialLegion"},
-
-        //Stormcloaks
-        {title: "Joining the Stormcloaks" , note: "Prove yourself worthy of being a Stormcloak rebel.", tag: "Stormcloaks"},
-        {title: "The Jagged Crown" , note: "Find this crown for Ulfric Stormcloak.", tag: "Stormcloaks"},
-        {title: "Message to Whiterun" , note: "Deliver an axe to the Jarl of Whiterun.", tag: "Stormcloaks"},
-        {title: "Battle for Whiterun" , note: "Take Whiterun in the name of the Stormcloaks.", tag: "Stormcloaks"},
-        {title: "Liberation of Skyrim" , note: "Overarching quest governing the individual battles of the war.", tag: "Stormcloaks"},
+      const mainQuests = [
+        quests("Unbound", "Escape Imperial custody and a dragon raid."),
+        quests("Before the Storm", "Inform the Jarl of Whiterun about the dragon attack on Helgen."),
+        quests("Bleak Falls Barrow", "Retrieve the Dragonstone."),
+        quests("Dragon Rising", "Investigate a Dragon sighting near Whiterun."),
+        quests("The Way of the Voice", "Meet the Greybeards."),
+        quests("The Horn of Jurgen Windcaller", "Retrieve a Greybeard artifact from Ustengrav."),
+        quests("A Blade in the Dark", "Prove you are Dragonborn to Delphine by slaying the dragon Sahloknir."),
+        quests("Diplomatic Immunity", "Infiltrate a party at the Thalmor Embassy."),
+        quests("A Cornered Rat", "Locate Esbern."),
+        quests("Alduin's Wall", "Locate the prophecy within Sky Haven Temple."),
+        quests("The Throat of the World", "Receive a lesson from Paarthurnax."),
+        quests("Elder Knowledge", "Locate an Elder Scroll."),
+        quests("Alduin's Bane", "Exploit the Time Wound to learn Dragonrend."),
+        quests("The Fallen", "Capture and interrogate one of Alduin's allies."),
+        quests("Paarthurnax", "Deal with a potential threat.", null, true), // optional
+        quests("Season Unending", "Enforce a ceasefire to secure Dragonsreach.", null, true), // optional
+        quests("The World-Eater's Eyrie", "Battle through Skuldafn Temple to reach Alduin's portal to Sovngarde."),
+        quests("Soverngarde", "Seek out Alduin within Sovngarde."),
+        quests("Dragonslayer", "Put an end to the World Eater.")
       ];
       
       const baseFactions = [
-      	//College of Winterhold
-        { title: "College Objective Quest", note: "Visit the College of Winterhold.", tag: "CollegeWinterhold" },
-        { title: "First Lessons", note: "Join the College of Winterhold.", tag: "CollegeWinterhold" },
-        { title: "Under Saarthal", note: "Uncover the mysteries beneath this ancient ruin.", tag: "CollegeWinterhold" },
-        { title: "Hitting the Books", note: "Find the books needed to identify the artifact found in Saarthal.", tag: "CollegeWinterhold" },
-        { title: "Good Intentions", note: "Find and consult the Augur of Dunlain.s", tag: "CollegeWinterhold" },
-        { title: "Revealing the Unseen", note: "Discover the location of Magnus' staff.", tag: "CollegeWinterhold" },
-        { title: "Containment", note: "Deal with the aftermath of the Eye's power surge.", tag: "CollegeWinterhold" },
-        { title: "The Staff of Magnus", note: "Retrieve the Staff of Magnus.", tag: "CollegeWinterhold" },
-        { title: "The Eye of Magnus", note: "Reclaim the College and contain the Eye.", tag: "CollegeWinterhold" },
-        { title: "Arniel's Endeavor", note: "Uncover an ancient Dwemer secret.", tag: "CollegeWinterhold" },
-        { title: "Brelyna's Practice", note: "Help Brelyna Maryon test spells.", tag: "CollegeWinterhold" },
-        { title: "J'zargo's Experiment", note: "Help J'zargo test out a fiery new spell.", tag: "CollegeWinterhold" },
-        { title: "Onmund's Request", note: "Help Onmund negotiate the return of a family amulet.", tag: "CollegeWinterhold" },
-        { title: "Out of Balance", note: "Purify the focus points for magical energy around the College.", tag: "CollegeWinterhold" },
-        { title: "Rejoining the College", note: "Make amends for breaking the College of Winterhold rules.", tag: "CollegeWinterhold" },
+        // College of Winterhold
+        quests("College Objective Quest", "Visit the College of Winterhold.", "College of Winterhold"),
+        quests("First Lessons", "Join the College of Winterhold.", "College of Winterhold"),
+        quests("Under Saarthal", "Uncover the mysteries beneath this ancient ruin.", "College of Winterhold"),
+        quests("Hitting the Books", "Find the books needed to identify the artifact found in Saarthal.", "College of Winterhold"),
+        quests("Good Intentions", "Find and consult the Augur of Dunlain.s", "College of Winterhold"),
+        quests("Revealing the Unseen", "Discover the location of Magnus' staff.", "College of Winterhold"),
+        quests("Containment", "Deal with the aftermath of the Eye's power surge.", "College of Winterhold"),
+        quests("The Staff of Magnus", "Retrieve the Staff of Magnus.", "College of Winterhold"),
+        quests("The Eye of Magnus", "Reclaim the College and contain the Eye.", "College of Winterhold"),
+        quests("Arniel's Endeavor", "Uncover an ancient Dwemer secret.", "College of Winterhold"),
+        quests("Brelyna's Practice", "Help Brelyna Maryon test spells.", "College of Winterhold"),
+        quests("J'zargo's Experiment", "Help J'zargo test out a fiery new spell.", "College of Winterhold"),
+        quests("Onmund's Request", "Help Onmund negotiate the return of a family amulet.", "College of Winterhold"),
+        quests("Out of Balance", "Purify the focus points for magical energy around the College.", "College of Winterhold"),
+        quests("Rejoining the College", "Make amends for breaking the College of Winterhold rules.", "College of Winterhold"),
 
-        //Bards College
-        { title: "Tending the Flames", note: "Unveil the truth about a King; become a member of Bards College.", tag: "BardsCollege" },
-        { title: "Investigate the Bards College", note: "Investigate the Bards College.", tag: "BardsCollege" },
-        { title: "Finn's Lute", note: "Return an invaluable lute to Inge Six Fingers.", tag: "BardsCollege" },
-        { title: "Pantea's Flute", note: "Find a missing flute for Pantea.", tag: "BardsCollege" },
-        { title: "Rjorn's Drum", note: "Retrieve a drum for Giraud Gemane.", tag: "BardsCollege" },
+        // Bards College
+        quests("Tending the Flames", "Unveil the truth about a King; become a member of Bards College.", "Bards College"),
+        quests("Investigate the Bards College", "Investigate the Bards College.", "Bards College"),
+        quests("Finn's Lute", "Return an invaluable lute to Inge Six Fingers.", "Bards College"),
+        quests("Pantea's Flute", "Find a missing flute for Pantea.", "Bards College"),
+        quests("Rjorn's Drum", "Retrieve a drum for Giraud Gemane.", "Bards College"),
 
-        //Blades
-        { title: "Rebuilding the Blades", note: "Recruit new members for the Blades.", tag: "Blades" },
-        { title: "Dragon Hunting", note: "Kill a dragon at its lair.", tag: "Blades" },
-        { title: "Dragon Research", note: "Help Esbern complete his research on dragons.", tag: "Blades" },
+        // Blades
+        quests("Rebuilding the Blades", "Recruit new members for the Blades.", "Blades"),
+        quests("Dragon Hunting", "Kill a dragon at its lair.", "Blades"),
+        quests("Dragon Research", "Help Esbern complete his research on dragons.", "Blades"),
 
-        //Companions
-        { title: "Take Up Arms", note: "Prove you are worthy to join the Companions.", tag: "Companions" },
-        { title: "Proving Honor", note: "Claim a Fragment of Wuuthrad from Dustman's Cairn.", tag: "Companions" },
-        { title: "The Silver Hand", note: "Join the Circle and clear Gallows Rock of werewolf hunters.", tag: "Companions" },
-        { title: "Blood's Honor", note: "Claim the head of a Glenmoril Witch for Kodlak Whitemane.", tag: "Companions" },
-        { title: "Purity of Revenge", note: "Retrieve the Fragments of Wuuthrad.", tag: "Companions" },
-        { title: "Glory of the Dead", note: "Cure Kodlak's spirit and prove yourself as a true Companion.", tag: "Companions" },
+        // Companions
+        quests("Take Up Arms", "Prove you are worthy to join the Companions.", "Companions"),
+        quests("Proving Honor", "Claim a Fragment of Wuuthrad from Dustman's Cairn.", "Companions"),
+        quests("The Silver Hand", "Join the Circle and clear Gallows Rock of werewolf hunters.", "Companions"),
+        quests("Blood's Honor", "Claim the head of a Glenmoril Witch for Kodlak Whitemane.", "Companions"),
+        quests("Purity of Revenge", "Retrieve the Fragments of Wuuthrad.", "Companions"),
+        quests("Glory of the Dead", "Cure Kodlak's spirit and prove yourself as a true Companion.", "Companions"),
 
-        //The Dark Brotherhood
-        { title: "Delayed Burial", note: "Convince farmer to help a stranded jester outside of Whiterun.", tag: "DarkBrotherhood", optional: "Optional" },
-        { title: "Innocence Lost", note: "Help an orphaned child avoid being returned to a caretaker.", tag: "DarkBrotherhood" },
-        { title: "With Friends Like These...", note: "Show you are willing to kill on command.", tag: "DarkBrotherhood" },
-        { title: "Sanctuary", note: "Pick up your first contracts as a Brotherhood member.", tag: "DarkBrotherhood" },
-        { title: "Mourning Never Comes", note: "Help Muiri get her revenge.", tag: "DarkBrotherhood" },
-        { title: "Whispers in the Dark", note: "Spy on the Night Mother's keeper.", tag: "DarkBrotherhood" },
-        { title: "The Silence Has Been Broken", note: "Meet Amaund Motierre inside Volunruud.", tag: "DarkBrotherhood" },
-        { title: "Bound Until Death", note: "Assassinate Vittoria Vici at her own wedding.", tag: "DarkBrotherhood" },
-        { title: "Breaching Security", note: "Kill and frame the son of a high-ranking Imperial guard.", tag: "DarkBrotherhood" },
-        { title: "The Cure for Madness", note: "Confront the traitor among the Dark Brotherhood.", tag: "DarkBrotherhood" },
-        { title: "Recipe for Disaster", note: "Assume the identity of the famous Gourmet.", tag: "DarkBrotherhood" },
-        { title: "To Kill an Empire", note: "Attempt to assassinate the Emperor.", tag: "DarkBrotherhood" },
-        { title: "Death Incarnate", note: "Assist Brotherhood members in the fight against assault.", tag: "DarkBrotherhood" },
-        { title: "Hail Sithis!", note: "Fulfill the biggest contract in Brotherhood history.", tag: "DarkBrotherhood" },
+        // Dark Brotherhood
+        quests("Delayed Burial", "Convince farmer to help a stranded jester outside of Whiterun.", "Dark Brotherhood", true),
+        quests("Innocence Lost", "Help an orphaned child avoid being returned to a caretaker.", "Dark Brotherhood"),
+        quests("With Friends Like These...", "Show you are willing to kill on command.", "Dark Brotherhood"),
+        quests("Sanctuary", "Pick up your first contracts as a Brotherhood member.", "Dark Brotherhood"),
+        quests("Mourning Never Comes", "Help Muiri get her revenge.", "Dark Brotherhood"),
+        quests("Whispers in the Dark", "Spy on the Night Mother's keeper.", "Dark Brotherhood"),
+        quests("The Silence Has Been Broken", "Meet Amaund Motierre inside Volunruud.", "Dark Brotherhood"),
+        quests("Bound Until Death", "Assassinate Vittoria Vici at her own wedding.", "Dark Brotherhood"),
+        quests("Breaching Security", "Kill and frame the son of a high-ranking Imperial guard.", "Dark Brotherhood"),
+        quests("The Cure for Madness", "Confront the traitor among the Dark Brotherhood.", "Dark Brotherhood"),
+        quests("Recipe for Disaster", "Assume the identity of the famous Gourmet.", "Dark Brotherhood"),
+        quests("To Kill an Empire", "Attempt to assassinate the Emperor.", "Dark Brotherhood"),
+        quests("Death Incarnate", "Assist Brotherhood members in the fight against assault.", "Dark Brotherhood"),
+        quests("Hail Sithis!", "Fulfill the biggest contract in Brotherhood history.", "Dark Brotherhood"),
 
-        //Thieves Guild
-        { title: "A Chance Arrangement", note: "Help teach a merchant to mind his own business.", tag: "Thieves" },
-        { title: "Taking Care of Business", note: "Help Brynjolf collect some debts for the Thieves Guild.", tag: "Thieves" },
-        { title: "Loud and Clear", note: "Send a message to a former Thieves Guild client.", tag: "Thieves" },
-        { title: "Dampened Spirits", note: "Put Maven Black-Briar's competition out of business.", tag: "Thieves" },
-        { title: "Scoundrel's Folly", note: "Squeeze a reluctant informer for information.", tag: "Thieves" },
-        { title: "Speaking With Silence", note: "Track down the Dunmer behind the Guild's misfortunes.", tag: "Thieves" },
-        { title: "Hard Answers", note: "Help translate Gallus' journal.", tag: "Thieves" },
-        { title: "The Pursuit", note: "Break into Mercer Frey's house and search for clues.", tag: "Thieves" },
-        { title: "Trinity Restored", note: "Become one of the Nightingales, Nocturnal's guardians.", tag: "Thieves" },
-        { title: "Blindsighted", note: "Stop Mercer Frey.", tag: "Thieves" },
-        { title: "Darkness Returns", note: "Return the Skeleton Key to its rightful place. (Daedric Quest)", tag: "Thieves" },
-        { title: "Under New Management", note: "Become the Guild master of the Thieves Guild.", tag: "Thieves" }
+        // Thieves Guild
+        quests("A Chance Arrangement", "Help teach a merchant to mind his own business.", "Thieves Guild"),
+        quests("Taking Care of Business", "Help Brynjolf collect some debts for the Thieves Guild.", "Thieves Guild"),
+        quests("Loud and Clear", "Send a message to a former Thieves Guild client.", "Thieves Guild"),
+        quests("Dampened Spirits", "Put Maven Black-Briar's competition out of business.", "Thieves Guild"),
+        quests("Scoundrel's Folly", "Squeeze a reluctant informer for information.", "Thieves Guild"),
+        quests("Speaking With Silence", "Track down the Dunmer behind the Guild's misfortunes.", "Thieves Guild"),
+        quests("Hard Answers", "Help translate Gallus' journal.", "Thieves Guild"),
+        quests("The Pursuit", "Break into Mercer Frey's house and search for clues.", "Thieves Guild"),
+        quests("Trinity Restored", "Become one of the Nightingales, Nocturnal's guardians.", "Thieves Guild"),
+        quests("Blindsighted", "Stop Mercer Frey.", "Thieves Guild"),
+        quests("Darkness Returns", "Return the Skeleton Key to its rightful place.", "Thieves Guild"),
+        quests("Under New Management", "Become the Guild master of the Thieves Guild.", "Thieves Guild"),
+      ];
+      
+      const civilWarQuests = [
+        // Imperial Legion
+        quests("Joining the Legion", "Prove yourself worthy to join the Imperial Legion.", "Imperial Legion"),
+        quests("The Jagged Crown", "Find the Jagged Crown for the Imperials.", "Imperial Legion"),
+        quests("Message to Whiterun", "Deliver the message that will decide Whiterun's allegiance.", "Imperial Legion"),
+        quests("Battle for Whiterun", "Protect Whiterun from the Stormcloak invasion.", "Imperial Legion"),
+        quests("Reunification of Skyrim", "Re-unite Skyrim under the leadership of the Empire.", "Imperial Legion"),
+
+        // Stormcloaks
+        quests("Joining the Stormcloaks", "Prove yourself worthy of being a Stormcloak rebel.", "Stormcloaks"),
+        quests("The Jagged Crown", "Find this crown for Ulfric Stormcloak.", "Stormcloaks"),
+        quests("Message to Whiterun", "Deliver an axe to the Jarl of Whiterun.", "Stormcloaks"),
+        quests("Battle for Whiterun", "Take Whiterun in the name of the Stormcloaks.", "Stormcloaks"),
+        quests("Liberation of Skyrim", "Overarching quest governing the individual battles of the war.", "Stormcloaks"),
       ];
       
       const civilWarFactions = [
-        "All", "ImperialLegion", "Stormcloaks"];
+        "All", "Imperial Legion", "Stormcloaks"];
       
       const factions = [
-        "All", "CollegeWinterhold", "BardsCollege", "Blades", "Companions",
-        "DarkBrotherhood", "Thieves"
+        "All", "College of Winterhold", "Bards College", "Blades", "Companions",
+        "Dark Brotherhood", "Thieves Guild"
       ];
       
       const factionFilters = document.getElementById("faction-filters");
@@ -588,8 +592,7 @@
           localStorage.setItem(id, checkbox.checked);
           const progressId = progressIdMap[container.id];
           if (progressId) updateProgress(progressId, type);
-          updateCompletedByCategory();
-    	  updateChart();
+          updateAllStats();
         });
 
         const label = document.createElement("label");
@@ -780,103 +783,129 @@
       
       ////
       
-      let combinedChart;
+let combinedChart;
 
-      function updateCategoryChart(chart, canvasId, listIds) {
-        const labels = ['Main Quests', 'Base Factions', 'Civil War'];
-        const completedCounts = [];
-        const totalCounts = [];
+function updateCategoryChart(chart, canvasId, questArrays) {
+  const allQuests = questArrays.flat();
 
-        listIds.forEach((id) => {
-          const list = document.getElementById(id);
-          const checkboxes = list.querySelectorAll('input[type=checkbox]');
-          const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
-          completedCounts.push(completed);
-          totalCounts.push(checkboxes.length);
-        });
+  // Group by tag (or "Main Quests" if missing)
+  const tagStats = {};
+  allQuests.forEach(q => {
+    const key = q.tag || "Main Quests";
+    const checkbox = document.querySelector(
+      `input[id*="${q.title.replace(/\s+/g, "-").toLowerCase()}"]`
+    );
 
-        const ctx = document.getElementById(canvasId).getContext('2d');
+    if (!tagStats[key]) {
+      tagStats[key] = { completed: 0, total: 0 };
+    }
 
-        if (chart) chart.destroy(); // Destroy existing chart to avoid duplicates
+    tagStats[key].total++;
+    if (checkbox && checkbox.checked) tagStats[key].completed++;
+  });
 
-        chart = new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Completed Quests',
-              data: completedCounts,
-              backgroundColor: ['#f7bf00', '#1E90FF', '#4682B4']
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: { legend: { position: 'bottom' } }
-          }
-        });
+  // Chart data
+  const labels = Object.keys(tagStats);
+  const data = labels.map(tag => tagStats[tag].completed);
 
-        return chart;
-      }
+  // Map tag names to your colors
+  const colorMap = {
+    "College of Winterhold": "#1E90FF",
+    "Bards College": "#FFD700",
+    "Blades": "#A52A2A",
+    "Companions": "#7D7D7D",
+    "Dark Brotherhood": "#8B0000",
+    "Thieves Guild": "#6A0DAD",
+    "Imperial Legion": "#B22222",
+    "Stormcloaks": "#4682B4",
+    "Main Quests": "#f7bf00" // fallback color for untagged
+  };
+  const backgroundColors = labels.map(label => colorMap[label] || "#aaa");
 
-      function updateChart() {
-        combinedChart = updateCategoryChart(
-          combinedChart,           // pass current chart instance
-          'combinedChart',         // canvas ID
-          ['main-Quests', 'baseGame-Factions', 'civilWar-Factions'] // list IDs
-        );
-      }
-      
-      function updateCompletedByCategory() {
-        const container = document.getElementById("completed-by-type");
-        container.querySelectorAll(".category-stats").forEach(el => el.remove());
-        container.querySelectorAll(".total-stats").forEach(el => el.remove());
+  const ctx = document.getElementById(canvasId).getContext("2d");
+  if (chart) chart.destroy();
 
-        const categories = [
-          { id: "main-Quests", name: "Main Quests" },
-          { id: "baseGame-Factions", name: "Factions" },
-          { id: "civilWar-Factions", name: "Civil War" }
-        ];
+  chart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Completed Quests",
+        data: data,
+        backgroundColor: backgroundColors
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: "bottom" } }
+    }
+  });
 
-        let totalCompleted = 0;
-        let totalQuests = 0;
+  return chart;
+}
 
-        // First, calculate totals
-        categories.forEach(cat => {
-          const listItems = document.querySelectorAll(`#${cat.id} li`);
-          listItems.forEach(li => {
-            const checkbox = li.querySelector("input[type=checkbox]");
-            if (checkbox && checkbox.checked) totalCompleted++;
-          });
-          totalQuests += listItems.length;
-        });
+function updateCompletedByCategory(questArrays) {
+  const container = document.getElementById("completed-by-type");
+  container.querySelectorAll(".category-stats").forEach(el => el.remove());
+  container.querySelectorAll(".total-stats").forEach(el => el.remove());
 
-        // Add total percentage at the top
-        const totalPercent = totalQuests ? ((totalCompleted / totalQuests) * 100).toFixed(1) : 0;
-        const totalDiv = document.createElement("div");
-        totalDiv.classList.add("total-stats");
-        totalDiv.style.marginBottom = "10px";
-        totalDiv.innerHTML = `<strong>Total quests:</strong> <span style="color:#aaa">${totalQuests}</span> <br> <strong>Completed:</strong> <span style="color:#aaa">${totalPercent}%</span>`;
-        container.appendChild(totalDiv);
+  const allQuests = questArrays.flat();
+  const tagStats = {};
+  let totalCompleted = 0, totalQuests = 0;
 
-        // Now add each category breakdown
-        categories.forEach(cat => {
-          const listItems = document.querySelectorAll(`#${cat.id} li`);
-          let completed = 0;
-          listItems.forEach(li => {
-            const checkbox = li.querySelector("input[type=checkbox]");
-            if (checkbox && checkbox.checked) completed++;
-          });
+  allQuests.forEach(q => {
+    const key = q.tag || "Main Quests";
+    const checkbox = document.querySelector(
+      `input[id*="${q.title.replace(/\s+/g, "-").toLowerCase()}"]`
+    );
 
-          const total = listItems.length;
-          const percent = total ? ((completed / total) * 100).toFixed(1) : 0;
+    if (!tagStats[key]) {
+      tagStats[key] = { completed: 0, total: 0 };
+    }
 
-          const div = document.createElement("div");
-          div.classList.add("category-stats");
-          div.style.marginBottom = "10px";
-          div.innerHTML = `<strong>${cat.name}</strong>: ${completed} <span style="color:#aaa">(${percent}%)</span>`;
-          container.appendChild(div);
-        });
-      }
+    tagStats[key].total++;
+    if (checkbox && checkbox.checked) {
+      tagStats[key].completed++;
+      totalCompleted++;
+    }
+    totalQuests++;
+  });
+
+  // Add totals first
+  const totalPercent = totalQuests ? ((totalCompleted / totalQuests) * 100).toFixed(1) : 0;
+  const totalDiv = document.createElement("div");
+  totalDiv.classList.add("total-stats");
+  totalDiv.style.marginBottom = "10px";
+  totalDiv.innerHTML =
+    `<strong>Total quests:</strong> <span style="color:#aaa">${totalQuests}</span> <br>
+     <strong>Completed:</strong> <span style="color:#aaa">${totalPercent}%</span>`;
+  container.appendChild(totalDiv);
+
+  // Add one breakdown per tag
+  Object.entries(tagStats).forEach(([tag, stats]) => {
+    const percent = stats.total ? ((stats.completed / stats.total) * 100).toFixed(1) : 0;
+    const div = document.createElement("div");
+    div.classList.add("category-stats");
+    div.style.marginBottom = "10px";
+    div.innerHTML = `<strong>${tag}</strong>: ${stats.completed} <span style="color:#aaa">(${percent}%)</span>`;
+    container.appendChild(div);
+  });
+}
+
+// Utility to safely build selectors from tags
+function cssSafeKey(key) {
+  return key.replace(/[^a-z0-9_-]/gi, "_");
+}
+
+// Call this whenever stats need updating
+function updateAllStats() {
+  combinedChart = updateCategoryChart(
+    combinedChart,
+    "combinedChart",
+    [mainQuests, baseFactions, civilWarQuests]
+  );
+  updateCompletedByCategory([mainQuests, baseFactions, civilWarQuests]);
+}
       ////
       
     </script>
