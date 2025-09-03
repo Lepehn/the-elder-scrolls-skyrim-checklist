@@ -88,7 +88,8 @@
     .scrollable-list { max-height: 400px; overflow-y: auto; padding-right: 8px; scrollbar-color: var(--bg-button-hover) #1a1a1a; }
 
     /* ================== Tabs & Buttons ================== */
-    .tab-box, .tab-box2 { background: var(--bg-panel); border-radius: 8px; padding: 10px; margin: 10px 0; }
+    .tab-box { background: var(--bg-panel); border-radius: 8px; padding: 10px; margin: 10px 0; }
+    .tab-box2 { background: var(--bg-panel); border-radius: 8px; padding: 10px; margin-bottom: 20px; }
     .tab-buttons { display: flex; flex-direction: column; gap: 8px; }
     .tab-buttons2 { display: flex; flex-wrap: wrap; gap: 8px; overflow-x: auto; }
     .tab-button {
@@ -162,10 +163,10 @@
       <!-- FAQ -->
       <div class="content" id="faq">
         <h3>FAQ</h3>
-        <p>This project was built by a fan and is inspired by checklists for other games.</p>
-        <p><strong>I have feedback, how can I contribute?</strong><br />Visit <span id="faq-link-container"></span>.</p>
-        <p><strong>Is this a guide?</strong><br />No, this simply helps track progress.</p>
-        <p><strong>How is progress saved?</strong><br />Progress is saved in localStorage in your browser.</p>
+        <p>This project was built by a fan and is inspired by similar checklists for other games like Dark Souls.</p>
+        <p><strong>I have feedback, how can I contribute?</strong><br />You can visit the <span id="faq-link-container"></span> and report Issues or create a fork and submit a Pull Request.</p>
+        <p><strong>Is this a guide?</strong><br />No, this is not a full walkthrough or guide. It simply helps you stay organized while playing by letting you check off content as you complete it.</p>
+        <p><strong>How is progress saved?</strong><br />Your progress is saved locally in your browser using localStorage. This means your checklist will stay saved as long as you don’t clear your browser data.</p>
       </div>
 
       <!-- Stats -->
@@ -367,7 +368,10 @@
     // ================== GitHub Links ==================
     window.addEventListener("DOMContentLoaded",()=>{
       document.getElementById("faq-link-container").appendChild(document.getElementById("github-link-template-faq").content.cloneNode(true));
-      const footer=document.createElement("div"); footer.id="footer-link-container"; document.body.appendChild(footer); footer.appendChild(document.getElementById("github-link-template-footer").content.cloneNode(true));
+      const footerContainer = document.getElementById("footer-link-container"); // use existing span
+      footerContainer.appendChild(
+        document.getElementById("github-link-template-footer").content.cloneNode(true)
+      );
     });
 
     // ================== Export/Import ==================
@@ -407,5 +411,7 @@
 
   <!-- ================== Footer ================== -->
   <footer style="text-align:center; margin-top:40px; font-size:0.9em; color:#aaa;">Check out the project or <span id="footer-link-container"></span>.</footer>
+  
 </body>
 </html>
+
