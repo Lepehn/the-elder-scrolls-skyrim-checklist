@@ -1,553 +1,746 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="google-site-verification" content="TM2JLp2z2ivvAbxCRiY7ekyg7shRkm4LJ23ywpbje1U" />
-  <title>The Elder Scrolls V: Skyrim Checklist</title>
-  <style>
-    /* ================== Variables ================== */
-    :root {
-      --bg-dark: #121212;
-      --bg-panel: #212121;
-      --bg-button: #2a2a2a;
-      --bg-button-hover: #383838;
-      --text-light: #ddd;
-      --text-muted: #a0a0a0;
-      --accent: #f7bf00;
-      --link: #88c0d0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="TM2JLp2z2ivvAbxCRiY7ekyg7shRkm4LJ23ywpbje1U" />
+    <title>The Elder Scrolls V: Skyrim Checklist</title>
+    <style>
+      /* ================== Variables ================== */
+      :root {
+        --bg-dark: #121212;
+        --bg-panel: #212121;
+        --bg-button: #2a2a2a;
+        --bg-button-hover: #383838;
+        --text-light: #ddd;
+        --text-muted: #a0a0a0;
+        --accent: #f7bf00;
+        --link: #88c0d0;
+      }
 
-    /* ================== Global Styles ================== */
-    * { box-sizing: border-box; }
-    body {
-      font-family: sans-serif;
-      font-size: clamp(14px, 2vw, 16px);
-      margin: 20px;
-      background: var(--bg-dark);
-      color: var(--text-light);
-    }
-    h1 { text-align: center; margin: 0 auto 20px; max-width: 1280px; border-radius: 8px; }
-    ul { list-style: none; padding: 0; }
-    li { margin: 5px 0 20px; }
-    input[type="checkbox"]:checked + label { text-decoration: line-through; color: #555; }
+      /* ================== Global Styles ================== */
+      * { box-sizing: border-box; }
+      body {
+        font-family: sans-serif;
+        font-size: clamp(14px, 2vw, 16px);
+        margin: 20px;
+        background: var(--bg-dark);
+        color: var(--text-light);
+      }
+      h1 { text-align: center; margin: 0 auto 20px; max-width: 1280px; border-radius: 8px; }
+      ul { list-style: none; padding: 0; }
+      li { margin: 5px 0 20px; }
+      input[type="checkbox"]:checked + label { text-decoration: line-through; color: #555; }
 
-    /* ================== Tags ================== */
-    .tag { font-size: clamp(0.8em, 1.5vw, 0.95em); padding: 4px 8px; border-radius: 8px; display: inline-block; margin-left: 10px; color: var(--bg-dark); }
-    .tagRequired { background: #ff8a80; }
-    .tagOptional { background-color: #444; color: #ccc; }
-    .tagGiver { background: #80d8ff; }
-    .tagNote { color: #aaa; background: #1a1a1a; display: block; margin-left: 20px; margin-top: 4px; width: fit-content; max-width: 100%; word-wrap: break-word;}
-    .tagCollegeofWinterhold { background: #1E90FF; }
-    .tagBardsCollege { background: #FFD700; }
-    .tagBlades { background: #A52A2A; }
-    .tagCompanions { background: #7D7D7D; }
-    .tagDarkBrotherhood { background: #8B0000; }
-    .tagThievesGuild { background: #6A0DAD; }
-    .tagImperialLegion { background: #B22222; }
-    .tagStormcloaks { background: #4682B4; }
-    .tagDLC { background: var(--accent); }
-    .tagMainDawnguardQuest { background: #2E8B57 }
-    .tagSideDawnguardQuest { background-color: #444; color: #ccc; }
-    .tagDawnguardFaction { background: #008080; }
-    .tagVolkiharClan { background: #4B0082; }
-    .tagDragonborn {background: #32CD32; }
+      /* ================== Tags ================== */
+      .tag { font-size: clamp(0.8em, 1.5vw, 0.95em); padding: 4px 8px; border-radius: 8px; display: inline-block; margin-left: 10px; color: var(--bg-dark); }
+      .tagRequired { background: #ff8a80; }
+      .tagOptional { background-color: #444; color: #ccc; }
+      .tagGiver { background: #80d8ff; }
+      .tagNote { color: #aaa; background: #1a1a1a; display: block; margin-left: 20px; margin-top: 4px; width: fit-content; max-width: 100%; word-wrap: break-word;}
 
-    /* ================== Layout ================== */
-    .content-container {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-      max-width: 1280px;
-      width: 100%;
-      margin: 60px auto 0;
-      padding: 0 10px;
-    }
+      .tagMainQuests { background: #FFD700; }       /* Gold */
+      .tagSideQuests { background: #87CEFA; }       /* Sky Blue */
+      .tagDivineQuests { background: #00CED1; }     /* Dark Turquoise */
+      .tagDeadricQuests { background: #8B0000; }    /* Dark Red */
+      
+      /* Factions */
+      .tagCollegeofWinterhold { background: #9370DB; } /* Medium Purple */
+      .tagBardsCollege { background: #FF69B4; }     /* Hot Pink */
+      .tagBlades { background: #A9A9A9; }           /* Dark Gray */
+      .tagCompanions { background: #C0C0C0; }       /* Silver */
+      .tagDarkBrotherhood { background: #4B0082; }  /* Indigo */
+      .tagImperialLegion { background: #B22222; }   /* Firebrick */
+      .tagThievesGuild { background: #556B2F; }     /* Dark Olive Green */
+      .tagStormcloaks { background: #1E90FF; }      /* Dodger Blue */
+      
+      /* Dawnguard DLC */
+      .tagMainDawnguardQuest { background: #1E90FF; } /* Dodger Blue */
+      .tagSideDawnguardQuest { background: #87CEEB; } /* Sky Blue */
+      .tagDawnguardFaction { background: #4682B4; }    /* Steel Blue */
+      .tagVolkiharClan { background: #4B0082; }       /* Indigo */
+      
+      /* Dragonborn DLC */
+      .tagMainDragonbornQuest { background: #FF8C00; } /* Dark Orange */
+      .tagSideDragonbornQuest { background: #FFA500; } /* Orange */
 
-    .sidebar-wrapper { width: 100%; max-width: 324px; flex-shrink: 0; }
-    .sidebar {
-      background: var(--bg-panel);
-      border-radius: 8px;
-      padding: 20px;
-      width: 100%;
-      color: #ccc;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .profile-bg {
-      width: 100%; aspect-ratio: 3/4;
-      background-image: url("https://images.igdb.com/igdb/image/upload/t_cover_big/co1vco.webp");
-      background-size: cover;
-      background-position: center;
-      border-radius: 8px;
-    }
+      /* ================== Layout ================== */
+      .content-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        max-width: 1280px;
+        width: 100%;
+        margin: 60px auto 0;
+        padding: 0 10px;
+      }
 
-    .content-section { flex-grow: 1; width: 100%; }
-    .content { display: none; border: none; padding: 20px; background: var(--bg-panel); border-radius: 8px; max-width: 1280px; margin: auto; }
-    .content.active { display: block; }
-    .content ul { color: var(--text-muted); }
+      .sidebar-wrapper { width: 100%; max-width: 324px; flex-shrink: 0; }
+      .sidebar {
+        background: var(--bg-panel);
+        border-radius: 8px;
+        padding: 20px;
+        width: 100%;
+        color: #ccc;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .profile-bg {
+        width: 100%; aspect-ratio: 3/4;
+        background-image: url("https://images.igdb.com/igdb/image/upload/t_cover_big/co1vco.webp");
+        background-size: cover;
+        background-position: center;
+        border-radius: 8px;
+      }
 
-    .scrollable-list { max-height: 400px; overflow-y: auto; padding-right: 8px; scrollbar-color: var(--bg-button-hover) #1a1a1a; }
+      .content-section { flex-grow: 1; width: 100%; }
+      .content { display: none; border: none; padding: 20px; background: var(--bg-panel); border-radius: 8px; max-width: 1280px; margin: auto; }
+      .content.active { display: block; }
+      .content ul { color: var(--text-muted); }
 
-    /* ================== Tabs & Buttons ================== */
-    .tab-box { background: var(--bg-panel); border-radius: 8px; padding: 10px; margin: 10px 0; }
-    .tab-box2 { background: var(--bg-panel); border-radius: 8px; padding: 10px; margin-bottom: 20px; }
-    .tab-buttons { display: flex; flex-direction: column; gap: 8px; }
-    .tab-buttons2 { display: flex; flex-wrap: wrap; gap: 8px; overflow-x: auto; }
-    .tab-button {
-      padding: 10px; background: var(--bg-button); color: #ccc; border-radius: 6px; text-align: center;
-      cursor: pointer; transition: background 0.2s; flex-shrink: 0;
-    }
-    .tab-button:hover, .tab-button.active { background: var(--bg-button-hover); color: var(--accent); }
+      .scrollable-list { max-height: 400px; overflow-y: auto; padding-right: 8px; scrollbar-color: var(--bg-button-hover) #1a1a1a; }
 
-    .progress { margin-bottom: 10px; }
+      /* ================== Tabs & Buttons ================== */
+      .tab-box { background: var(--bg-panel); border-radius: 8px; padding: 10px; margin: 10px 0; }
+      .tab-box2 { background: var(--bg-panel); border-radius: 8px; padding: 10px; margin-bottom: 20px; }
+      .tab-buttons { display: flex; flex-direction: column; gap: 8px; }
+      .tab-buttons2 { display: flex; flex-wrap: wrap; gap: 8px; overflow-x: auto; }
+      .tab-button {
+        padding: 10px; background: var(--bg-button); color: #ccc; border-radius: 6px; text-align: center;
+        cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+      }
+      .tab-button:hover, .tab-button.active { background: var(--bg-button-hover); color: var(--accent); }
 
-    /* ================== Stats ================== */
-    .stats-layout { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .stats-text { flex: 1; min-width: 200px; }
-    .stats-chart { flex-shrink: 0; display: flex; justify-content: center; align-items: center; }
+      .progress { margin-bottom: 10px; }
 
-    /* ================== Responsive ================== */
-    @media (max-width: 768px) {
-      .content-container { flex-direction: column; }
-      .sidebar-wrapper { margin-bottom: 75px; }
-      .sidebar-wrapper, .content-section { width: 100%; }
-    }
-  </style>
-</head>
+      /* ================== Stats ================== */
+      .stats-layout { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+      .stats-text { flex: 1; min-width: 200px; }
+      .stats-chart { flex-shrink: 0; display: flex; justify-content: center; align-items: center; }
 
-<body>
-  <!-- ================== Header ================== -->
-  <h1>The Elder Scrolls V: Skyrim Checklist</h1>
+      /* ================== Responsive ================== */
+      @media (max-width: 768px) {
+        .content-container { flex-direction: column; }
+        .sidebar-wrapper { margin-bottom: 75px; }
+        .sidebar-wrapper, .content-section { width: 100%; }
+      }
+    </style>
+  </head>
 
-  <!-- ================== Main Container ================== -->
-  <div class="content-container">
+  <body>
+    <!-- ================== Header ================== -->
+    <h1>The Elder Scrolls V: Skyrim Checklist</h1>
 
-    <!-- ================== Sidebar ================== -->
-    <div class="sidebar-wrapper">
-      <div class="sidebar"><div class="profile-bg"></div></div>
-      <div class="tab-sidebar">
-        <div class="tab-box">
-          <div class="tab-buttons">
-            <div class="tab-button" data-target="faq">FAQ</div>
-            <div class="tab-button" data-target="stats">Stats</div>
-            <div class="tab-button" onclick="exportChecklist()">Export Progress</div>
-            <div class="tab-button" onclick="importChecklist()">Import Progress <input type="file" id="import-file" style="display: none;" /></div>
+    <!-- ================== Main Container ================== -->
+    <div class="content-container">
+
+      <!-- ================== Sidebar ================== -->
+      <div class="sidebar-wrapper">
+        <div class="sidebar"><div class="profile-bg"></div></div>
+        <div class="tab-sidebar">
+          <div class="tab-box">
+            <div class="tab-buttons">
+              <div class="tab-button" data-target="faq">FAQ</div>
+              <div class="tab-button" data-target="stats">Stats</div>
+              <div class="tab-button" onclick="exportChecklist()">Export Progress</div>
+              <div class="tab-button" onclick="importChecklist()">Import Progress <input type="file" id="import-file" style="display: none;" /></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ================== Content ================== -->
-    <div class="content-section">
-      <div class="tab-box2">
-        <div class="tab-buttons2">
-          <div class="tab-button" data-target="main">Main Quests</div>
-          <div class="tab-button" data-target="baseGameFaction">Faction</div>
-          <div class="tab-button" data-target="dawnguardDLCQuests">Dawnguard DLC</div>
+      <!-- ================== Content ================== -->
+      <div class="content-section">
+        <div class="tab-box2">
+          <div class="tab-buttons2">
+            <div class="tab-button" data-target="main">Main Quests</div>
+            <div class="tab-button" data-target="baseGameFaction">Faction</div>
+            <div class="tab-button" data-target="divine">Divines</div>
+            <div class="tab-button" data-target="dawnguardDLCQuests">Dawnguard DLC</div>
+            <div class="tab-button" data-target="dragonbornDLCQuests">Dragonborn DLC</div>
+          </div>
         </div>
-      </div>
 
-      <!-- Main Quests -->
-      <div class="content active" id="main">
-        <h2>Main Quests</h2>
-        <div class="progress" id="main-Progress">Completed 0 / 0</div>
-        <div class="scrollable-list"><ul id="main-Quests"></ul></div>
-      </div>
+        <!-- Main Quests -->
+        <div class="content active" id="main">
+          <h2>Main Quests</h2>
+          <div class="progress" id="main-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="main-Quests"></ul></div>
+        </div>
 
-      <!-- Base Game Factions -->
-      <div class="content" id="baseGameFaction">
-        <h2>Factions</h2>
-        <div class="progress" id="baseGame-faction-Progress">Completed 0 / 0</div>
-        <div id="faction-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
-        <div class="scrollable-list"><ul id="baseGame-faction-Quests"></ul></div>
-      </div>
-      
-      <!-- [ Dawnguard DLC Quests ] -->
-      <div class="content" id="dawnguardDLCQuests">
-        <h2>Dawnguard DLC</h2>
-        <div class="progress" id="dawnguard-Progress">Completed 0 / 0</div>
-        <div id="dawnguard-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
-        <div class="scrollable-list"><ul id="dawnguard-Quests"></ul></div>
-      </div>
+        <!-- Base Game Factions -->
+        <div class="content" id="baseGameFaction">
+          <h2>Factions</h2>
+          <div class="progress" id="baseGameFaction-Progress">Completed 0 / 0</div>
+          <div id="baseGameFaction-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
+          <div class="scrollable-list"><ul id="baseGameFaction-Quests"></ul></div>
+        </div>
+        
+        <!-- Divines Quests -->
+        <div class="content" id="divine">
+          <h2>Divines Quests</h2>
+          <div class="progress" id="divine-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="divine-Quests"></ul></div>
+        </div>
 
-      <!-- FAQ -->
-      <div class="content" id="faq">
-        <h3>FAQ</h3>
-        <p>This project was built by a fan and is inspired by similar checklists for other games like Dark Souls.</p>
-        <p><strong>I have feedback, how can I contribute?</strong><br />You can visit the <span id="faq-link-container"></span> and report Issues or create a fork and submit a Pull Request.</p>
-        <p><strong>Is this a guide?</strong><br />No, this is not a full walkthrough or guide. It simply helps you stay organized while playing by letting you check off content as you complete it.</p>
-        <p><strong>How is progress saved?</strong><br />Your progress is saved locally in your browser using localStorage. This means your checklist will stay saved as long as you don’t clear your browser data.</p>
-      </div>
+        <!-- Dawnguard DLC -->
+        <div class="content" id="dawnguardDLCQuests">
+          <h2>Dawnguard DLC</h2>
+          <div class="progress" id="dawnguard-Progress">Completed 0 / 0</div>
+          <div id="dawnguard-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
+          <div class="scrollable-list"><ul id="dawnguard-Quests"></ul></div>
+        </div>
+        
+        <!-- Dragonborn DLC -->
+        <div class="content" id="dragonbornDLCQuests">
+          <h2>Dragonborn DLC</h2>
+          <div class="progress" id="dragonborn-Progress">Completed 0 / 0</div>
+          <div id="dragonborn-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
+          <div class="scrollable-list"><ul id="dragonborn-Quests"></ul></div>
+        </div>
 
-      <!-- Stats -->
-      <div class="content" id="stats">
-        <h2>Quests Overview</h2>
-        <div class="scrollable-list">
-          <div class="stats-chart"><canvas id="combinedChart" style="width:250px; max-height:250px;"></canvas></div>
-          <div class="stats-layout">
-            <div class="stats-text">
-              <div id="totalGames" style="margin-bottom:10px; font-size:1.1em;"></div>
-              <div id="statusBreakdown"></div>
-              <div id="completed-by-type" style="margin-top:20px;"><h2>Completed Quests</h2></div>
+        <!-- FAQ -->
+        <div class="content" id="faq">
+          <h3>FAQ</h3>
+          <p>This project was built by a fan and is inspired by similar checklists for other games like Dark Souls.</p>
+          <p><strong>I have feedback, how can I contribute?</strong><br />You can visit the <span id="faq-link-container"></span> and report Issues or create a fork and submit a Pull Request.</p>
+          <p><strong>Is this a guide?</strong><br />No, this is not a full walkthrough or guide. It simply helps you stay organized while playing by letting you check off content as you complete it.</p>
+          <p><strong>How is progress saved?</strong><br />Your progress is saved locally in your browser using localStorage. This means your checklist will stay saved as long as you don’t clear your browser data.</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="content" id="stats">
+          <h2>Quests Overview</h2>
+          <div class="scrollable-list">
+            <div class="stats-chart"><canvas id="combinedChart" style="width:250px; max-height:250px;"></canvas></div>
+            <div class="stats-layout">
+              <div class="stats-text">
+                <div id="totalGames" style="margin-bottom:10px; font-size:1.1em;"></div>
+                <div id="statusBreakdown"></div>
+                <div id="completed-by-type" style="margin-top:20px;"><h2>Completed Quests</h2></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ================== Templates ================== -->
-  <template id="github-link-template-faq">
-    <a href="https://github.com/Lepehn/the-elder-scrolls-skyrim-checklist" target="_blank" style="color: var(--link); text-decoration: none;">GitHub repository</a>
-  </template>
-  <template id="github-link-template-footer">
-    <a href="https://github.com/Lepehn/the-elder-scrolls-skyrim-checklist" target="_blank" style="color: var(--link); text-decoration: none;">report an issue on GitHub</a>
-  </template>
+    <!-- ================== Templates ================== -->
+    <template id="github-link-template-faq">
+      <a href="https://github.com/Lepehn/the-elder-scrolls-skyrim-checklist" target="_blank" style="color: var(--link); text-decoration: none;">GitHub repository</a>
+    </template>
+    <template id="github-link-template-footer">
+      <a href="https://github.com/Lepehn/the-elder-scrolls-skyrim-checklist" target="_blank" style="color: var(--link); text-decoration: none;">report an issue on GitHub</a>
+    </template>
 
-  <!-- ================== Scripts ================== -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // ================== Tab Switching ==================
-    document.querySelectorAll(".tab-button").forEach(button => {
-      button.addEventListener("click", () => {
-        const target = button.dataset.target;
-        if (!target) return;
+    <!-- ================== Scripts ================== -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // ================== Tab Switching ==================
+      document.querySelectorAll(".tab-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const target = button.dataset.target;
+          if (!target) return;
 
-        document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
-        button.classList.add("active");
+          document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+          button.classList.add("active");
 
-        document.querySelectorAll(".content").forEach(c => c.classList.remove("active"));
-        document.getElementById(target).classList.add("active");
+          document.querySelectorAll(".content").forEach(c => c.classList.remove("active"));
+          document.getElementById(target).classList.add("active");
 
-        if(target === "stats") updateAllStats();
-      });
-    });
-
-    // ================== Data Structures ==================
-    function quests(title, note, tag = null, optional = false) {
-      const q = { title, note }; if(tag) q.tag = tag; if(optional) q.optional = "Optional"; return q;
-    }
-
-    // ================== Base Game ==================
-   const mainQuests = [
-      quests("Unbound", "Escape Imperial custody and a dragon raid."),
-      quests("Before the Storm", "Inform the Jarl of Whiterun about the dragon attack on Helgen."),
-      quests("Bleak Falls Barrow", "Retrieve the Dragonstone."),
-      quests("Dragon Rising", "Investigate a Dragon sighting near Whiterun."),
-      quests("The Way of the Voice", "Meet the Greybeards."),
-      quests("The Horn of Jurgen Windcaller", "Retrieve a Greybeard artifact from Ustengrav."),
-      quests("A Blade in the Dark", "Prove you are Dragonborn to Delphine by slaying the dragon Sahloknir."),
-      quests("Diplomatic Immunity", "Infiltrate a party at the Thalmor Embassy."),
-      quests("A Cornered Rat", "Locate Esbern."),
-      quests("Alduin's Wall", "Locate the prophecy within Sky Haven Temple."),
-      quests("The Throat of the World", "Receive a lesson from Paarthurnax."),
-      quests("Elder Knowledge", "Locate an Elder Scroll."),
-      quests("Alduin's Bane", "Exploit the Time Wound to learn Dragonrend."),
-      quests("The Fallen", "Capture and interrogate one of Alduin's allies."),
-      quests("Paarthurnax", "Deal with a potential threat.", null, true),
-      quests("Season Unending", "Enforce a ceasefire to secure Dragonsreach.", null, true),
-      quests("The World-Eater's Eyrie", "Battle through Skuldafn Temple to reach Alduin's portal to Sovngarde."),
-      quests("Soverngarde", "Seek out Alduin within Sovngarde."),
-      quests("Dragonslayer", "Put an end to the World Eater.")
-    ];
-
-    // Factions & Civil War
-    const baseFactions = [
-      // College of Winterhold
-      quests("College Objective Quest", "Visit the College of Winterhold.", "College of Winterhold"),
-      quests("First Lessons", "Join the College of Winterhold.", "College of Winterhold"),
-      quests("Under Saarthal", "Uncover the mysteries beneath this ancient ruin.", "College of Winterhold"),
-      quests("Hitting the Books", "Find the books needed to identify the artifact found in Saarthal.", "College of Winterhold"),
-      quests("Good Intentions", "Find and consult the Augur of Dunlain.s", "College of Winterhold"),
-      quests("Revealing the Unseen", "Discover the location of Magnus' staff.", "College of Winterhold"),
-      quests("Containment", "Deal with the aftermath of the Eye's power surge.", "College of Winterhold"),
-      quests("The Staff of Magnus", "Retrieve the Staff of Magnus.", "College of Winterhold"),
-      quests("The Eye of Magnus", "Reclaim the College and contain the Eye.", "College of Winterhold"),
-      quests("Arniel's Endeavor", "Uncover an ancient Dwemer secret.", "College of Winterhold"),
-      quests("Brelyna's Practice", "Help Brelyna Maryon test spells.", "College of Winterhold"),
-      quests("J'zargo's Experiment", "Help J'zargo test out a fiery new spell.", "College of Winterhold"),
-      quests("Onmund's Request", "Help Onmund negotiate the return of a family amulet.", "College of Winterhold"),
-      quests("Out of Balance", "Purify the focus points for magical energy around the College.", "College of Winterhold"),
-      quests("Rejoining the College", "Make amends for breaking the College of Winterhold rules.", "College of Winterhold"),
-
-      // Bards College
-      quests("Tending the Flames", "Unveil the truth about a King; become a member of Bards College.", "Bards College"),
-      quests("Investigate the Bards College", "Investigate the Bards College.", "Bards College"),
-      quests("Finn's Lute", "Return an invaluable lute to Inge Six Fingers.", "Bards College"),
-      quests("Pantea's Flute", "Find a missing flute for Pantea.", "Bards College"),
-      quests("Rjorn's Drum", "Retrieve a drum for Giraud Gemane.", "Bards College"),
-
-      // Blades
-      quests("Rebuilding the Blades", "Recruit new members for the Blades.", "Blades"),
-      quests("Dragon Hunting", "Kill a dragon at its lair.", "Blades"),
-      quests("Dragon Research", "Help Esbern complete his research on dragons.", "Blades"),
-
-      // Companions
-      quests("Take Up Arms", "Prove you are worthy to join the Companions.", "Companions"),
-      quests("Proving Honor", "Claim a Fragment of Wuuthrad from Dustman's Cairn.", "Companions"),
-      quests("The Silver Hand", "Join the Circle and clear Gallows Rock of werewolf hunters.", "Companions"),
-      quests("Blood's Honor", "Claim the head of a Glenmoril Witch for Kodlak Whitemane.", "Companions"),
-      quests("Purity of Revenge", "Retrieve the Fragments of Wuuthrad.", "Companions"),
-      quests("Glory of the Dead", "Cure Kodlak's spirit and prove yourself as a true Companion.", "Companions"),
-
-      // Dark Brotherhood
-      quests("Delayed Burial", "Convince farmer to help a stranded jester outside of Whiterun.", "Dark Brotherhood", true),
-      quests("Innocence Lost", "Help an orphaned child avoid being returned to a caretaker.", "Dark Brotherhood"),
-      quests("With Friends Like These...", "Show you are willing to kill on command.", "Dark Brotherhood"),
-      quests("Sanctuary", "Pick up your first contracts as a Brotherhood member.", "Dark Brotherhood"),
-      quests("Mourning Never Comes", "Help Muiri get her revenge.", "Dark Brotherhood"),
-      quests("Whispers in the Dark", "Spy on the Night Mother's keeper.", "Dark Brotherhood"),
-      quests("The Silence Has Been Broken", "Meet Amaund Motierre inside Volunruud.", "Dark Brotherhood"),
-      quests("Bound Until Death", "Assassinate Vittoria Vici at her own wedding.", "Dark Brotherhood"),
-      quests("Breaching Security", "Kill and frame the son of a high-ranking Imperial guard.", "Dark Brotherhood"),
-      quests("The Cure for Madness", "Confront the traitor among the Dark Brotherhood.", "Dark Brotherhood"),
-      quests("Recipe for Disaster", "Assume the identity of the famous Gourmet.", "Dark Brotherhood"),
-      quests("To Kill an Empire", "Attempt to assassinate the Emperor.", "Dark Brotherhood"),
-      quests("Death Incarnate", "Assist Brotherhood members in the fight against assault.", "Dark Brotherhood"),
-      quests("Hail Sithis!", "Fulfill the biggest contract in Brotherhood history.", "Dark Brotherhood"),
-
-      // Thieves Guild
-      quests("A Chance Arrangement", "Help teach a merchant to mind his own business.", "Thieves Guild"),
-      quests("Taking Care of Business", "Help Brynjolf collect some debts for the Thieves Guild.", "Thieves Guild"),
-      quests("Loud and Clear", "Send a message to a former Thieves Guild client.", "Thieves Guild"),
-      quests("Dampened Spirits", "Put Maven Black-Briar's competition out of business.", "Thieves Guild"),
-      quests("Scoundrel's Folly", "Squeeze a reluctant informer for information.", "Thieves Guild"),
-      quests("Speaking With Silence", "Track down the Dunmer behind the Guild's misfortunes.", "Thieves Guild"),
-      quests("Hard Answers", "Help translate Gallus' journal.", "Thieves Guild"),
-      quests("The Pursuit", "Break into Mercer Frey's house and search for clues.", "Thieves Guild"),
-      quests("Trinity Restored", "Become one of the Nightingales, Nocturnal's guardians.", "Thieves Guild"),
-      quests("Blindsighted", "Stop Mercer Frey.", "Thieves Guild"),
-      quests("Darkness Returns", "Return the Skeleton Key to its rightful place.", "Thieves Guild"),
-      quests("Under New Management", "Become the Guild master of the Thieves Guild.", "Thieves Guild"),
-      
-      // Imperial Legion
-      quests("Joining the Legion", "Prove yourself worthy to join the Imperial Legion.", "Imperial Legion"),
-      quests("The Jagged Crown", "Find the Jagged Crown for the Imperials.", "Imperial Legion"),
-      quests("Message to Whiterun", "Deliver the message that will decide Whiterun's allegiance.", "Imperial Legion"),
-      quests("Battle for Whiterun", "Protect Whiterun from the Stormcloak invasion.", "Imperial Legion"),
-      quests("Reunification of Skyrim", "Re-unite Skyrim under the leadership of the Empire.", "Imperial Legion"),
-
-      // Stormcloaks
-      quests("Joining the Stormcloaks", "Prove yourself worthy of being a Stormcloak rebel.", "Stormcloaks"),
-      quests("The Jagged Crown", "Find this crown for Ulfric Stormcloak.", "Stormcloaks"),
-      quests("Message to Whiterun", "Deliver an axe to the Jarl of Whiterun.", "Stormcloaks"),
-      quests("Battle for Whiterun", "Take Whiterun in the name of the Stormcloaks.", "Stormcloaks"),
-      quests("Liberation of Skyrim", "Overarching quest governing the individual battles of the war.", "Stormcloaks")
-    ];
-    const factions = ["All","College of Winterhold","Bards College","Blades","Companions","Dark Brotherhood","Thieves Guild", "Imperial Legion", "Stormcloaks"];
-    
-    // ================== Dawnguard DLC ==================
-    // Dawnguard DLC Main Quests
-    const dawnguardDLCQuests = [
-      quests("Dawnguard", "Join the Dawnguard.", "Main Dawnguard Quest"),
-      quests("Awakening", "Find out what the vampires are looking for.", "Main Dawnguard Quest"),
-      quests("Bloodline", "Choose your side!", "Main Dawnguard Quest"),
-      quests("A New Order (Dawnguard)", "Recruit Isran's old allies.", "Main Dawnguard Quest"),
-      quests("Prophet (Dawnguard)", "Find and rescue a Moth Priest.", "Main Dawnguard Quest"),
-      quests("The Bloodstone Chalice (Vampires)", "Fill the Bloodstone Chalice from the Bloodspring at Redwater Den.", "Main Dawnguard Quest"),
-      quests("Prophet (Vampires)", "Locate a Moth Priest.", "Main Dawnguard Quest"),
-      quests("Chasing Echoes", "Explore Castle Volkihar.", "Main Dawnguard Quest"),
-      quests("Scroll Scouting", "Obtain all three Elder Scrolls.", "Main Dawnguard Quest"),
-      quests("Beyond Death", "Search for Valerica in the Soul Cairn.", "Main Dawnguard Quest"),
-      quests("Seeking Disclosure", "Bring the Elder Scrolls to Dexion.", "Main Dawnguard Quest"),
-      quests("Unseen Visions", "Perform a ceremony to read the Elder Scroll.", "Main Dawnguard Quest"),
-      quests("Touching the Sky", "Find and retrieve Auriel's Bow.", "Main Dawnguard Quest"),
-      quests("Kindred Judgment", "Confront Lord Harkon.", "Main Dawnguard Quest"),
-      
-      // Dawnguard Side Quests
-      quests("Durnehviir", "Learn a dragon shout from Durnehviir.", "Side Dawnguard Quest"),
-      quests("Forgotten Vale Books Quest", "Find the Ancient Falmer Tome.", "Side Dawnguard Quest"),
-      quests("Impatience of a Saint", "Collect the ten missing pages of Saint Jiub's Opus.", "Side Dawnguard Quest"),
-      quests("Lost to the Ages", "Search for the Dwemer's Aetherium Forge.", "Side Dawnguard Quest"),
-      quests("Soul Cairn Horse Quest", "Find Arvak's skull.", "Side Dawnguard Quest"),
-      quests("Surgery", "Change your appearance.", "Side Dawnguard Quest"),
-      
-      // Dawnguard Faction
-      quests("Ancient Technology", "Retrieve Dwemer schematics to improve technology.", "Dawnguard Faction"),
-      quests("Bolstering the Ranks", "Find Florentius Baenius and recruit him into the Dawnguard.", "Dawnguard Faction"),
-      quests("Cleansing Light", "Kill the boss of a vampire lair.", "Dawnguard Faction"),
-      quests("Hide and Seek", "Kill a vampire masquerading as a citizen.", "Dawnguard Faction"),
-      quests("Hunting the Monster", "Destroy the vampire target.", "Dawnguard Faction"),
-      quests("A Jarl's Justice", "Kill a vampire masquerading as a visiting advisor.", "Dawnguard Faction"),
-      quests("Lost Relic", "Retrieve a relic of the original Dawnguard.", "Dawnguard Faction"),
-      quests("Preemptive Strike", "Destroy the vampire before it turns its allies.", "Dawnguard Faction"),
-      quests("Rescue", "Rescue a victim from vampires.", "Dawnguard Faction"),
-      
-      // Volkihar Clan
-      quests("Amulets of Night Power", "Retrieve the Amulets of Night Power.", "Volkihar Clan"),
-      quests("Ancient Power", "Retrieve vampire parts.", "Volkihar Clan"),
-      quests("Culling the Beast", "Kill the thin-blooded vampires.", "Volkihar Clan"),
-      quests("Deceiving the Herd", "Frame the Dawnguard for murder.", "Volkihar Clan"),
-      quests("Destroying the Dawnguard", "Kill the Dawnguard leaders.", "Volkihar Clan"),
-      quests("The Gift", "Turn your spouse into a creature of the night.", "Volkihar Clan"),
-      quests("The Hunt", "Kill the Dawnguard spy.", "Volkihar Clan"),
-      quests("New Allegiances", "Turn the target into a vampire.", "Volkihar Clan"),
-      quests("Protecting the Bloodline", "Destroy a vampire before it turns its allies.", "Volkihar Clan"),
-      quests("Rings of Blood Magic", "Retrieve the Ring of the Erudite and the Ring of the Beast.", "Volkihar Clan")
-    ];
-
-    const dawnguardDLC = ["All","Main Dawnguard Quest", "Side Dawnguard Quest", "Dawnguard Faction", "Volkihar Clan"];
-
-    // ================== Initialization ==================
-    function createTag(text, className){ const s=document.createElement("span"); s.className=`tag ${className}`; s.textContent=text; return s; }
-    function createChecklistItem(item,type,container){ 
-      const id=`tes-skyrim-${type}-${item.title.replace(/\s+/g,"-").toLowerCase()}`;
-      const li=document.createElement("li");
-      const checkbox=document.createElement("input"); checkbox.type="checkbox"; checkbox.id=id; checkbox.checked=localStorage.getItem(id)==="true";
-      const label=document.createElement("label"); label.setAttribute("for",id); label.textContent=` ${item.title}`;
-      checkbox.addEventListener("change",()=>{ localStorage.setItem(id,checkbox.checked); updateProgressByType(type); updateAllStats(); });
-      li.append(checkbox,label); 
-      if(item.tag){ const tags=Array.isArray(item.tag)?item.tag:[item.tag]; tags.forEach(t=>{ if(t) li.append(createTag(t,"tag"+t.replace(/\s+/g,""))); });}
-      if(item.giver) li.append(createTag(item.giver,"tagGiver"));
-      if(item.optional) li.append(createTag(item.optional,"tagOptional"));
-      if(item.note) li.append(createTag(item.note,"tagNote"));
-      container.appendChild(li);
-    }
-
-    function updateProgressByType(type){
-      const map={main:"main-Progress",baseGameFaction:"baseGame-faction-Progress", dawnguard: "dawnguard-Progress" };
-      const progressId=map[type]; if(!progressId) return;
-      const list=document.getElementById(progressId.replace("-Progress","-Quests")||"");
-      if(!list) return; const cbs=list.querySelectorAll("input[type=checkbox]");
-      let completed=0; cbs.forEach(cb=>{ if(cb.checked) completed++; });
-      document.getElementById(progressId).textContent=`Completed ${completed} / ${cbs.length}`;
-    }
-
-    // ================== Filter Buttons ==================
-    function addFilterButtons(containerId, list, callback){ const container=document.getElementById(containerId); list.forEach(f=>{ const btn=document.createElement("div"); btn.className="tab-button"; btn.textContent=f; btn.addEventListener("click",()=>callback(f)); container.appendChild(btn); }); }
-    addFilterButtons("faction-filters",factions,filterFactionByFaction);
-    addFilterButtons("dawnguard-filters", dawnguardDLC, filterDawnguard);
-
-    function filterFactionByFaction(f){const listEl=document.getElementById("baseGame-faction-Quests"); listEl.innerHTML=""; const filtered=f==="All"?baseFactions:baseFactions.filter(q=>q.tag===f); filtered.forEach(q=>createChecklistItem(q,"baseGameFaction",listEl)); updateProgressByType("baseGameFaction"); setActiveButton("#faction-filters",f);}
-
-    function filterDawnguard(f){
-      const listEl = document.getElementById("dawnguard-Quests");
-      listEl.innerHTML = "";
-      const filtered = f === "All" ? dawnguardDLCQuests : dawnguardDLCQuests.filter(q => q.tag === f);
-      filtered.forEach(q => createChecklistItem(q, "dawnguard", listEl)); // <- change type here
-      updateProgressByType("dawnguard"); // <- match progress mapping
-      setActiveButton("#dawnguard-filters", f);
-    }
-
-    function setActiveButton(containerSelector, text){document.querySelectorAll(containerSelector+" .tab-button").forEach(btn=>btn.classList.remove("active")); const btn=document.querySelector(containerSelector+" .tab-button:nth-child(n)"); document.querySelectorAll(containerSelector+" .tab-button").forEach(b=>{ if(b.textContent===text) b.classList.add("active"); }); }
-
-    // ================== Initialize Lists ==================
-    const config = {
-      main: { listId: "main-Quests", data: mainQuests },
-      baseGameFaction: { listId: "baseGame-faction-Quests", data: baseFactions },
-      dawnguard: { listId: "dawnguard-Quests", data: dawnguardDLCQuests }
-    };
-
-    ["main","baseGameFaction","dawnguard"].forEach(t => {
-      const { listId, data } = config[t];
-      const list = document.getElementById(listId);
-      data.forEach(q => createChecklistItem(q, t, list));
-      updateProgressByType(t);
-    });
-
-    // ================== GitHub Links ==================
-    window.addEventListener("DOMContentLoaded",()=>{
-      document.getElementById("faq-link-container").appendChild(document.getElementById("github-link-template-faq").content.cloneNode(true));
-      const footerContainer = document.getElementById("footer-link-container"); // use existing span
-      footerContainer.appendChild(
-        document.getElementById("github-link-template-footer").content.cloneNode(true)
-      );
-    });
-
-    // ================== Export/Import ==================
-    function exportChecklist(){
-      const categories=["main","baseGameFaction", "dawnguard"], STORAGE_PREFIX="tes-skyrim";
-      const data={prefix:STORAGE_PREFIX,main:[],baseGameFaction:[], dawnguard:[]};
-      categories.forEach(c=>{
-        for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i); if(key.startsWith(`${STORAGE_PREFIX}-${c}-`) && localStorage.getItem(key)==="true"){data[c].push(key.slice(`${STORAGE_PREFIX}-${c}-`.length)); }}
-        data[c].sort();
-      });
-      const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-      const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="tes-skyrim-checklist.json"; a.click(); URL.revokeObjectURL(a.href);
-    }
-    function importChecklist(){const fileInput=document.getElementById("import-file"); fileInput.click(); fileInput.onchange=e=>{const file=e.target.files[0]; if(!file) return; const reader=new FileReader(); reader.onload=ev=>{try{const imported=JSON.parse(ev.target.result); const STORAGE_PREFIX="tes-skyrim"; if(imported.prefix!==STORAGE_PREFIX){alert(`This checklist file is for a different game or project ("${imported.prefix}").`); return;} for(const c in imported){ if(c==="prefix") continue; imported[c].forEach(slug=>localStorage.setItem(`${STORAGE_PREFIX}-${c}-${slug}`,"true")); } alert("Checklist progress imported! Refresh the page to see updates."); }catch(err){alert("Failed to import: Invalid file format.");}}; reader.readAsText(file);}; }
-
-    // ================== Stats Chart ==================
-    let combinedChart;
-    function updateAllStats(){
-      const allQuests = [...mainQuests, ...baseFactions, ...dawnguardDLCQuests]; // all quests
-      const tagStats = {};
-
-      allQuests.forEach(q => {
-        const key = q.tag || "Main Quests";
-
-        let prefix;
-        if (mainQuests.includes(q)) prefix = "main";
-        else if (baseFactions.includes(q)) prefix = "baseGameFaction";
-        else if (dawnguardDLCQuests.includes(q)) prefix = "dawnguard";
-
-        const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
-        const completed = localStorage.getItem(id) === "true";
-
-        tagStats[key] = tagStats[key] || { completed: 0, total: 0 };
-        tagStats[key].total++;
-        if (completed) tagStats[key].completed++;
+          if(target === "stats") updateAllStats();
+        });
       });
 
-      const labels = Object.keys(tagStats);
-      const data = labels.map(l => tagStats[l].completed);
-      const colorMap = {
-        "College of Winterhold": "#1E90FF",
-        "Bards College": "#FFD700",
-        "Blades": "#A52A2A",
-        "Companions": "#7D7D7D",
-        "Dark Brotherhood": "#8B0000",
-        "Thieves Guild": "#6A0DAD",
-        "Imperial Legion": "#B22222",
-        "Stormcloaks": "#4682B4",
-        "Main Quests": "#FF4500",
-        "Main Dawnguard Quest": "#2E8B57" // add Dawnguard color here
-      };
+      // ================== Quest Constructor ==================
+      function quests(title, note, tag = null, optional = false) {
+        const q = { title, note };
+        if(tag) q.tag = tag;
+        if(optional) q.optional = "Optional";
+        return q;
+      }
+      
+     	/* To Add New Quest
+		- Add quest data
+		- add filters
+		- add html
+		- update questCategories
+		- update updateProgressByType
+		- update stats allQuests
+		*/
 
-      combinedChart?.destroy();
-      combinedChart = new Chart(document.getElementById("combinedChart").getContext("2d"), {
-      type: "doughnut",
-        data: { labels, datasets: [{ label: "Completed Quests", data, backgroundColor: labels.map(l => colorMap[l] || "#aaa"), borderWidth: 0, }] },
-          options: { responsive: true, plugins: { legend: { position: "bottom" } } }
-    });
+      // ================== Filters ==================
+      const baseFactions = ["All","College of Winterhold","Bards College","Blades","Companions","Dark Brotherhood","Thieves Guild", "Imperial Legion", "Stormcloaks"];
+      const dawnguardDLC = ["All","Main Dawnguard Quest","Side Dawnguard Quest","Dawnguard Faction","Volkihar Clan"];
+      const dragonbornDLC = ["All","Main Dragonborn Quest","Side Dragonborn Quest"];
 
-    const container = document.getElementById("completed-by-type");
-    container.querySelectorAll(".category-stats,.total-stats").forEach(el => el.remove());
+      // ================== Unified Quest Configuration ==================
+      const questCategories = [
+        // ================== Main Quests ================== 
+        {
+          key: "main",
+          label: "Main Quests",
+          color: "#FF4500",
+          quests: [
+            quests("Unbound", "Escape Imperial custody and a dragon raid."),
+            quests("Before the Storm", "Inform the Jarl of Whiterun about the dragon attack on Helgen."),
+            quests("Bleak Falls Barrow", "Retrieve the Dragonstone."),
+            quests("Dragon Rising", "Investigate a Dragon sighting near Whiterun."),
+            quests("The Way of the Voice", "Meet the Greybeards."),
+            quests("The Horn of Jurgen Windcaller", "Retrieve a Greybeard artifact from Ustengrav."),
+            quests("A Blade in the Dark", "Prove you are Dragonborn to Delphine by slaying the dragon Sahloknir."),
+            quests("Diplomatic Immunity", "Infiltrate a party at the Thalmor Embassy."),
+            quests("A Cornered Rat", "Locate Esbern."),
+            quests("Alduin's Wall", "Locate the prophecy within Sky Haven Temple."),
+            quests("The Throat of the World", "Receive a lesson from Paarthurnax."),
+            quests("Elder Knowledge", "Locate an Elder Scroll."),
+            quests("Alduin's Bane", "Exploit the Time Wound to learn Dragonrend."),
+            quests("The Fallen", "Capture and interrogate one of Alduin's allies."),
+            quests("Paarthurnax", "Deal with a potential threat.", null, true),
+            quests("Season Unending", "Enforce a ceasefire to secure Dragonsreach.", null, true),
+            quests("The World-Eater's Eyrie", "Battle through Skuldafn Temple to reach Alduin's portal to Sovngarde."),
+            quests("Soverngarde", "Seek out Alduin within Sovngarde."),
+            quests("Dragonslayer", "Put an end to the World Eater.")
+          ]},
+        // ================== Base Game Factions ================== 
+        {
+          key: "baseGameFaction",
+          label: "Factions",
+          color: "#4682B4",
+          filters: baseFactions,
+          quests: [
+            // College of Winterhold
+            quests("College Objective Quest", "Visit the College of Winterhold.", "College of Winterhold"),
+            quests("First Lessons", "Join the College of Winterhold.", "College of Winterhold"),
+            quests("Under Saarthal", "Uncover the mysteries beneath this ancient ruin.", "College of Winterhold"),
+            quests("Hitting the Books", "Find the books needed to identify the artifact found in Saarthal.", "College of Winterhold"),
+            quests("Good Intentions", "Find and consult the Augur of Dunlain.s", "College of Winterhold"),
+            quests("Revealing the Unseen", "Discover the location of Magnus' staff.", "College of Winterhold"),
+            quests("Containment", "Deal with the aftermath of the Eye's power surge.", "College of Winterhold"),
+            quests("The Staff of Magnus", "Retrieve the Staff of Magnus.", "College of Winterhold"),
+            quests("The Eye of Magnus", "Reclaim the College and contain the Eye.", "College of Winterhold"),
+            quests("Arniel's Endeavor", "Uncover an ancient Dwemer secret.", "College of Winterhold"),
+            quests("Brelyna's Practice", "Help Brelyna Maryon test spells.", "College of Winterhold"),
+            quests("J'zargo's Experiment", "Help J'zargo test out a fiery new spell.", "College of Winterhold"),
+            quests("Onmund's Request", "Help Onmund negotiate the return of a family amulet.", "College of Winterhold"),
+            quests("Out of Balance", "Purify the focus points for magical energy around the College.", "College of Winterhold"),
+            quests("Rejoining the College", "Make amends for breaking the College of Winterhold rules.", "College of Winterhold"),
 
-    const totalCompleted = allQuests.filter(q => {
-      let prefix;
-      if (mainQuests.includes(q)) prefix = "main";
-      else if (baseFactions.includes(q)) prefix = "baseGameFaction";
-      else if (dawnguardDLCQuests.includes(q)) prefix = "dawnguard";
+            // Bards College
+            quests("Tending the Flames", "Unveil the truth about a King; become a member of Bards College.", "Bards College"),
+            quests("Investigate the Bards College", "Investigate the Bards College.", "Bards College"),
+            quests("Finn's Lute", "Return an invaluable lute to Inge Six Fingers.", "Bards College"),
+            quests("Pantea's Flute", "Find a missing flute for Pantea.", "Bards College"),
+            quests("Rjorn's Drum", "Retrieve a drum for Giraud Gemane.", "Bards College"),
 
-      const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
-      return localStorage.getItem(id) === "true";
-    }).length;
+            // Blades
+            quests("Rebuilding the Blades", "Recruit new members for the Blades.", "Blades"),
+            quests("Dragon Hunting", "Kill a dragon at its lair.", "Blades"),
+            quests("Dragon Research", "Help Esbern complete his research on dragons.", "Blades"),
 
-    const totalDiv = document.createElement("div");
-    totalDiv.classList.add("total-stats");
-    totalDiv.style.marginBottom = "10px";
-    totalDiv.innerHTML = `<strong>Total quests:</strong> <span style="color:#aaa">${allQuests.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalCompleted/allQuests.length)*100).toFixed(1)}%</span>`;
-    container.appendChild(totalDiv);
+            // Companions
+            quests("Take Up Arms", "Prove you are worthy to join the Companions.", "Companions"),
+            quests("Proving Honor", "Claim a Fragment of Wuuthrad from Dustman's Cairn.", "Companions"),
+            quests("The Silver Hand", "Join the Circle and clear Gallows Rock of werewolf hunters.", "Companions"),
+            quests("Blood's Honor", "Claim the head of a Glenmoril Witch for Kodlak Whitemane.", "Companions"),
+            quests("Purity of Revenge", "Retrieve the Fragments of Wuuthrad.", "Companions"),
+            quests("Glory of the Dead", "Cure Kodlak's spirit and prove yourself as a true Companion.", "Companions"),
 
-    Object.entries(tagStats).forEach(([tag, s]) => {
-      const percent = s.total ? (s.completed / s.total * 100).toFixed(1) : 0;
-      const div = document.createElement("div");
-      div.classList.add("category-stats");
-      div.style.marginBottom = "0px";
-      div.innerHTML = `<strong>${tag}</strong>: ${s.completed} <span style="color:#aaa">(${percent}%)</span>`;
-      container.appendChild(div);
-    });
-    }
-    
-  </script>
+            // Dark Brotherhood
+            quests("Delayed Burial", "Convince farmer to help a stranded jester outside of Whiterun.", "Dark Brotherhood", true),
+            quests("Innocence Lost", "Help an orphaned child avoid being returned to a caretaker.", "Dark Brotherhood"),
+            quests("With Friends Like These...", "Show you are willing to kill on command.", "Dark Brotherhood"),
+            quests("Sanctuary", "Pick up your first contracts as a Brotherhood member.", "Dark Brotherhood"),
+            quests("Mourning Never Comes", "Help Muiri get her revenge.", "Dark Brotherhood"),
+            quests("Whispers in the Dark", "Spy on the Night Mother's keeper.", "Dark Brotherhood"),
+            quests("The Silence Has Been Broken", "Meet Amaund Motierre inside Volunruud.", "Dark Brotherhood"),
+            quests("Bound Until Death", "Assassinate Vittoria Vici at her own wedding.", "Dark Brotherhood"),
+            quests("Breaching Security", "Kill and frame the son of a high-ranking Imperial guard.", "Dark Brotherhood"),
+            quests("The Cure for Madness", "Confront the traitor among the Dark Brotherhood.", "Dark Brotherhood"),
+            quests("Recipe for Disaster", "Assume the identity of the famous Gourmet.", "Dark Brotherhood"),
+            quests("To Kill an Empire", "Attempt to assassinate the Emperor.", "Dark Brotherhood"),
+            quests("Death Incarnate", "Assist Brotherhood members in the fight against assault.", "Dark Brotherhood"),
+            quests("Hail Sithis!", "Fulfill the biggest contract in Brotherhood history.", "Dark Brotherhood"),
 
-  <!-- ================== Footer ================== -->
-  <footer style="text-align:center; margin-top:40px; font-size:0.9em; color:#aaa;">Check out the project or <span id="footer-link-container"></span>.</footer>
-  
-</body>
+            // Thieves Guild
+            quests("A Chance Arrangement", "Help teach a merchant to mind his own business.", "Thieves Guild"),
+            quests("Taking Care of Business", "Help Brynjolf collect some debts for the Thieves Guild.", "Thieves Guild"),
+            quests("Loud and Clear", "Send a message to a former Thieves Guild client.", "Thieves Guild"),
+            quests("Dampened Spirits", "Put Maven Black-Briar's competition out of business.", "Thieves Guild"),
+            quests("Scoundrel's Folly", "Squeeze a reluctant informer for information.", "Thieves Guild"),
+            quests("Speaking With Silence", "Track down the Dunmer behind the Guild's misfortunes.", "Thieves Guild"),
+            quests("Hard Answers", "Help translate Gallus' journal.", "Thieves Guild"),
+            quests("The Pursuit", "Break into Mercer Frey's house and search for clues.", "Thieves Guild"),
+            quests("Trinity Restored", "Become one of the Nightingales, Nocturnal's guardians.", "Thieves Guild"),
+            quests("Blindsighted", "Stop Mercer Frey.", "Thieves Guild"),
+            quests("Darkness Returns", "Return the Skeleton Key to its rightful place.", "Thieves Guild"),
+            quests("Under New Management", "Become the Guild master of the Thieves Guild.", "Thieves Guild"),
+
+            // Imperial Legion
+            quests("Joining the Legion", "Prove yourself worthy to join the Imperial Legion.", "Imperial Legion"),
+            quests("The Jagged Crown", "Find the Jagged Crown for the Imperials.", "Imperial Legion"),
+            quests("Message to Whiterun", "Deliver the message that will decide Whiterun's allegiance.", "Imperial Legion"),
+            quests("Battle for Whiterun", "Protect Whiterun from the Stormcloak invasion.", "Imperial Legion"),
+            quests("Reunification of Skyrim", "Re-unite Skyrim under the leadership of the Empire.", "Imperial Legion"),
+
+            // Stormcloaks
+            quests("Joining the Stormcloaks", "Prove yourself worthy of being a Stormcloak rebel.", "Stormcloaks"),
+            quests("The Jagged Crown", "Find this crown for Ulfric Stormcloak.", "Stormcloaks"),
+            quests("Message to Whiterun", "Deliver an axe to the Jarl of Whiterun.", "Stormcloaks"),
+            quests("Battle for Whiterun", "Take Whiterun in the name of the Stormcloaks.", "Stormcloaks"),
+            quests("Liberation of Skyrim", "Overarching quest governing the individual battles of the war.", "Stormcloaks")
+          ]},
+        // ================== Divine Quests ==================
+        {
+          key: "divine",
+          label: "Divines Quests",
+          color: "#2E8B57",
+          quests: [
+            quests("Kyne's Sacred Trials", "Participate in the trials by hunting the guardian beasts of Skyrim."),
+            quests("The Blessings of Nature", "Restore the Gildergreen for Danica Pure-Spring in Whiterun."),
+            quests("The Book of Love", "Help the Temple of Mara of Riften spread the cause of love."),
+            quests("The Heart of Dibella", "Find a new Sybil for the Temple of Dibella in Markarth.")
+          ]},
+        // ================== Dawnguard DLC ==================
+        {
+          key: "dawnguard",
+          label: "Dawnguard DLC",
+          color: "#2E8B57",
+          filters: dawnguardDLC,
+          quests: [
+            quests("Dawnguard", "Join the Dawnguard.", "Main Dawnguard Quest"),
+            quests("Awakening", "Find out what the vampires are looking for.", "Main Dawnguard Quest"),
+            quests("Bloodline", "Choose your side!", "Main Dawnguard Quest"),
+            quests("A New Order (Dawnguard)", "Recruit Isran's old allies.", "Main Dawnguard Quest"),
+            quests("Prophet (Dawnguard)", "Find and rescue a Moth Priest.", "Main Dawnguard Quest"),
+            quests("The Bloodstone Chalice (Vampires)", "Fill the Bloodstone Chalice from the Bloodspring at Redwater Den.", "Main Dawnguard Quest"),
+            quests("Prophet (Vampires)", "Locate a Moth Priest.", "Main Dawnguard Quest"),
+            quests("Chasing Echoes", "Explore Castle Volkihar.", "Main Dawnguard Quest"),
+            quests("Scroll Scouting", "Obtain all three Elder Scrolls.", "Main Dawnguard Quest"),
+            quests("Beyond Death", "Search for Valerica in the Soul Cairn.", "Main Dawnguard Quest"),
+            quests("Seeking Disclosure", "Bring the Elder Scrolls to Dexion.", "Main Dawnguard Quest"),
+            quests("Unseen Visions", "Perform a ceremony to read the Elder Scroll.", "Main Dawnguard Quest"),
+            quests("Touching the Sky", "Find and retrieve Auriel's Bow.", "Main Dawnguard Quest"),
+            quests("Kindred Judgment", "Confront Lord Harkon.", "Main Dawnguard Quest"),
+
+            // Dawnguard Side Quests
+            quests("Durnehviir", "Learn a dragon shout from Durnehviir.", "Side Dawnguard Quest"),
+            quests("Forgotten Vale Books Quest", "Find the Ancient Falmer Tome.", "Side Dawnguard Quest"),
+            quests("Impatience of a Saint", "Collect the ten missing pages of Saint Jiub's Opus.", "Side Dawnguard Quest"),
+            quests("Lost to the Ages", "Search for the Dwemer's Aetherium Forge.", "Side Dawnguard Quest"),
+            quests("Soul Cairn Horse Quest", "Find Arvak's skull.", "Side Dawnguard Quest"),
+            quests("Surgery", "Change your appearance.", "Side Dawnguard Quest"),
+
+            // Dawnguard Faction
+            quests("Ancient Technology", "Retrieve Dwemer schematics to improve technology.", "Dawnguard Faction"),
+            quests("Bolstering the Ranks", "Find Florentius Baenius and recruit him into the Dawnguard.", "Dawnguard Faction"),
+            quests("Cleansing Light", "Kill the boss of a vampire lair.", "Dawnguard Faction"),
+            quests("Hide and Seek", "Kill a vampire masquerading as a citizen.", "Dawnguard Faction"),
+            quests("Hunting the Monster", "Destroy the vampire target.", "Dawnguard Faction"),
+            quests("A Jarl's Justice", "Kill a vampire masquerading as a visiting advisor.", "Dawnguard Faction"),
+            quests("Lost Relic", "Retrieve a relic of the original Dawnguard.", "Dawnguard Faction"),
+            quests("Preemptive Strike", "Destroy the vampire before it turns its allies.", "Dawnguard Faction"),
+            quests("Rescue", "Rescue a victim from vampires.", "Dawnguard Faction"),
+
+            // Volkihar Clan
+            quests("Amulets of Night Power", "Retrieve the Amulets of Night Power.", "Volkihar Clan"),
+            quests("Ancient Power", "Retrieve vampire parts.", "Volkihar Clan"),
+            quests("Culling the Beast", "Kill the thin-blooded vampires.", "Volkihar Clan"),
+            quests("Deceiving the Herd", "Frame the Dawnguard for murder.", "Volkihar Clan"),
+            quests("Destroying the Dawnguard", "Kill the Dawnguard leaders.", "Volkihar Clan"),
+            quests("The Gift", "Turn your spouse into a creature of the night.", "Volkihar Clan"),
+            quests("The Hunt", "Kill the Dawnguard spy.", "Volkihar Clan"),
+            quests("New Allegiances", "Turn the target into a vampire.", "Volkihar Clan"),
+            quests("Protecting the Bloodline", "Destroy a vampire before it turns its allies.", "Volkihar Clan"),
+            quests("Rings of Blood Magic", "Retrieve the Ring of the Erudite and the Ring of the Beast.", "Volkihar Clan")
+          ]},
+        // ================== Dragonborn DLC ==================
+        {
+          key: "dragonborn",
+          label: "Dragonborn DLC",
+          color: "#2E8B57",
+          filters: dragonbornDLC,
+          quests: [  
+            quests("Dragonborn", "Travel to the island of Solstheim.", "Main Dragonborn Quest"),
+            quests("The Temple of Miraak", "Uncover the source of Miraak's power in the Temple of Miraak.", "Main Dragonborn Quest"),
+            quests("The Fate of the Skaal", "Find a way to free the citizens of Skaal Village.", "Main Dragonborn Quest"),
+            quests("Cleansing the Stones", "Use the Bend Will shout to cleanse the remaining All-Maker Stones.", "Main Dragonborn Quest"),
+            quests("The Path of Knowledge", "Discover the locations of the Black Books.", "Main Dragonborn Quest"),
+            quests("The Gardener of Men", "Travel to the realm of Hermaeus Mora to learn the rest of Bend Will.", "Main Dragonborn Quest"),
+            quests("At the Summit of Apocrypha", "Confront Miraak at the summit of Apocrypha.", "Main Dragonborn Quest"),
+            
+            // Dragonborn Side Quests
+            quests("Black Book", "Retrieve a Black Book.", "Side Dragonborn Quest"),
+            quests("Deathbrand", "Find the treasure of Haknir Death-Brand.", "Side Dragonborn Quest"),
+            quests("Hrodulf's House", "Uncover the secret of Hrodulf's House.", "Side Dragonborn Quest"),
+            quests("Kolbjorn Barrow Misc Objectives", "Search for the relics of Ahzidal in Kolbjorn Barrow.", "Side Dragonborn Quest"),
+            quests("Sell Stalhrim Equipment", "Sell stalhrim equipment to Ancarion at Northshore Landing.", "Side Dragonborn Quest"),
+            quests("Summoning Karstaag", "Summon and defeat Karstaag.", "Side Dragonborn Quest"),
+            quests("The Ebony Warrior", "Locate and defeat the Ebony Warrior.", "Side Dragonborn Quest"),
+            quests("The Kagrumez Gauntlet", "Survive the Kagrumez trials to claim a unique prize.", "Side Dragonborn Quest"),
+            quests("Unearthed", "Search for the relics of Ahzidal in Kolbjorn Barrow.", "Side Dragonborn Quest"),
+            quests("Visit the hunters at Frostmoon Crag", "Talk to the hunters at Frostmoon Crag.", "Side Dragonborn Quest"),
+            quests("An Axe to Find", "Retrieve an ancient Nordic pickaxe.", "Side Dragonborn Quest"),
+            quests("Clean Sweep", "Clear the Temple Ancestral Tomb of ash spawn.", "Side Dragonborn Quest"),
+            quests("Feeding the Addiction", "Convince an innkeeper to let a drunken miner get back to the bar.", "Side Dragonborn Quest"),
+            quests("Fetch the Netch", "Obtain five samples of netch jelly.", "Side Dragonborn Quest"),
+            quests("First Edition", "Locate an important folio.", "Side Dragonborn Quest"),
+            quests("It's All In The Taste", "Distribute Sadri's Sujamma to the citizens of Raven Rock.", "Side Dragonborn Quest"),
+            quests("March of the Dead", "Stop the ash spawn attacks.", "Side Dragonborn Quest"),
+            quests("Paid in Full", "Recover bonemold formula.", "Side Dragonborn Quest"),
+            quests("Pain in the Necklace", "Find East Empire pendants.", "Side Dragonborn Quest"),
+            quests("Recipe for Distraction", "Locate a hidden stash of Emberbrand Wine.", "Side Dragonborn Quest"),
+            quests("Served Cold", "Save Councilor Morvayn from an assassination plot.", "Side Dragonborn Quest"),
+            quests("The Final Descent", "Find out what happened to the great-grandfather of Crescius Caerellius.", "Side Dragonborn Quest"),
+            quests("A New Source of Stalhrim", "Find a missing blacksmith.", "Side Dragonborn Quest"),
+            quests("Convince Nikulas to stay in Skaal Village", "Counsel a young Skaal on life as an adventurer.", "Side Dragonborn Quest"),
+            quests("Filial Bonds", "Find Wulf Wild-Blood's brother.", "Side Dragonborn Quest"),
+            quests("Lost Legacy", "Travel to Vahlok's Tomb.", "Side Dragonborn Quest"),
+            quests("Skaal Village Dialogue", "Take Bera's necklace to Runil in Falkreath.", "Side Dragonborn Quest"),
+            quests("Elmus Favor Quest (berries)", "Retrieve one sample of juniper berries.", "Side Dragonborn Quest"),
+            quests("Elmus Favor Quest (mead)", "Retrieve one bottle of Ashfire Mead for Elmus.", "Side Dragonborn Quest"),
+            quests("Halbarn Favor Quest", "Find 10 stalhrim samples and 15 ebony ingots.", "Side Dragonborn Quest"),
+            quests("Hilund Favor Quest", "Find 50 Riekling spears for Hilund.", "Side Dragonborn Quest"),
+            quests("Retaking Thirsk", "Help retake the Thirsk Mead Hall.", "Side Dragonborn Quest"),
+            quests("The Chief of Thirsk Hall", "Help a Riekling Chief.", "Side Dragonborn Quest"),
+            quests("Thirsk Rumors", "Investigate Thirsk Mead Hall.", "Side Dragonborn Quest"),
+            quests("A New Debt", "Help Drovas Relvi with his debt to Mogrul.", "Side Dragonborn Quest"),
+            quests("Azra's Staffs", "Retrieve a staff made by Azra Nightwielder.", "Side Dragonborn Quest"),
+            quests("Briarheart Necropsy", "Examine a Briarheart.", "Side Dragonborn Quest"),
+            quests("Experimental Subject (A)", "Be a test subject in an experiment.", "Side Dragonborn Quest"),
+            quests("Experimental Subject (B)", "Be a test subject in an experiment.", "Side Dragonborn Quest"),
+            quests("From the Ashes", "Help Talvas Fathryon by killing an ash guardian.", "Side Dragonborn Quest"),
+            quests("Healing a House", "Help Elynea Mothren repair the tower of Tel Mithryn.", "Side Dragonborn Quest"),
+            quests("Heart Stones", "Find a heart stone for Neloth.", "Side Dragonborn Quest"),
+            quests("Hunting and Gathering", "Collect a rare alchemy ingredient.", "Side Dragonborn Quest"),
+            quests("Lost Knowledge", "Retrieve the Black Books for Neloth.", "Side Dragonborn Quest"),
+            quests("Old Friends", "Find the source of attacks on Tel Mithryn.", "Side Dragonborn Quest"),
+            quests("Reluctant Steward", "Find a new steward in Raven Rock.", "Side Dragonborn Quest"),
+            quests("Telvanni Research", "Extract a sample from an ash spawn for Neloth's research.", "Side Dragonborn Quest"),
+            quests("Wind and Sand", "Retrieve a copy of Wind and Sand.", "Side Dragonborn Quest")
+          ]}
+      ];
+
+      // ================== Checklist Helpers ==================
+      function createTag(text, className){
+        const s=document.createElement("span"); 
+        s.className=`tag ${className}`; 
+        s.textContent=text; 
+        return s; 
+      }
+
+      function createChecklistItem(item,type,container){ 
+        const id=`tes-skyrim-${type}-${item.title.replace(/\s+/g,"-").toLowerCase()}`;
+        const li=document.createElement("li");
+        const checkbox=document.createElement("input"); 
+        checkbox.type="checkbox"; 
+        checkbox.id=id; 
+        checkbox.checked=localStorage.getItem(id)==="true";
+        const label=document.createElement("label"); 
+        label.setAttribute("for",id); 
+        label.textContent=` ${item.title}`;
+        checkbox.addEventListener("change",()=>{
+          localStorage.setItem(id,checkbox.checked); 
+          updateProgressByType(type); 
+          updateAllStats();
+        });
+        li.append(checkbox,label); 
+
+        if(item.tag){ 
+          const tags=Array.isArray(item.tag)?item.tag:[item.tag]; 
+          tags.forEach(t=>{ if(t) li.append(createTag(t,"tag"+t.replace(/\s+/g,""))); });
+        }
+        if(item.giver) li.append(createTag(item.giver,"tagGiver"));
+        if(item.optional) li.append(createTag(item.optional,"tagOptional"));
+        if(item.note) li.append(createTag(item.note,"tagNote"));
+
+        container.appendChild(li);
+      }
+
+      // ================== Progress ==================
+      function updateProgressByType(key){
+        const category = questCategories.find(c => c.key === key);
+        if(!category) return;
+
+        const listEl = document.getElementById(`${key}-Quests`);
+        const checkboxes = listEl.querySelectorAll("input[type=checkbox]");
+        let completed = 0;
+        checkboxes.forEach(cb => { if(cb.checked) completed++; });
+
+        const progressEl = document.getElementById(`${key}-Progress`);
+        if(progressEl) progressEl.textContent = `Completed ${completed} / ${checkboxes.length}`;
+      }
+
+      // ================== Filter Buttons ==================
+      function setActiveButton(containerSelector, text){
+        document.querySelectorAll(containerSelector+" .tab-button").forEach(btn=>btn.classList.remove("active"));
+        document.querySelectorAll(containerSelector+" .tab-button").forEach(b=>{ if(b.textContent===text) b.classList.add("active"); });
+      }
+
+      function renderQuestList(category){
+        const listEl = document.getElementById(`${category.key}-Quests`);
+        if(!listEl) return;
+        listEl.innerHTML = "";
+
+        let filteredQuests = category.quests;
+        if(category.activeFilter && category.activeFilter !== "All" && category.filters){
+          filteredQuests = filteredQuests.filter(q=>q.tag === category.activeFilter);
+        }
+
+        filteredQuests.forEach(q => createChecklistItem(q, category.key, listEl));
+        updateProgressByType(category.key);
+
+        // Render filter buttons
+        if(category.filters){
+          const filterContainer = document.getElementById(`${category.key}-filters`);
+          if(filterContainer){
+            filterContainer.innerHTML = "";
+            // Ensure "All" is first
+            const filtersWithAll = ["All", ...category.filters.filter(f => f !== "All")];
+            filtersWithAll.forEach(f=>{
+              const btn=document.createElement("div");
+              btn.className="tab-button"; 
+              btn.textContent=f;
+              btn.addEventListener("click", ()=>{
+                category.activeFilter = f;
+                renderQuestList(category);
+              });
+              filterContainer.appendChild(btn);
+            });
+            // Initialize activeFilter if undefined
+            if(!category.activeFilter) category.activeFilter = "All";
+            setActiveButton(`#${category.key}-filters`, category.activeFilter);
+          }
+        }
+      }
+
+      // ================== Initialize All Lists ==================
+      questCategories.forEach(cat => renderQuestList(cat));
+
+      // ================== GitHub Links ==================
+      window.addEventListener("DOMContentLoaded",()=>{
+        document.getElementById("faq-link-container").appendChild(document.getElementById("github-link-template-faq").content.cloneNode(true));
+        document.getElementById("footer-link-container").appendChild(document.getElementById("github-link-template-footer").content.cloneNode(true));
+      });
+
+      // ================== Export/Import ==================
+      function exportChecklist(){
+        const data = { prefix:"tes-skyrim" };
+        questCategories.forEach(cat=>{
+          data[cat.key] = [];
+          const listEl = document.getElementById(`${cat.key}-Quests`);
+          listEl.querySelectorAll("input[type=checkbox]").forEach(cb=>{
+            if(cb.checked) data[cat.key].push(cb.id.replace(`tes-skyrim-${cat.key}-`,""));
+          });
+        });
+        const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+        const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="tes-skyrim-checklist.json"; a.click(); URL.revokeObjectURL(a.href);
+      }
+
+      function importChecklist(){
+        const fileInput=document.getElementById("import-file");
+        fileInput.click();
+        fileInput.onchange=e=>{
+          const file=e.target.files[0];
+          if(!file) return;
+          const reader=new FileReader();
+          reader.onload=ev=>{
+            try{
+              const imported=JSON.parse(ev.target.result);
+              if(imported.prefix !== "tes-skyrim"){ alert(`This checklist file is for a different game or project ("${imported.prefix}").`); return; }
+              questCategories.forEach(cat=>{
+                imported[cat.key]?.forEach(slug=>{
+                localStorage.setItem(`tes-skyrim-${cat.key}-${slug}`,"true");
+});
+});
+alert("Checklist progress imported! Refresh the page to see updates.");
+} catch(err){ alert("Failed to import: Invalid file format."); }
+};
+reader.readAsText(file);
+};
+}
+
+// ================== Stats Chart ==================
+let combinedChart;
+
+function updateAllStats(){
+const allQuests = questCategories.flatMap(c=>c.quests);
+const tagStats = {};
+
+allQuests.forEach(q=>{
+const key = q.tag || questCategories.find(c => c.quests.includes(q))?.label || "Main Quests";
+
+let prefix = questCategories.find(c=>c.quests.includes(q))?.key;
+const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
+const completed = localStorage.getItem(id) === "true";
+
+tagStats[key] = tagStats[key] || { completed:0, total:0 };
+tagStats[key].total++;
+if(completed) tagStats[key].completed++;
+});
+
+const labels = Object.keys(tagStats);
+const data = labels.map(l => tagStats[l].completed);
+const colorMap = {
+"Main Quests": "#FFD700",
+"Side Quests": "#87CEFA",
+"College of Winterhold": "#9370DB",
+"Bards College": "#FF69B4",
+"Blades": "#A9A9A9",
+"Companions": "#C0C0C0",
+"Dark Brotherhood": "#4B0082",
+"Thieves Guild": "#556B2F",
+"Imperial Legion": "#B22222",
+"Stormcloaks": "#1E90FF",
+"Divines": "#00CED1",
+"Daedric": "#8B0000",
+"Main Dawnguard Quest": "#1E90FF",
+"Side Dawnguard Quest": "#1E90FF",
+"Dawnguard Faction": "#4682B4",
+"Volkihar Clan": "#4B0082",
+"Main Dragonborn Quest": "#FF8C00",
+"Side Dragonborn Quest": "#FFA500"
+};    
+
+combinedChart?.destroy();
+combinedChart = new Chart(document.getElementById("combinedChart").getContext("2d"), {
+type: "doughnut",
+data: { labels, datasets:[{ label:"Completed Quests", data, backgroundColor:labels.map(l=>colorMap[l]||"#aaa"), borderWidth:0 }] },
+options:{ responsive:true, plugins:{ legend:{ position:"bottom" } } }
+});
+
+const container = document.getElementById("completed-by-type");
+container.querySelectorAll(".category-stats,.total-stats").forEach(el=>el.remove());
+
+const totalCompleted = allQuests.filter(q=>{
+let prefix = questCategories.find(c=>c.quests.includes(q))?.key;
+const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
+return localStorage.getItem(id) === "true";
+}).length;
+
+const totalDiv = document.createElement("div");
+totalDiv.classList.add("total-stats");
+totalDiv.style.marginBottom = "10px";
+totalDiv.innerHTML = `<strong>Total quests:</strong> <span style="color:#aaa">${allQuests.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalCompleted/allQuests.length)*100).toFixed(1)}%</span>`;
+              container.appendChild(totalDiv);
+
+              Object.entries(tagStats).forEach(([tag,s])=>{
+                const percent = s.total ? (s.completed / s.total * 100).toFixed(1) : 0;
+                const div=document.createElement("div");
+                div.classList.add("category-stats");
+                div.style.marginBottom="0px";
+                div.innerHTML=`<strong>${tag}</strong>: ${s.completed} <span style="color:#aaa">(${percent}%)</span>`;
+                container.appendChild(div);
+              });
+            }
+
+    </script>
+
+    <!-- ================== Footer ================== -->
+    <footer style="text-align:center; margin-top:40px; font-size:0.9em; color:#aaa;">Check out the project or <span id="footer-link-container"></span>.</footer>
+
+  </body>
 </html>
 
 
