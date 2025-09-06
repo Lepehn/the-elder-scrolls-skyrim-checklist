@@ -509,7 +509,7 @@
       combinedChart?.destroy();
       combinedChart = new Chart(document.getElementById("combinedChart").getContext("2d"), {
       type: "doughnut",
-        data: { labels, datasets: [{ label: "Completed Quests", data, backgroundColor: labels.map(l => colorMap[l] || "#aaa") }] },
+        data: { labels, datasets: [{ label: "Completed Quests", data, backgroundColor: labels.map(l => colorMap[l] || "#aaa"), borderWidth: 0, }] },
           options: { responsive: true, plugins: { legend: { position: "bottom" } } }
     });
 
@@ -536,7 +536,7 @@
       const percent = s.total ? (s.completed / s.total * 100).toFixed(1) : 0;
       const div = document.createElement("div");
       div.classList.add("category-stats");
-      div.style.marginBottom = "10px";
+      div.style.marginBottom = "0px";
       div.innerHTML = `<strong>${tag}</strong>: ${s.completed} <span style="color:#aaa">(${percent}%)</span>`;
       container.appendChild(div);
     });
