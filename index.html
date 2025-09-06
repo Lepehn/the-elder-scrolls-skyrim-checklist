@@ -47,8 +47,10 @@
     .tagImperialLegion { background: #B22222; }
     .tagStormcloaks { background: #4682B4; }
     .tagDLC { background: var(--accent); }
+    .tagMainDawnguardQuest { background: #2E8B57 }
+    .tagSideDawnguardQuest { background-color: #444; color: #ccc; }
     .tagDawnguardFaction { background: #008080; }
-    .tagVolkiharFaction { background: #4B0082; }
+    .tagVolkiharClan { background: #4B0082; }
     .tagDragonborn {background: #32CD32; }
 
     /* ================== Layout ================== */
@@ -143,6 +145,7 @@
         <div class="tab-buttons2">
           <div class="tab-button" data-target="main">Main Quests</div>
           <div class="tab-button" data-target="baseGameFaction">Faction</div>
+          <div class="tab-button" data-target="dawnguardDLCQuests">Dawnguard DLC</div>
         </div>
       </div>
 
@@ -159,6 +162,14 @@
         <div class="progress" id="baseGame-faction-Progress">Completed 0 / 0</div>
         <div id="faction-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
         <div class="scrollable-list"><ul id="baseGame-faction-Quests"></ul></div>
+      </div>
+      
+      <!-- [ Dawnguard DLC Quests ] -->
+      <div class="content" id="dawnguardDLCQuests">
+        <h2>Dawnguard DLC</h2>
+        <div class="progress" id="dawnguard-Progress">Completed 0 / 0</div>
+        <div id="dawnguard-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
+        <div class="scrollable-list"><ul id="dawnguard-Quests"></ul></div>
       </div>
 
       <!-- FAQ -->
@@ -219,6 +230,7 @@
       const q = { title, note }; if(tag) q.tag = tag; if(optional) q.optional = "Optional"; return q;
     }
 
+    // ================== Base Game ==================
    const mainQuests = [
       quests("Unbound", "Escape Imperial custody and a dragon raid."),
       quests("Before the Storm", "Inform the Jarl of Whiterun about the dragon attack on Helgen."),
@@ -325,6 +337,58 @@
       quests("Liberation of Skyrim", "Overarching quest governing the individual battles of the war.", "Stormcloaks")
     ];
     const factions = ["All","College of Winterhold","Bards College","Blades","Companions","Dark Brotherhood","Thieves Guild", "Imperial Legion", "Stormcloaks"];
+    
+    // ================== Dawnguard DLC ==================
+    // Dawnguard DLC Main Quests
+    const dawnguardDLCQuests = [
+      quests("Dawnguard", "Join the Dawnguard.", "Main Dawnguard Quest"),
+      quests("Awakening", "Find out what the vampires are looking for.", "Main Dawnguard Quest"),
+      quests("Bloodline", "Choose your side!", "Main Dawnguard Quest"),
+      quests("A New Order (Dawnguard)", "Recruit Isran's old allies.", "Main Dawnguard Quest"),
+      quests("Prophet (Dawnguard)", "Find and rescue a Moth Priest.", "Main Dawnguard Quest"),
+      quests("The Bloodstone Chalice (Vampires)", "Fill the Bloodstone Chalice from the Bloodspring at Redwater Den.", "Main Dawnguard Quest"),
+      quests("Prophet (Vampires)", "Locate a Moth Priest.", "Main Dawnguard Quest"),
+      quests("Chasing Echoes", "Explore Castle Volkihar.", "Main Dawnguard Quest"),
+      quests("Scroll Scouting", "Obtain all three Elder Scrolls.", "Main Dawnguard Quest"),
+      quests("Beyond Death", "Search for Valerica in the Soul Cairn.", "Main Dawnguard Quest"),
+      quests("Seeking Disclosure", "Bring the Elder Scrolls to Dexion.", "Main Dawnguard Quest"),
+      quests("Unseen Visions", "Perform a ceremony to read the Elder Scroll.", "Main Dawnguard Quest"),
+      quests("Touching the Sky", "Find and retrieve Auriel's Bow.", "Main Dawnguard Quest"),
+      quests("Kindred Judgment", "Confront Lord Harkon.", "Main Dawnguard Quest"),
+      
+      // Dawnguard Side Quests
+      quests("Durnehviir", "Learn a dragon shout from Durnehviir.", "Side Dawnguard Quest"),
+      quests("Forgotten Vale Books Quest", "Find the Ancient Falmer Tome.", "Side Dawnguard Quest"),
+      quests("Impatience of a Saint", "Collect the ten missing pages of Saint Jiub's Opus.", "Side Dawnguard Quest"),
+      quests("Lost to the Ages", "Search for the Dwemer's Aetherium Forge.", "Side Dawnguard Quest"),
+      quests("Soul Cairn Horse Quest", "Find Arvak's skull.", "Side Dawnguard Quest"),
+      quests("Surgery", "Change your appearance.", "Side Dawnguard Quest"),
+      
+      // Dawnguard Faction
+      quests("Ancient Technology", "Retrieve Dwemer schematics to improve technology.", "Dawnguard Faction"),
+      quests("Bolstering the Ranks", "Find Florentius Baenius and recruit him into the Dawnguard.", "Dawnguard Faction"),
+      quests("Cleansing Light", "Kill the boss of a vampire lair.", "Dawnguard Faction"),
+      quests("Hide and Seek", "Kill a vampire masquerading as a citizen.", "Dawnguard Faction"),
+      quests("Hunting the Monster", "Destroy the vampire target.", "Dawnguard Faction"),
+      quests("A Jarl's Justice", "Kill a vampire masquerading as a visiting advisor.", "Dawnguard Faction"),
+      quests("Lost Relic", "Retrieve a relic of the original Dawnguard.", "Dawnguard Faction"),
+      quests("Preemptive Strike", "Destroy the vampire before it turns its allies.", "Dawnguard Faction"),
+      quests("Rescue", "Rescue a victim from vampires.", "Dawnguard Faction"),
+      
+      // Volkihar Clan
+      quests("Amulets of Night Power", "Retrieve the Amulets of Night Power.", "Volkihar Clan"),
+      quests("Ancient Power", "Retrieve vampire parts.", "Volkihar Clan"),
+      quests("Culling the Beast", "Kill the thin-blooded vampires.", "Volkihar Clan"),
+      quests("Deceiving the Herd", "Frame the Dawnguard for murder.", "Volkihar Clan"),
+      quests("Destroying the Dawnguard", "Kill the Dawnguard leaders.", "Volkihar Clan"),
+      quests("The Gift", "Turn your spouse into a creature of the night.", "Volkihar Clan"),
+      quests("The Hunt", "Kill the Dawnguard spy.", "Volkihar Clan"),
+      quests("New Allegiances", "Turn the target into a vampire.", "Volkihar Clan"),
+      quests("Protecting the Bloodline", "Destroy a vampire before it turns its allies.", "Volkihar Clan"),
+      quests("Rings of Blood Magic", "Retrieve the Ring of the Erudite and the Ring of the Beast.", "Volkihar Clan")
+    ];
+
+    const dawnguardDLC = ["All","Main Dawnguard Quest", "Side Dawnguard Quest", "Dawnguard Faction", "Volkihar Clan"];
 
     // ================== Initialization ==================
     function createTag(text, className){ const s=document.createElement("span"); s.className=`tag ${className}`; s.textContent=text; return s; }
@@ -343,7 +407,7 @@
     }
 
     function updateProgressByType(type){
-      const map={main:"main-Progress",baseGameFaction:"baseGame-faction-Progress"};
+      const map={main:"main-Progress",baseGameFaction:"baseGame-faction-Progress", dawnguard: "dawnguard-Progress" };
       const progressId=map[type]; if(!progressId) return;
       const list=document.getElementById(progressId.replace("-Progress","-Quests")||"");
       if(!list) return; const cbs=list.querySelectorAll("input[type=checkbox]");
@@ -354,14 +418,31 @@
     // ================== Filter Buttons ==================
     function addFilterButtons(containerId, list, callback){ const container=document.getElementById(containerId); list.forEach(f=>{ const btn=document.createElement("div"); btn.className="tab-button"; btn.textContent=f; btn.addEventListener("click",()=>callback(f)); container.appendChild(btn); }); }
     addFilterButtons("faction-filters",factions,filterFactionByFaction);
+    addFilterButtons("dawnguard-filters", dawnguardDLC, filterDawnguard);
+
     function filterFactionByFaction(f){const listEl=document.getElementById("baseGame-faction-Quests"); listEl.innerHTML=""; const filtered=f==="All"?baseFactions:baseFactions.filter(q=>q.tag===f); filtered.forEach(q=>createChecklistItem(q,"baseGameFaction",listEl)); updateProgressByType("baseGameFaction"); setActiveButton("#faction-filters",f);}
+
+    function filterDawnguard(f){
+      const listEl = document.getElementById("dawnguard-Quests");
+      listEl.innerHTML = "";
+      const filtered = f === "All" ? dawnguardDLCQuests : dawnguardDLCQuests.filter(q => q.tag === f);
+      filtered.forEach(q => createChecklistItem(q, "dawnguard", listEl)); // <- change type here
+      updateProgressByType("dawnguard"); // <- match progress mapping
+      setActiveButton("#dawnguard-filters", f);
+    }
+
     function setActiveButton(containerSelector, text){document.querySelectorAll(containerSelector+" .tab-button").forEach(btn=>btn.classList.remove("active")); const btn=document.querySelector(containerSelector+" .tab-button:nth-child(n)"); document.querySelectorAll(containerSelector+" .tab-button").forEach(b=>{ if(b.textContent===text) b.classList.add("active"); }); }
 
     // ================== Initialize Lists ==================
-    ["main","baseGameFaction"].forEach(t => {
-      const listId = t === "main" ? "main-Quests" : "baseGame-faction-Quests";
+    const config = {
+      main: { listId: "main-Quests", data: mainQuests },
+      baseGameFaction: { listId: "baseGame-faction-Quests", data: baseFactions },
+      dawnguard: { listId: "dawnguard-Quests", data: dawnguardDLCQuests }
+    };
+
+    ["main","baseGameFaction","dawnguard"].forEach(t => {
+      const { listId, data } = config[t];
       const list = document.getElementById(listId);
-      const data = t === "main" ? mainQuests : baseFactions;
       data.forEach(q => createChecklistItem(q, t, list));
       updateProgressByType(t);
     });
@@ -377,8 +458,8 @@
 
     // ================== Export/Import ==================
     function exportChecklist(){
-      const categories=["main","baseGameFaction"], STORAGE_PREFIX="tes-skyrim";
-      const data={prefix:STORAGE_PREFIX,main:[],baseGameFaction:[]};
+      const categories=["main","baseGameFaction", "dawnguard"], STORAGE_PREFIX="tes-skyrim";
+      const data={prefix:STORAGE_PREFIX,main:[],baseGameFaction:[], dawnguard:[]};
       categories.forEach(c=>{
         for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i); if(key.startsWith(`${STORAGE_PREFIX}-${c}-`) && localStorage.getItem(key)==="true"){data[c].push(key.slice(`${STORAGE_PREFIX}-${c}-`.length)); }}
         data[c].sort();
@@ -390,65 +471,77 @@
 
     // ================== Stats Chart ==================
     let combinedChart;
-function updateAllStats(){
-  const allQuests = [...mainQuests, ...baseFactions]; // all quests regardless of filter
-  const tagStats = {};
+    function updateAllStats(){
+      const allQuests = [...mainQuests, ...baseFactions, ...dawnguardDLCQuests]; // all quests
+      const tagStats = {};
 
-  allQuests.forEach(q => {
-    const key = q.tag || "Main Quests";
-    // check completion from localStorage instead of DOM
-    const id = `tes-skyrim-${q.tag ? "baseGameFaction" : "main"}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
-    const completed = localStorage.getItem(id) === "true";
+      allQuests.forEach(q => {
+        const key = q.tag || "Main Quests";
+
+        let prefix;
+        if (mainQuests.includes(q)) prefix = "main";
+        else if (baseFactions.includes(q)) prefix = "baseGameFaction";
+        else if (dawnguardDLCQuests.includes(q)) prefix = "dawnguard";
+
+        const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
+        const completed = localStorage.getItem(id) === "true";
+
+        tagStats[key] = tagStats[key] || { completed: 0, total: 0 };
+        tagStats[key].total++;
+        if (completed) tagStats[key].completed++;
+      });
+
+      const labels = Object.keys(tagStats);
+      const data = labels.map(l => tagStats[l].completed);
+      const colorMap = {
+        "College of Winterhold": "#1E90FF",
+        "Bards College": "#FFD700",
+        "Blades": "#A52A2A",
+        "Companions": "#7D7D7D",
+        "Dark Brotherhood": "#8B0000",
+        "Thieves Guild": "#6A0DAD",
+        "Imperial Legion": "#B22222",
+        "Stormcloaks": "#4682B4",
+        "Main Quests": "#FF4500",
+        "Main Dawnguard Quest": "#2E8B57" // add Dawnguard color here
+      };
+
+      combinedChart?.destroy();
+      combinedChart = new Chart(document.getElementById("combinedChart").getContext("2d"), {
+      type: "doughnut",
+        data: { labels, datasets: [{ label: "Completed Quests", data, backgroundColor: labels.map(l => colorMap[l] || "#aaa") }] },
+          options: { responsive: true, plugins: { legend: { position: "bottom" } } }
+    });
+
+    const container = document.getElementById("completed-by-type");
+    container.querySelectorAll(".category-stats,.total-stats").forEach(el => el.remove());
+
+    const totalCompleted = allQuests.filter(q => {
+      let prefix;
+      if (mainQuests.includes(q)) prefix = "main";
+      else if (baseFactions.includes(q)) prefix = "baseGameFaction";
+      else if (dawnguardDLCQuests.includes(q)) prefix = "dawnguard";
+
+      const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
+      return localStorage.getItem(id) === "true";
+    }).length;
+
+    const totalDiv = document.createElement("div");
+    totalDiv.classList.add("total-stats");
+    totalDiv.style.marginBottom = "10px";
+    totalDiv.innerHTML = `<strong>Total quests:</strong> <span style="color:#aaa">${allQuests.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalCompleted/allQuests.length)*100).toFixed(1)}%</span>`;
+    container.appendChild(totalDiv);
+
+    Object.entries(tagStats).forEach(([tag, s]) => {
+      const percent = s.total ? (s.completed / s.total * 100).toFixed(1) : 0;
+      const div = document.createElement("div");
+      div.classList.add("category-stats");
+      div.style.marginBottom = "10px";
+      div.innerHTML = `<strong>${tag}</strong>: ${s.completed} <span style="color:#aaa">(${percent}%)</span>`;
+      container.appendChild(div);
+    });
+    }
     
-    tagStats[key] = tagStats[key] || { completed: 0, total: 0 };
-    tagStats[key].total++;
-    if (completed) tagStats[key].completed++;
-  });
-
-  const labels = Object.keys(tagStats);
-  const data = labels.map(l => tagStats[l].completed);
-  const colorMap = {
-    "College of Winterhold": "#1E90FF",
-    "Bards College": "#FFD700",
-    "Blades": "#A52A2A",
-    "Companions": "#7D7D7D",
-    "Dark Brotherhood": "#8B0000",
-    "Thieves Guild": "#6A0DAD",
-    "Imperial Legion": "#B22222",
-    "Stormcloaks": "#4682B4",
-    "Main Quests": "#FF4500"
-  };
-
-  combinedChart?.destroy();
-  combinedChart = new Chart(document.getElementById("combinedChart").getContext("2d"), {
-    type: "doughnut",
-    data: { labels, datasets: [{ label: "Completed Quests", data, backgroundColor: labels.map(l => colorMap[l] || "#aaa") }] },
-    options: { responsive: true, plugins: { legend: { position: "bottom" } } }
-  });
-
-  const container = document.getElementById("completed-by-type");
-  container.querySelectorAll(".category-stats,.total-stats").forEach(el => el.remove());
-
-  const totalCompleted = allQuests.filter(q => {
-    const id = `tes-skyrim-${q.tag ? "baseGameFaction" : "main"}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
-    return localStorage.getItem(id) === "true";
-  }).length;
-
-  const totalDiv = document.createElement("div");
-  totalDiv.classList.add("total-stats");
-  totalDiv.style.marginBottom = "10px";
-  totalDiv.innerHTML = `<strong>Total quests:</strong> <span style="color:#aaa">${allQuests.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalCompleted/allQuests.length)*100).toFixed(1)}%</span>`;
-  container.appendChild(totalDiv);
-
-  Object.entries(tagStats).forEach(([tag, s]) => {
-    const percent = s.total ? (s.completed / s.total * 100).toFixed(1) : 0;
-    const div = document.createElement("div");
-    div.classList.add("category-stats");
-    div.style.marginBottom = "10px";
-    div.innerHTML = `<strong>${tag}</strong>: ${s.completed} <span style="color:#aaa">(${percent}%)</span>`;
-    container.appendChild(div);
-  });
-}
   </script>
 
   <!-- ================== Footer ================== -->
@@ -456,4 +549,5 @@ function updateAllStats(){
   
 </body>
 </html>
+
 
