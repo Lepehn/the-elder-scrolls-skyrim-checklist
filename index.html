@@ -44,6 +44,20 @@
       .tagDivineQuests { background: #00CED1; }     /* Dark Turquoise */
       .tagDeadricQuests { background: #8B0000; }    /* Dark Red */
       
+      /* Regions */
+      .tagAll { background: #808080; }          /* Gray - generic/any region */
+      .tagEastmarch { background: #FF4500; }    /* OrangeRed - volcanic/mountain feel */
+      .tagFalkreath { background: #228B22; } /* ForestGreen */
+      .tagHaafingar { background: #4682B4; }     /* SteelBlue - coastal region */
+      .tagHjaalmarch { background: #2E8B57; }    /* SeaGreen - marshy/wetlands */
+      .tagThePale { background: #ADD8E6; }       /* LightBlue - cold, snowy */
+      .tagTheReach { background: #8B4513; }      /* SaddleBrown - rugged/rocky */
+      .tagTheRift { background: #DAA520; }       /* Goldenrod - fertile valleys */
+      .tagWhiterun { background: #F0E68C; }      /* Khaki - central plains */
+      .tagWinterhold { background: #B0C4DE; }    /* LightSteelBlue - icy/northern */
+      .tagBlackreach { background: #4B0082; }    /* Indigo - underground/dark */
+      .tagAny { background: #696969; }           /* DimGray - wildcard/any */
+
       /* Factions */
       .tagCollegeofWinterhold { background: #9370DB; } /* Medium Purple */
       .tagBardsCollege { background: #FF69B4; }     /* Hot Pink */
@@ -154,9 +168,11 @@
       <div class="content-section">
         <div class="tab-box2">
           <div class="tab-buttons2">
-            <div class="tab-button" data-target="main">Main Quests</div>
+            <div class="tab-button" data-target="main">Main</div>
+            <div class="tab-button" data-target="side">Side</div>
             <div class="tab-button" data-target="baseGameFaction">Faction</div>
             <div class="tab-button" data-target="divine">Divines</div>
+            <div class="tab-button" data-target="daedric">Daedric</div>
             <div class="tab-button" data-target="dawnguardDLCQuests">Dawnguard DLC</div>
             <div class="tab-button" data-target="dragonbornDLCQuests">Dragonborn DLC</div>
           </div>
@@ -167,6 +183,14 @@
           <h2>Main Quests</h2>
           <div class="progress" id="main-Progress">Completed 0 / 0</div>
           <div class="scrollable-list"><ul id="main-Quests"></ul></div>
+        </div>
+        
+        <!-- Side Quests -->
+        <div class="content" id="side">
+          <h2>Side Quests</h2>
+          <div class="progress" id="side-Progress">Completed 0 / 0</div>
+          <div id="side-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
+          <div class="scrollable-list"><ul id="side-Quests"></ul></div>
         </div>
 
         <!-- Base Game Factions -->
@@ -182,6 +206,13 @@
           <h2>Divines Quests</h2>
           <div class="progress" id="divine-Progress">Completed 0 / 0</div>
           <div class="scrollable-list"><ul id="divine-Quests"></ul></div>
+        </div>
+
+        <!-- Daedric Quests -->
+        <div class="content" id="daedric">
+          <h2>Daedric Quests</h2>
+          <div class="progress" id="daedric-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="daedric-Quests"></ul></div>
         </div>
 
         <!-- Dawnguard DLC -->
@@ -271,6 +302,7 @@
 		*/
 
       // ================== Filters ==================
+      const regions = ["All","Eastmarch", "Falkreath","Haafingar","Hjaalmarch","The Pale","The Reach","The Rift", "Whiterun", "Winterhold", "Blackreach", "Any"];
       const baseFactions = ["All","College of Winterhold","Bards College","Blades","Companions","Dark Brotherhood","Thieves Guild", "Imperial Legion", "Stormcloaks"];
       const dawnguardDLC = ["All","Main Dawnguard Quest","Side Dawnguard Quest","Dawnguard Faction","Volkihar Clan"];
       const dragonbornDLC = ["All","Main Dragonborn Quest","Side Dragonborn Quest"];
@@ -302,6 +334,133 @@
             quests("The World-Eater's Eyrie", "Battle through Skuldafn Temple to reach Alduin's portal to Sovngarde."),
             quests("Soverngarde", "Seek out Alduin within Sovngarde."),
             quests("Dragonslayer", "Put an end to the World Eater.")
+          ]},
+        // ================== Side Quests ================== 
+        {
+          key: "side",
+          label: "Side Quests",
+          color: "#FFA500",
+          filters: regions,
+          quests: [
+            // Eastmarch
+            quests("A Love Beyond Death", "Side quest in Eastmarch.", "Eastmarch"),
+            quests("Argonian Dock Workers", "Side quest in Eastmarch.", "Eastmarch"),
+            quests("Blood on the Ice", "Investigate murders in Windhelm.", "Eastmarch"),
+            quests("Find Roggi Knot-Beard's Ancestral Shield", "Retrieve Roggi's ancestral shield.", "Eastmarch"),
+            quests("Find the Thalmor Assassin", "Track down a Thalmor assassin.", "Eastmarch"),
+            quests("Harsh Master", "Complete tasks in Eastmarch.", "Eastmarch"),
+            quests("Queen Freydis's Sword", "Locate Queen Freydis's sword.", "Eastmarch"),
+            quests("Repairing the Phial", "Assist with restoring The White Phial.", "Eastmarch"),
+            quests("Rise in the East", "Various tasks in Eastmarch.", "Eastmarch"),
+            quests("Shahvee's Amulet", "Recover Shahvee's amulet.", "Eastmarch"),
+            quests("The Forgemaster's Fingers", "Find the Forgemaster's fingers.", "Eastmarch"),
+            quests("The White Phial", "Complete The White Phial questline.", "Eastmarch"),
+            quests("That Was Always There", "Discover a hidden mystery in Eastmarch.", "Eastmarch"),
+
+            // Falkreath
+            quests("Dark Ancestor", "Side quest in Falkreath.", "Falkreath"),
+            quests("Hunter and Hunted", "Side quest in Falkreath.", "Falkreath"),
+
+            // Haafingar
+            quests("Dragon's Breath Mead", "Side quest in Haafingar.", "Haafingar"),
+            quests("Kill the Vampire", "Side quest in Haafingar.", "Haafingar"),
+            quests("Lights Out!", "Side quest in Haafingar.", "Haafingar"),
+            quests("Return to Grace", "Side quest in Haafingar.", "Haafingar"),
+            quests("Tending the Flames", "Side quest in Haafingar.", "Haafingar"),
+            quests("The Man Who Cried Wolf", "Side quest in Haafingar.", "Haafingar"),
+            quests("The Spiced Wine", "Side quest in Haafingar.", "Haafingar"),
+            quests("The Wolf Queen Awakened", "Side quest in Haafingar.", "Haafingar"),
+
+            // Hjaalmarch
+            quests("Falion's Secret", "Side quest in Hjaalmarch.", "Hjaalmarch"),
+            quests("For the Good of Morthal", "Side quest in Hjaalmarch.", "Hjaalmarch"),
+            quests("Forbidden Legend", "Side quest in Hjaalmarch.", "Hjaalmarch"),
+            quests("Laid to Rest", "Side quest in Hjaalmarch.", "Hjaalmarch"),
+            quests("Rising at Dawn", "Side quest in Hjaalmarch.", "Hjaalmarch"),
+
+            // The Pale
+            quests("A Scroll For Anska", "Side quest in The Pale.", "The Pale"),
+            quests("Kill the Giant", "Side quest in The Pale.", "The Pale"),
+            quests("Salty Sea-Dogs", "Side quest in The Pale.", "The Pale"),
+            quests("Silenced Tongues", "Side quest in The Pale.", "The Pale"),
+            quests("The Pale Lady", "Side quest in The Pale.", "The Pale"),
+            quests("Visit the Museum in Dawnstar", "Side quest in The Pale.", "The Pale"),
+
+            // The Reach
+            quests("A Few Words with You", "Side quest in The Reach.", "The Reach"),
+            quests("The Steward's Potion", "Side quest in The Reach.", "The Reach"),
+            quests("Buy Dwarven artifact", "Side quest in The Reach.", "The Reach"),
+            quests("Coated in Blood", "Side quest in The Reach.", "The Reach"),
+            quests("Calcelmo's Ring", "Side quest in The Reach.", "The Reach"),
+            quests("Evil in Waiting", "Side quest in The Reach.", "The Reach"),
+            quests("Kolskeggr Mine", "Side quest in The Reach.", "The Reach"),
+            quests("Dibella's Shine", "Side quest in The Reach.", "The Reach"),
+            quests("Nimhe, the Poisoned One", "Side quest in The Reach.", "The Reach"),
+            quests("No One Escapes Cidhna Mine", "Side quest in The Reach.", "The Reach"),
+            quests("Recover Hrolfdir's Shield", "Side quest in The Reach.", "The Reach"),
+            quests("Rogatus's Letter", "Side quest in The Reach.", "The Reach"),
+            quests("Search and Seizure", "Side quest in The Reach.", "The Reach"),
+            quests("Skilled Apprenticeship", "Side quest in The Reach.", "The Reach"),
+            quests("Soljund's Sinkhole", "Side quest in The Reach.", "The Reach"),
+            quests("The Forsworn Conspiracy", "Side quest in The Reach.", "The Reach"),
+            quests("The Ghost of Old Hroldan", "Side quest in The Reach.", "The Reach"),
+            quests("The Heart of Dibella", "Side quest in The Reach.", "The Reach"),
+            quests("The Lost Expedition", "Side quest in The Reach.", "The Reach"),
+
+            // The Rift
+            quests("A Chance Arrangement", "Side quest in The Rift.", "The Rift"),
+            quests("Bow to the Master", "Side quest in The Rift.", "The Rift"),
+            quests("Caught Red Handed", "Side quest in The Rift.", "The Rift"),
+            quests("Climb The Steps", "Side quest in The Rift.", "The Rift"),
+            quests("Infiltration", "Side quest in The Rift.", "The Rift"),
+            quests("Few and Far Between", "Side quest in The Rift.", "The Rift"),
+            quests("Flight or Fight", "Side quest in The Rift.", "The Rift"),
+            quests("Grin and Bear It", "Side quest in The Rift.", "The Rift"),
+            quests("Grimsever's Return", "Side quest in The Rift.", "The Rift"),
+            quests("Hunt and Gather", "Side quest in The Rift.", "The Rift"),
+            quests("Ice Cold", "Side quest in The Rift.", "The Rift"),
+            quests("Kyne's Sacred Trials", "Side quest in The Rift.", "The Rift"),
+            quests("Promises to Keep", "Side quest in The Rift.", "The Rift"),
+            quests("Repentance", "Side quest in The Rift.", "The Rift"),
+            quests("Ringmaker", "Side quest in The Rift.", "The Rift"),
+            quests("Sealing the Deal", "Side quest in The Rift.", "The Rift"),
+            quests("Siege on the Dragon Cult", "Side quest in The Rift.", "The Rift"),
+            quests("Smooth Jazbay", "Side quest in The Rift.", "The Rift"),
+            quests("Special Delivery (Bolli)", "Side quest in The Rift.", "The Rift"),
+            quests("Special Delivery (Sylgja)", "Side quest in The Rift.", "The Rift"),
+            quests("Stoking the Flames", "Side quest in The Rift.", "The Rift"),
+            quests("Supply and Demand", "Side quest in The Rift.", "The Rift"),
+            quests("Taking Care of Business", "Side quest in The Rift.", "The Rift"),
+            quests("The Book of Love", "Side quest in The Rift.", "The Rift"),
+            quests("The Lover's Requital", "Side quest in The Rift.", "The Rift"),
+            quests("The Raid", "Side quest in The Rift.", "The Rift"),
+            quests("The Straw that Broke", "Side quest in The Rift.", "The Rift"),
+            quests("Unfathomable Depths", "Side quest in The Rift.", "The Rift"),
+
+            // Whiterun
+            quests("A Lovely Letter", "Side quest in Whiterun.", "Whiterun"),
+            quests("Andurs' Arkay Amulet", "Side quest in Whiterun.", "Whiterun"),
+            quests("Argonian Ale Extraction", "Side quest in Whiterun.", "Whiterun"),
+            quests("Delayed Burial", "Side quest in Whiterun.", "Whiterun"),
+            quests("Erik the Slayer", "Side quest in Whiterun.", "Whiterun"),
+            quests("Greatsword for a Great Man", "Side quest in Whiterun.", "Whiterun"),
+            quests("In My Time of Need", "Side quest in Whiterun.", "Whiterun"),
+            quests("Salt For Arcadia", "Side quest in Whiterun.", "Whiterun"),
+            quests("Missing in Action", "Side quest in Whiterun.", "Whiterun"),
+            quests("The Blessings of Nature", "Side quest in Whiterun.", "Whiterun"),
+            quests("The Golden Claw", "Side quest in Whiterun.", "Whiterun"),
+            quests("Ysolda's Shipment", "Side quest in Whiterun.", "Whiterun"),
+
+            // Winterhold
+            quests("Helm of Winterhold", "Side quest in Winterhold.", "Winterhold"),
+            quests("Forgotten Names", "Side quest in Winterhold.", "Winterhold"),
+
+            // Blackreach
+            quests("A Return To Your Roots", "Side quest in Blackreach.", "Blackreach"),
+
+            // Any region
+            quests("Ancestral Worship", "Side quest in any region", "Any"),
+            quests("Becoming Thane", "Side quest in any region.", "Any"),
           ]},
         // ================== Base Game Factions ================== 
         {
@@ -401,6 +560,30 @@
             quests("The Blessings of Nature", "Restore the Gildergreen for Danica Pure-Spring in Whiterun."),
             quests("The Book of Love", "Help the Temple of Mara of Riften spread the cause of love."),
             quests("The Heart of Dibella", "Find a new Sybil for the Temple of Dibella in Markarth.")
+          ]},
+          
+        // ================== Daedric Quests ==================
+        {
+          key: "daedric",
+          label: "Daedric Quests",
+          color: "#8A2BE2",
+          quests: [
+            quests("The Black Star", "Visit the Shrine of Azura."),
+            quests("Boethiah's Calling", "Become Boethiah's new champion."),
+            quests("A Daedra's Best Friend", "Help Barbas reunite with his master."),
+            quests("Discerning the Transmundane", "Ask Urag about the insane book."),
+            quests("Ill Met By Moonlight", "Hunt in Hircine's name."),
+            quests("The Cursed Tribe", "Help lift the curse placed on the Orcs of Largashbur by Malacath."),
+            quests("Pieces of the Past", "Retrieve and reforge the scattered pieces of Mehrunes' Razor."),
+            quests("The Break of Dawn", "Find Meridia's Beacon and cleanse her temple of undead."),
+            quests("The Whispering Door", "Investigate Nelkir's story of a Whispering Lady."),
+            quests("The House of Horrors", "Help Molag Bal take revenge upon a servant of Boethiah."),
+            quests("The Taste of Death", "Prepare a Feast for the Lady of Decay."),
+            quests("Darkness Returns", "Return the Skeleton Key to its rightful place."),
+            quests("The Only Cure", "Slay an apostate worshipper for the Daedra Lord Peryite."),
+            quests("A Night To Remember", "Find your lost friend, Sam, as you recover from a bad hangover."),
+            quests("The Mind of Madness", "Gain access to and solve the mystery of the Pelagius Wing."),
+            quests("Waking Nightmare", "Relieve the people of Dawnstar from Vaermina's curse.")
           ]},
         // ================== Dawnguard DLC ==================
         {
@@ -532,6 +715,7 @@
 
       function createChecklistItem(item,type,container){ 
         const id=`tes-skyrim-${type}-${item.title.replace(/\s+/g,"-").toLowerCase()}`;
+        item.id = id;
         const li=document.createElement("li");
         const checkbox=document.createElement("input"); 
         checkbox.type="checkbox"; 
@@ -668,16 +852,18 @@ function updateAllStats(){
 const allQuests = questCategories.flatMap(c=>c.quests);
 const tagStats = {};
 
-allQuests.forEach(q=>{
-const key = q.tag || questCategories.find(c => c.quests.includes(q))?.label || "Main Quests";
+allQuests.forEach(q => {
+  let prefix = questCategories.find(c => c.quests.includes(q))?.key;
+  
+  // Override key for side quests
+  let key = (prefix === "side") ? "Side Quests" : (q.tag || questCategories.find(c => c.quests.includes(q))?.label || "Main Quests");
 
-let prefix = questCategories.find(c=>c.quests.includes(q))?.key;
-const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
-const completed = localStorage.getItem(id) === "true";
+  const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
+  const completed = localStorage.getItem(id) === "true";
 
-tagStats[key] = tagStats[key] || { completed:0, total:0 };
-tagStats[key].total++;
-if(completed) tagStats[key].completed++;
+  tagStats[key] = tagStats[key] || { completed: 0, total: 0 };
+  tagStats[key].total++;
+  if (completed) tagStats[key].completed++;
 });
 
 const labels = Object.keys(tagStats);
@@ -693,8 +879,8 @@ const colorMap = {
 "Thieves Guild": "#556B2F",
 "Imperial Legion": "#B22222",
 "Stormcloaks": "#1E90FF",
-"Divines": "#00CED1",
-"Daedric": "#8B0000",
+"Divines Quests": "#00CED1",
+"Daedric Quests": "#8B0000",
 "Main Dawnguard Quest": "#1E90FF",
 "Side Dawnguard Quest": "#1E90FF",
 "Dawnguard Faction": "#4682B4",
@@ -742,5 +928,3 @@ totalDiv.innerHTML = `<strong>Total quests:</strong> <span style="color:#aaa">${
 
   </body>
 </html>
-
-
