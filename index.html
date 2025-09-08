@@ -175,6 +175,8 @@
             <div class="tab-button" data-target="daedric">Daedric</div>
             <div class="tab-button" data-target="dawnguardDLCQuests">Dawnguard DLC</div>
             <div class="tab-button" data-target="dragonbornDLCQuests">Dragonborn DLC</div>
+            <div class="tab-button" data-target="shout">Shouts</div>
+            <div class="tab-button" data-target="stone">Stones of Berenziah</div>
           </div>
         </div>
 
@@ -230,6 +232,20 @@
           <div id="dragonborn-filters" class="tab-buttons2" style="margin-bottom: 10px;"></div>
           <div class="scrollable-list"><ul id="dragonborn-Quests"></ul></div>
         </div>
+        
+        <!-- Shouts -->
+        <div class="content" id="shout">
+          <h2>Shouts</h2>
+          <div class="progress" id="shout-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="shout-Collectibles"></ul></div>
+        </div>
+        
+        <!-- Stones -->
+        <div class="content" id="stone">
+          <h2>Stones of Berenziah</h2>
+          <div class="progress" id="stone-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="stone-Collectibles"></ul></div>
+        </div>
 
         <!-- FAQ -->
         <div class="content" id="faq">
@@ -247,9 +263,7 @@
             <div class="stats-chart"><canvas id="combinedChart" style="width:250px; max-height:250px;"></canvas></div>
             <div class="stats-layout">
               <div class="stats-text">
-                <div id="totalGames" style="margin-bottom:10px; font-size:1.1em;"></div>
-                <div id="statusBreakdown"></div>
-                <div id="completed-by-type" style="margin-top:20px;"><h2>Completed Quests</h2></div>
+                <div id="completed-by-type" style="margin-top:20px;"><h2>Completed</h2></div>
               </div>
             </div>
           </div>
@@ -290,6 +304,14 @@
         if(tag) q.tag = tag;
         if(optional) q.optional = "Optional";
         return q;
+      }
+      
+      // ================== Collectible Constructor ==================
+      function collectibles(title, note, tag = null, optional = false) {
+        const c = { title, note };
+        if(tag) c.tag = tag;
+        if(optional) c.optional = "Optional";
+        return c;
       }
       
      	/* To Add New Quest
@@ -704,6 +726,72 @@
             quests("Wind and Sand", "Retrieve a copy of Wind and Sand.", "Side Dragonborn Quest")
           ]}
       ];
+      // ================== Unified shout Configuration ==================
+      const collectiblesCategories = [
+        // ================== Shouts ================== 
+        {
+          key: "shout",
+          label: "Shouts",
+          collectibles: [
+            collectibles("Animal Allegiance"),
+            collectibles("Aura Whisper"),
+            collectibles("Battle Fury"),
+            collectibles("Become Ethereal"),
+            collectibles("Bend Will"),
+            collectibles("Call Dragon"),
+            collectibles("Call of Valor"),
+            collectibles("Clear Skies"),
+            collectibles("Cyclone"),
+            collectibles("Disarm"),
+            collectibles("Dismaying Shout"),
+            collectibles("Dragonrend"),
+            collectibles("Dragon Aspect"),
+            collectibles("Drain Vitality"),
+            collectibles("Elemental Fury"),
+            collectibles("Fire Breath"),
+            collectibles("Frost Breath"),
+            collectibles("Ice Form"),
+            collectibles("Kyne's Peace"),
+            collectibles("Marked for Death"),
+            collectibles("Slow Time"),
+            collectibles("Storm Call"),
+            collectibles("Soul Tear"),
+            collectibles("Summon Durnehviir"),
+            collectibles("Throw Voice"),
+            collectibles("Unrelenting Force"),
+            collectibles("Whirlwind Sprint")
+          ]},
+          // ================== Stone of Berenziah ==================
+        {
+          key: "stone",
+          label: "Stone of Berenziah",
+          collectibles: [
+            collectibles("Stony Creek Cave"),
+            collectibles("Ansilvund"),
+            collectibles("Sunderstone Gorge"),
+            collectibles("Dark Brotherhood Sanctuary"),
+            collectibles("Pinewatch"),
+            collectibles("Dainty Sload"),
+            collectibles("Thalmor Embassy"),
+            collectibles("The Treasury House"),
+            collectibles("Understone Keep"),
+            collectibles("Mistveil Keep"),
+            collectibles("Dismaying Shout"),
+            collectibles("Blue Palace"),
+            collectibles("Proudspire Manor"),
+            collectibles("Dead Crone Rock"),
+            collectibles("Black-Briar Lodge"),
+            collectibles("Dragonsreach"),
+            collectibles("Jorrvaskr"),
+            collectibles("Rannveig's Fast"),
+            collectibles("Fellglow Keep"),
+            collectibles("House of Clan Shatter-Shield"),
+            collectibles("Palace of the Kings"),
+            collectibles("College of Winterhold"),
+            collectibles("Hob's Fall Cave"),
+            collectibles("Yngvild")
+          ]}
+      ];
 
       // ================== Checklist Helpers ==================
       function createTag(text, className){
@@ -726,7 +814,8 @@
         label.textContent=` ${item.title}`;
         checkbox.addEventListener("change",()=>{
           localStorage.setItem(id,checkbox.checked); 
-          updateProgressByType(type); 
+          updateProgressByType(type);
+          updateProgressCollectibles(type);
           updateAllStats();
         });
         li.append(checkbox,label); 
@@ -748,6 +837,19 @@
         if(!category) return;
 
         const listEl = document.getElementById(`${key}-Quests`);
+        const checkboxes = listEl.querySelectorAll("input[type=checkbox]");
+        let completed = 0;
+        checkboxes.forEach(cb => { if(cb.checked) completed++; });
+
+        const progressEl = document.getElementById(`${key}-Progress`);
+        if(progressEl) progressEl.textContent = `Completed ${completed} / ${checkboxes.length}`;
+      }
+      
+      function updateProgressCollectibles(key){
+        const category = collectiblesCategories.find(c => c.key === key);
+        if(!category) return;
+
+        const listEl = document.getElementById(`${key}-Collectibles`);
         const checkboxes = listEl.querySelectorAll("input[type=checkbox]");
         let completed = 0;
         checkboxes.forEach(cb => { if(cb.checked) completed++; });
@@ -799,8 +901,46 @@
         }
       }
 
+      function renderCollectiblesList(category){
+        const listEl = document.getElementById(`${category.key}-Collectibles`);
+        if(!listEl) return;
+        listEl.innerHTML = "";
+
+        let filteredCollectibles = category.collectibles;
+        if(category.activeFilter && category.activeFilter !== "All" && category.filters){
+          filteredCollectibles = filteredCollectibles.filter(q=>q.tag === category.activeFilter);
+        }
+
+        filteredCollectibles.forEach(q => createChecklistItem(q, category.key, listEl));
+        updateProgressCollectibles(category.key);
+
+        // Render filter buttons
+        if(category.filters){
+          const filterContainer = document.getElementById(`${category.key}-filters`);
+          if(filterContainer){
+            filterContainer.innerHTML = "";
+            // Ensure "All" is first
+            const filtersWithAll = ["All", ...category.filters.filter(f => f !== "All")];
+            filtersWithAll.forEach(f=>{
+              const btn=document.createElement("div");
+              btn.className="tab-button"; 
+              btn.textContent=f;
+              btn.addEventListener("click", ()=>{
+                category.activeFilter = f;
+                renderCollectiblesList(category);
+              });
+              filterContainer.appendChild(btn);
+            });
+            // Initialize activeFilter if undefined
+            if(!category.activeFilter) category.activeFilter = "All";
+            setActiveButton(`#${category.key}-filters`, category.activeFilter);
+          }
+        }
+      }
+
       // ================== Initialize All Lists ==================
       questCategories.forEach(cat => renderQuestList(cat));
+      collectiblesCategories.forEach(cat => renderCollectiblesList(cat));
 
       // ================== GitHub Links ==================
       window.addEventListener("DOMContentLoaded",()=>{
@@ -809,117 +949,180 @@
       });
 
       // ================== Export/Import ==================
-      function exportChecklist(){
-        const data = { prefix:"tes-skyrim" };
-        questCategories.forEach(cat=>{
+      function exportChecklist() {
+        const data = { prefix: "tes-skyrim" };
+
+        // Export quests
+        questCategories.forEach(cat => {
           data[cat.key] = [];
           const listEl = document.getElementById(`${cat.key}-Quests`);
-          listEl.querySelectorAll("input[type=checkbox]").forEach(cb=>{
-            if(cb.checked) data[cat.key].push(cb.id.replace(`tes-skyrim-${cat.key}-`,""));
+          listEl.querySelectorAll("input[type=checkbox]").forEach(cb => {
+            if (cb.checked) data[cat.key].push(cb.id.replace(`tes-skyrim-${cat.key}-`, ""));
           });
         });
-        const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-        const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="tes-skyrim-checklist.json"; a.click(); URL.revokeObjectURL(a.href);
+
+        // Export collectibles
+        collectiblesCategories.forEach(cat => {
+          data[cat.key] = [];
+          const listEl = document.getElementById(`${cat.key}-Collectibles`);
+          listEl.querySelectorAll("input[type=checkbox]").forEach(cb => {
+            if (cb.checked) data[cat.key].push(cb.id.replace(`tes-skyrim-${cat.key}-`, ""));
+          });
+        });
+
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "tes-skyrim-checklist.json";
+        a.click();
+        URL.revokeObjectURL(a.href);
       }
 
-      function importChecklist(){
-        const fileInput=document.getElementById("import-file");
+      function importChecklist() {
+        const fileInput = document.getElementById("import-file");
         fileInput.click();
-        fileInput.onchange=e=>{
-          const file=e.target.files[0];
-          if(!file) return;
-          const reader=new FileReader();
-          reader.onload=ev=>{
-            try{
-              const imported=JSON.parse(ev.target.result);
-              if(imported.prefix !== "tes-skyrim"){ alert(`This checklist file is for a different game or project ("${imported.prefix}").`); return; }
-              questCategories.forEach(cat=>{
-                imported[cat.key]?.forEach(slug=>{
-                localStorage.setItem(`tes-skyrim-${cat.key}-${slug}`,"true");
-});
-});
-alert("Checklist progress imported! Refresh the page to see updates.");
-} catch(err){ alert("Failed to import: Invalid file format."); }
-};
-reader.readAsText(file);
-};
-}
+        fileInput.onchange = e => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = ev => {
+            try {
+              const imported = JSON.parse(ev.target.result);
+              if (imported.prefix !== "tes-skyrim") {
+                alert(`This checklist file is for a different game or project ("${imported.prefix}").`);
+                return;
+              }
+
+              // Import quests
+              questCategories.forEach(cat => {
+                imported[cat.key]?.forEach(slug => {
+                localStorage.setItem(`tes-skyrim-${cat.key}-${slug}`, "true");
+              });
+            });
+
+            // Import collectibles
+            collectiblesCategories.forEach(cat => {
+            imported[cat.key]?.forEach(slug => {
+            localStorage.setItem(`tes-skyrim-${cat.key}-${slug}`, "true");
+            });
+            });
+
+            alert("Checklist progress imported! Refresh the page to see updates.");
+            } catch (err) {
+            alert("Failed to import: Invalid file format.");
+            }
+            };
+            reader.readAsText(file);
+            };
+            }
 
 // ================== Stats Chart ==================
 let combinedChart;
 
-function updateAllStats(){
-const allQuests = questCategories.flatMap(c=>c.quests);
-const tagStats = {};
+function updateAllStats() {
+  const allQuests = questCategories.flatMap(c => c.quests);
+  const allCollectibles = collectiblesCategories.flatMap(c => c.collectibles);
 
-allQuests.forEach(q => {
-  let prefix = questCategories.find(c => c.quests.includes(q))?.key;
-  
-  // Override key for side quests
-  let key = (prefix === "side") ? "Side Quests" : (q.tag || questCategories.find(c => c.quests.includes(q))?.label || "Main Quests");
+  const tagStats = {};
 
-  const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
-  const completed = localStorage.getItem(id) === "true";
+  // --- Quests stats ---
+  allQuests.forEach(q => {
+    const cat = questCategories.find(c => c.quests.includes(q));
+    const key = cat.key === "side" ? "Side Quests" : (q.tag || cat.label || "Main Quests");
+    const id = `tes-skyrim-${cat.key}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
+    const completed = localStorage.getItem(id) === "true";
 
-  tagStats[key] = tagStats[key] || { completed: 0, total: 0 };
-  tagStats[key].total++;
-  if (completed) tagStats[key].completed++;
-});
+    tagStats[key] = tagStats[key] || { completed: 0, total: 0 };
+    tagStats[key].total++;
+    if (completed) tagStats[key].completed++;
+  });
 
-const labels = Object.keys(tagStats);
-const data = labels.map(l => tagStats[l].completed);
-const colorMap = {
-"Main Quests": "#FFD700",
-"Side Quests": "#87CEFA",
-"College of Winterhold": "#9370DB",
-"Bards College": "#FF69B4",
-"Blades": "#A9A9A9",
-"Companions": "#C0C0C0",
-"Dark Brotherhood": "#4B0082",
-"Thieves Guild": "#556B2F",
-"Imperial Legion": "#B22222",
-"Stormcloaks": "#1E90FF",
-"Divines Quests": "#00CED1",
-"Daedric Quests": "#8B0000",
-"Main Dawnguard Quest": "#1E90FF",
-"Side Dawnguard Quest": "#1E90FF",
-"Dawnguard Faction": "#4682B4",
-"Volkihar Clan": "#4B0082",
-"Main Dragonborn Quest": "#FF8C00",
-"Side Dragonborn Quest": "#FFA500"
-};    
+  // --- Collectibles stats ---
+  allCollectibles.forEach(c => {
+    const cat = collectiblesCategories.find(cat => cat.collectibles.includes(c));
+    if (!cat) return;
+    const key = cat.label || "Collectibles";
+    const id = `tes-skyrim-${cat.key}-${c.title.replace(/\s+/g,"-").toLowerCase()}`;
+    const completed = localStorage.getItem(id) === "true";
 
-combinedChart?.destroy();
-combinedChart = new Chart(document.getElementById("combinedChart").getContext("2d"), {
-type: "doughnut",
-data: { labels, datasets:[{ label:"Completed Quests", data, backgroundColor:labels.map(l=>colorMap[l]||"#aaa"), borderWidth:0 }] },
-options:{ responsive:true, plugins:{ legend:{ position:"bottom" } } }
-});
+    tagStats[key] = tagStats[key] || { completed: 0, total: 0 };
+    tagStats[key].total++;
+    if (completed) tagStats[key].completed++;
+  });
 
-const container = document.getElementById("completed-by-type");
-container.querySelectorAll(".category-stats,.total-stats").forEach(el=>el.remove());
+  // --- Chart ---
+  const labels = Object.keys(tagStats);
+  const data = labels.map(l => tagStats[l].completed);
+  const colorMap = {
+  "Main Quests": "#FFD700",
+  "Side Quests": "#87CEFA",
+  "College of Winterhold": "#9370DB",
+  "Bards College": "#FF69B4",
+  "Blades": "#A9A9A9",
+  "Companions": "#C0C0C0",
+  "Dark Brotherhood": "#4B0082",
+  "Thieves Guild": "#556B2F",
+  "Imperial Legion": "#B22222",
+  "Stormcloaks": "#1E90FF",
+  "Divines Quests": "#00CED1",
+  "Daedric Quests": "#8B0000",
+  "Main Dawnguard Quest": "#1E90FF",
+  "Side Dawnguard Quest": "#1E90FF",
+  "Dawnguard Faction": "#4682B4",
+  "Volkihar Clan": "#4B0082",
+  "Main Dragonborn Quest": "#FF8C00",
+  "Side Dragonborn Quest": "#FFA500",
+  "Shouts": "#FFA500",
+  };
 
-const totalCompleted = allQuests.filter(q=>{
-let prefix = questCategories.find(c=>c.quests.includes(q))?.key;
-const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g,"-").toLowerCase()}`;
-return localStorage.getItem(id) === "true";
-}).length;
+  combinedChart?.destroy();
+  combinedChart = new Chart(document.getElementById("combinedChart").getContext("2d"), {
+    type: "doughnut",
+    data: { labels, datasets: [{ label: "Completed Items", data, backgroundColor: labels.map(l => colorMap[l] || "#aaa"), borderWidth: 0 }] },
+    options: { responsive: true, plugins: { legend: { position: "bottom" } } }
+  });
 
-const totalDiv = document.createElement("div");
-totalDiv.classList.add("total-stats");
-totalDiv.style.marginBottom = "10px";
-totalDiv.innerHTML = `<strong>Total quests:</strong> <span style="color:#aaa">${allQuests.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalCompleted/allQuests.length)*100).toFixed(1)}%</span>`;
-              container.appendChild(totalDiv);
+  // --- Totals display ---
+  const container = document.getElementById("completed-by-type");
+  container.querySelectorAll(".category-stats,.total-stats").forEach(el => el.remove());
 
-              Object.entries(tagStats).forEach(([tag,s])=>{
-                const percent = s.total ? (s.completed / s.total * 100).toFixed(1) : 0;
-                const div=document.createElement("div");
-                div.classList.add("category-stats");
-                div.style.marginBottom="0px";
-                div.innerHTML=`<strong>${tag}</strong>: ${s.completed} <span style="color:#aaa">(${percent}%)</span>`;
-                container.appendChild(div);
-              });
-            }
+  // Quests totals
+  const filteredQuests = allQuests.filter(q => questCategories.find(c => c.quests.includes(q))?.key !== "shout");
+  const totalQuestCompleted = filteredQuests.filter(q => {
+    const prefix = questCategories.find(c => c.quests.includes(q))?.key;
+    const id = `tes-skyrim-${prefix}-${q.title.replace(/\s+/g, "-").toLowerCase()}`;
+    return localStorage.getItem(id) === "true";
+  }).length;
+
+  const questsDiv = document.createElement("div");
+  questsDiv.classList.add("total-stats");
+  questsDiv.style.marginBottom = "10px";
+  questsDiv.innerHTML = `<strong>Total quests:</strong> <span style="color:#aaa">${filteredQuests.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalQuestCompleted / filteredQuests.length) * 100).toFixed(1)}%</span>`;
+  container.appendChild(questsDiv);
+
+  // Collectibles totals
+  const totalCollectibleCompleted = allCollectibles.filter(c => {
+    const prefix = collectiblesCategories.find(cat => cat.collectibles.includes(c))?.key;
+    const id = `tes-skyrim-${prefix}-${c.title.replace(/\s+/g, "-").toLowerCase()}`;
+    return localStorage.getItem(id) === "true";
+  }).length;
+
+  const collectiblesDiv = document.createElement("div");
+  collectiblesDiv.classList.add("total-stats");
+  collectiblesDiv.style.marginBottom = "10px";
+  collectiblesDiv.innerHTML = `<strong>Total collectibles:</strong> <span style="color:#aaa">${allCollectibles.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalCollectibleCompleted / allCollectibles.length) * 100).toFixed(1)}%</span>`;
+  container.appendChild(collectiblesDiv);
+
+  // Category stats
+  Object.entries(tagStats).forEach(([tag, s]) => {
+    const percent = s.total ? (s.completed / s.total * 100).toFixed(1) : 0;
+    const div = document.createElement("div");
+    div.classList.add("category-stats");
+    div.style.marginBottom = "0px";
+    div.innerHTML = `<strong>${tag}</strong>: ${s.completed} <span style="color:#aaa">(${percent}%)</span>`;
+    container.appendChild(div);
+  });
+}
 
     </script>
 
