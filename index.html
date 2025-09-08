@@ -45,9 +45,9 @@
       .tagDeadricQuests { background: #8B0000; }    /* Dark Red */
       
       /* Regions */
-      .tagAll { background: #808080; }          /* Gray - generic/any region */
-      .tagEastmarch { background: #FF4500; }    /* OrangeRed - volcanic/mountain feel */
-      .tagFalkreath { background: #228B22; } /* ForestGreen */
+      .tagAll { background: #808080; }           /* Gray - generic/any region */
+      .tagEastmarch { background: #FF4500; }     /* OrangeRed - volcanic/mountain feel */
+      .tagFalkreath { background: #228B22; }     /* ForestGreen */
       .tagHaafingar { background: #4682B4; }     /* SteelBlue - coastal region */
       .tagHjaalmarch { background: #2E8B57; }    /* SeaGreen - marshy/wetlands */
       .tagThePale { background: #ADD8E6; }       /* LightBlue - cold, snowy */
@@ -57,26 +57,31 @@
       .tagWinterhold { background: #B0C4DE; }    /* LightSteelBlue - icy/northern */
       .tagBlackreach { background: #4B0082; }    /* Indigo - underground/dark */
       .tagAny { background: #696969; }           /* DimGray - wildcard/any */
+      .tagDungeon { background: #696969; }       /* DimGray - wildcard/any */
+      .tagTasks { background: #696969; }         /* DimGray - wildcard/any */
+      .tagBounty { background: #696969; }        /* DimGray - wildcard/any */
 
       /* Factions */
       .tagCollegeofWinterhold { background: #9370DB; } /* Medium Purple */
-      .tagBardsCollege { background: #FF69B4; }     /* Hot Pink */
-      .tagBlades { background: #A9A9A9; }           /* Dark Gray */
-      .tagCompanions { background: #C0C0C0; }       /* Silver */
-      .tagDarkBrotherhood { background: #4B0082; }  /* Indigo */
-      .tagImperialLegion { background: #B22222; }   /* Firebrick */
-      .tagThievesGuild { background: #556B2F; }     /* Dark Olive Green */
-      .tagStormcloaks { background: #1E90FF; }      /* Dodger Blue */
+      .tagBardsCollege { background: #FF69B4; }        /* Hot Pink */
+      .tagBlades { background: #A9A9A9; }              /* Dark Gray */
+      .tagCompanions { background: #C0C0C0; }          /* Silver */
+      .tagDarkBrotherhood { background: #4B0082; }     /* Indigo */
+      .tagImperialLegion { background: #B22222; }      /* Firebrick */
+      .tagThievesGuild { background: #556B2F; }        /* Dark Olive Green */
+      .tagStormcloaks { background: #1E90FF; }         /* Dodger Blue */
       
       /* Dawnguard DLC */
       .tagMainDawnguardQuest { background: #1E90FF; } /* Dodger Blue */
       .tagSideDawnguardQuest { background: #87CEEB; } /* Sky Blue */
-      .tagDawnguardFaction { background: #4682B4; }    /* Steel Blue */
+      .tagDawnguardFaction { background: #4682B4; }   /* Steel Blue */
       .tagVolkiharClan { background: #4B0082; }       /* Indigo */
       
       /* Dragonborn DLC */
       .tagMainDragonbornQuest { background: #FF8C00; } /* Dark Orange */
       .tagSideDragonbornQuest { background: #FFA500; } /* Orange */
+      
+      /* Collectibles */
 
       /* ================== Layout ================== */
       .content-container {
@@ -177,6 +182,12 @@
             <div class="tab-button" data-target="dragonbornDLCQuests">Dragonborn DLC</div>
             <div class="tab-button" data-target="shout">Shouts</div>
             <div class="tab-button" data-target="stone">Stones of Berenziah</div>
+            <div class="tab-button" data-target="bug">Bugs in a Jar</div>
+            <div class="tab-button" data-target="claw">Dragon Claws</div>
+            <div class="tab-button" data-target="map">Treasure Maps</div>
+            <div class="tab-button" data-target="misc">Misc Collectibles</div>
+            <div class="tab-button" data-target="paragon">Paragons</div>
+            <div class="tab-button" data-target="dragonPriestMask">Dragon Priest Masks</div>
           </div>
         </div>
 
@@ -246,6 +257,48 @@
           <div class="progress" id="stone-Progress">Completed 0 / 0</div>
           <div class="scrollable-list"><ul id="stone-Collectibles"></ul></div>
         </div>
+        
+        <!-- Bugs in a Jar -->
+        <div class="content" id="bug">
+          <h2>Bugs in a Jar</h2>
+          <div class="progress" id="bug-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="bug-Collectibles"></ul></div>
+        </div>
+        
+        <!-- Claws -->
+        <div class="content" id="claw">
+          <h2>Amethyst Claws</h2>
+          <div class="progress" id="claw-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="claw-Collectibles"></ul></div>
+        </div>
+        
+        <!-- Treasure Maps -->
+        <div class="content" id="map">
+          <h2>Treasure Maps</h2>
+          <div class="progress" id="map-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="map-Collectibles"></ul></div>
+        </div>
+
+        <!-- Misc Collectibles -->
+        <div class="content" id="misc">
+          <h2>Misc Collectibles</h2>
+          <div class="progress" id="misc-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="misc-Collectibles"></ul></div>
+        </div>
+        
+        <!-- Paragons -->
+        <div class="content" id="paragon">
+          <h2>Paragons</h2>
+          <div class="progress" id="paragon-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="paragon-Collectibles"></ul></div>
+        </div>
+
+        <!-- Dragon Priest Masks -->
+        <div class="content" id="dragonPriestMask">
+          <h2>Dragon Priest Masks</h2>
+          <div class="progress" id="dragonPriestMask-Progress">Completed 0 / 0</div>
+          <div class="scrollable-list"><ul id="dragonPriestMask-Collectibles"></ul></div>
+        </div>
 
         <!-- FAQ -->
         <div class="content" id="faq">
@@ -260,7 +313,7 @@
         <div class="content" id="stats">
           <h2>Quests Overview</h2>
           <div class="scrollable-list">
-            <div class="stats-chart"><canvas id="combinedChart" style="width:250px; max-height:250px;"></canvas></div>
+            <div class="stats-chart"><canvas id="combinedChart" style="width:360px; max-height:360px;"></canvas></div>
             <div class="stats-layout">
               <div class="stats-text">
                 <div id="completed-by-type" style="margin-top:20px;"><h2>Completed</h2></div>
@@ -324,7 +377,7 @@
 		*/
 
       // ================== Filters ==================
-      const regions = ["All","Eastmarch", "Falkreath","Haafingar","Hjaalmarch","The Pale","The Reach","The Rift", "Whiterun", "Winterhold", "Blackreach", "Any"];
+      const regions = ["All","Eastmarch", "Falkreath","Haafingar","Hjaalmarch","The Pale","The Reach","The Rift", "Whiterun", "Winterhold", "Blackreach", "Dungeon","Tasks", "Bounty","Any"];
       const baseFactions = ["All","College of Winterhold","Bards College","Blades","Companions","Dark Brotherhood","Thieves Guild", "Imperial Legion", "Stormcloaks"];
       const dawnguardDLC = ["All","Main Dawnguard Quest","Side Dawnguard Quest","Dawnguard Faction","Volkihar Clan"];
       const dragonbornDLC = ["All","Main Dragonborn Quest","Side Dragonborn Quest"];
@@ -364,126 +417,205 @@
           color: "#FFA500",
           filters: regions,
           quests: [
-            // Eastmarch
-            quests("A Love Beyond Death", "Side quest in Eastmarch.", "Eastmarch"),
-            quests("Argonian Dock Workers", "Side quest in Eastmarch.", "Eastmarch"),
-            quests("Blood on the Ice", "Investigate murders in Windhelm.", "Eastmarch"),
-            quests("Find Roggi Knot-Beard's Ancestral Shield", "Retrieve Roggi's ancestral shield.", "Eastmarch"),
-            quests("Find the Thalmor Assassin", "Track down a Thalmor assassin.", "Eastmarch"),
-            quests("Harsh Master", "Complete tasks in Eastmarch.", "Eastmarch"),
-            quests("Queen Freydis's Sword", "Locate Queen Freydis's sword.", "Eastmarch"),
-            quests("Repairing the Phial", "Assist with restoring The White Phial.", "Eastmarch"),
-            quests("Rise in the East", "Various tasks in Eastmarch.", "Eastmarch"),
-            quests("Shahvee's Amulet", "Recover Shahvee's amulet.", "Eastmarch"),
-            quests("The Forgemaster's Fingers", "Find the Forgemaster's fingers.", "Eastmarch"),
-            quests("The White Phial", "Complete The White Phial questline.", "Eastmarch"),
-            quests("That Was Always There", "Discover a hidden mystery in Eastmarch.", "Eastmarch"),
-
-            // Falkreath
-            quests("Dark Ancestor", "Side quest in Falkreath.", "Falkreath"),
-            quests("Hunter and Hunted", "Side quest in Falkreath.", "Falkreath"),
-
-            // Haafingar
-            quests("Dragon's Breath Mead", "Side quest in Haafingar.", "Haafingar"),
-            quests("Kill the Vampire", "Side quest in Haafingar.", "Haafingar"),
-            quests("Lights Out!", "Side quest in Haafingar.", "Haafingar"),
-            quests("Return to Grace", "Side quest in Haafingar.", "Haafingar"),
-            quests("Tending the Flames", "Side quest in Haafingar.", "Haafingar"),
-            quests("The Man Who Cried Wolf", "Side quest in Haafingar.", "Haafingar"),
-            quests("The Spiced Wine", "Side quest in Haafingar.", "Haafingar"),
-            quests("The Wolf Queen Awakened", "Side quest in Haafingar.", "Haafingar"),
-
-            // Hjaalmarch
-            quests("Falion's Secret", "Side quest in Hjaalmarch.", "Hjaalmarch"),
-            quests("For the Good of Morthal", "Side quest in Hjaalmarch.", "Hjaalmarch"),
-            quests("Forbidden Legend", "Side quest in Hjaalmarch.", "Hjaalmarch"),
-            quests("Laid to Rest", "Side quest in Hjaalmarch.", "Hjaalmarch"),
-            quests("Rising at Dawn", "Side quest in Hjaalmarch.", "Hjaalmarch"),
-
-            // The Pale
-            quests("A Scroll For Anska", "Side quest in The Pale.", "The Pale"),
-            quests("Kill the Giant", "Side quest in The Pale.", "The Pale"),
-            quests("Salty Sea-Dogs", "Side quest in The Pale.", "The Pale"),
-            quests("Silenced Tongues", "Side quest in The Pale.", "The Pale"),
-            quests("The Pale Lady", "Side quest in The Pale.", "The Pale"),
-            quests("Visit the Museum in Dawnstar", "Side quest in The Pale.", "The Pale"),
-
-            // The Reach
-            quests("A Few Words with You", "Side quest in The Reach.", "The Reach"),
-            quests("The Steward's Potion", "Side quest in The Reach.", "The Reach"),
-            quests("Buy Dwarven artifact", "Side quest in The Reach.", "The Reach"),
-            quests("Coated in Blood", "Side quest in The Reach.", "The Reach"),
-            quests("Calcelmo's Ring", "Side quest in The Reach.", "The Reach"),
-            quests("Evil in Waiting", "Side quest in The Reach.", "The Reach"),
-            quests("Kolskeggr Mine", "Side quest in The Reach.", "The Reach"),
-            quests("Dibella's Shine", "Side quest in The Reach.", "The Reach"),
-            quests("Nimhe, the Poisoned One", "Side quest in The Reach.", "The Reach"),
-            quests("No One Escapes Cidhna Mine", "Side quest in The Reach.", "The Reach"),
-            quests("Recover Hrolfdir's Shield", "Side quest in The Reach.", "The Reach"),
-            quests("Rogatus's Letter", "Side quest in The Reach.", "The Reach"),
-            quests("Search and Seizure", "Side quest in The Reach.", "The Reach"),
-            quests("Skilled Apprenticeship", "Side quest in The Reach.", "The Reach"),
-            quests("Soljund's Sinkhole", "Side quest in The Reach.", "The Reach"),
-            quests("The Forsworn Conspiracy", "Side quest in The Reach.", "The Reach"),
-            quests("The Ghost of Old Hroldan", "Side quest in The Reach.", "The Reach"),
-            quests("The Heart of Dibella", "Side quest in The Reach.", "The Reach"),
-            quests("The Lost Expedition", "Side quest in The Reach.", "The Reach"),
-
-            // The Rift
-            quests("A Chance Arrangement", "Side quest in The Rift.", "The Rift"),
-            quests("Bow to the Master", "Side quest in The Rift.", "The Rift"),
-            quests("Caught Red Handed", "Side quest in The Rift.", "The Rift"),
-            quests("Climb The Steps", "Side quest in The Rift.", "The Rift"),
-            quests("Infiltration", "Side quest in The Rift.", "The Rift"),
-            quests("Few and Far Between", "Side quest in The Rift.", "The Rift"),
-            quests("Flight or Fight", "Side quest in The Rift.", "The Rift"),
-            quests("Grin and Bear It", "Side quest in The Rift.", "The Rift"),
-            quests("Grimsever's Return", "Side quest in The Rift.", "The Rift"),
-            quests("Hunt and Gather", "Side quest in The Rift.", "The Rift"),
-            quests("Ice Cold", "Side quest in The Rift.", "The Rift"),
-            quests("Kyne's Sacred Trials", "Side quest in The Rift.", "The Rift"),
-            quests("Promises to Keep", "Side quest in The Rift.", "The Rift"),
-            quests("Repentance", "Side quest in The Rift.", "The Rift"),
-            quests("Ringmaker", "Side quest in The Rift.", "The Rift"),
-            quests("Sealing the Deal", "Side quest in The Rift.", "The Rift"),
-            quests("Siege on the Dragon Cult", "Side quest in The Rift.", "The Rift"),
-            quests("Smooth Jazbay", "Side quest in The Rift.", "The Rift"),
-            quests("Special Delivery (Bolli)", "Side quest in The Rift.", "The Rift"),
-            quests("Special Delivery (Sylgja)", "Side quest in The Rift.", "The Rift"),
-            quests("Stoking the Flames", "Side quest in The Rift.", "The Rift"),
-            quests("Supply and Demand", "Side quest in The Rift.", "The Rift"),
-            quests("Taking Care of Business", "Side quest in The Rift.", "The Rift"),
-            quests("The Book of Love", "Side quest in The Rift.", "The Rift"),
-            quests("The Lover's Requital", "Side quest in The Rift.", "The Rift"),
-            quests("The Raid", "Side quest in The Rift.", "The Rift"),
-            quests("The Straw that Broke", "Side quest in The Rift.", "The Rift"),
-            quests("Unfathomable Depths", "Side quest in The Rift.", "The Rift"),
-
-            // Whiterun
-            quests("A Lovely Letter", "Side quest in Whiterun.", "Whiterun"),
-            quests("Andurs' Arkay Amulet", "Side quest in Whiterun.", "Whiterun"),
-            quests("Argonian Ale Extraction", "Side quest in Whiterun.", "Whiterun"),
-            quests("Delayed Burial", "Side quest in Whiterun.", "Whiterun"),
-            quests("Erik the Slayer", "Side quest in Whiterun.", "Whiterun"),
-            quests("Greatsword for a Great Man", "Side quest in Whiterun.", "Whiterun"),
-            quests("In My Time of Need", "Side quest in Whiterun.", "Whiterun"),
-            quests("Salt For Arcadia", "Side quest in Whiterun.", "Whiterun"),
-            quests("Missing in Action", "Side quest in Whiterun.", "Whiterun"),
-            quests("The Blessings of Nature", "Side quest in Whiterun.", "Whiterun"),
-            quests("The Golden Claw", "Side quest in Whiterun.", "Whiterun"),
-            quests("Ysolda's Shipment", "Side quest in Whiterun.", "Whiterun"),
-
-            // Winterhold
-            quests("Helm of Winterhold", "Side quest in Winterhold.", "Winterhold"),
-            quests("Forgotten Names", "Side quest in Winterhold.", "Winterhold"),
-
-            // Blackreach
-            quests("A Return To Your Roots", "Side quest in Blackreach.", "Blackreach"),
-
-            // Any region
-            quests("Ancestral Worship", "Side quest in any region", "Any"),
-            quests("Becoming Thane", "Side quest in any region.", "Any"),
+            // Dungeon Quests
+            quests("Medresi Dran and the Wandering Dead", "Discover the treasure of Angarvunde.", "Dungeon"),
+            quests("A Love Beyond Death", "Kill Lu'ah Al-Skaven in Ansilvund.", "Dungeon"),
+            quests("Composure, Speed and Precision", "Clear out Angi’s Camp.", "Dungeon"),
+            quests("Leap Before You Look", "Clear out Bard’s Leap Summit.", "Dungeon"),
+            quests("The Affairs of Hargravens", "Help an imprisoned hagraven reclaim her tower at Blind Cliff Bastion.", "Dungeon"),
+            quests("Repentance", "Help Illia prevent her mother from transforming into a hagraven at Darklight Tower.", "Dungeon"),
+            quests("Siege on the Dragon Cult", "Defeat Rahgot in Forelhost and recover his mask.", "Dungeon"),
+            quests("What Lies Beneath", "Investigate the Frostflow Lighthouse and discover the source of an attack.", "Dungeon"),
+            quests("The Pale Lady", "Find out what happened in Frostmere Crypt.", "Dungeon"),
+            quests("A Scroll For Anska", "Protect Anska and battle through High Gate Ruins.", "Dungeon"),
+            quests("Ancestral Worship", "Accompany Golldir and save Hillgrund's Tomb from a Necromancer.", "Dungeon"),
+            quests("Forgetting about Fjola", "Help Christer locate his kidnapped wife at Mistwatch.", "Dungeon"),
+            quests("Hunter and Hunted", "Help an injured hunter avenge his fallen companions at Moss Mother Cavern.", "Dungeon"),
+            quests("The Lost Expedition", "Recover the journals from Nchuand-Zel.", "Dungeon"),
+            quests("The Nilheim Scam", "Escort Telrav back to his camp in Nilheim.", "Dungeon"),
+            quests("Otar’s Mad Guardians", "Discover the secrets of Ragnvald.", "Dungeon"),
+            quests("The Legend of the Red Eagle", "Find Red Eagle's sword at Rebel's Cairn.", "Dungeon"),
+            quests("Lifting the Shroud", "Investigate the haunted barrow outside of Ivarstead.", "Dungeon"),
+            quests("The Secret at the Sleeping Tree", "Question Ysolda about a note found on a dead Orc.", "Dungeon"),
+            quests("The Savior of Selveni Nethri", "Help a necromancer escape Southfringe Sanctum.", "Dungeon"),
+            quests("Infiltration", "Help Stalleo retake Treva's Watch.", "Dungeon"),
+            quests("Evil in Waiting", "Seal away an ancient evil in Valthume.", "Dungeon"),
+            quests("Silenced Tongues", "Unlock the burial chamber of Kvenel in Volunruud.", "Dungeon"),
+            quests("Ashore in a Sea of Ghosts", "Find treasure in Yngol Barrow.", "Dungeon"),
+            quests("Forbidden Legend", "Investigate the Gauldur Legend at Folgunthur.", "Dungeon"),
+            quests("Coming of Age", "Help a daring adventurer and her companion.", "Dungeon"),
+            
+            // ===== Eastmarch Quests =====
+            quests("Blood on the Ice", "Windhelm is plagued by a shadowy killer.", "Eastmarch"),
+            quests("Rise in the East", "Help the East Empire Company take care of pirates.", "Eastmarch"),
+            quests("The White Phial", "Retrieve a legendary alchemical artifact.", "Eastmarch"),
+            quests("Repairing the Phial", "Acquire materials to repair the White Phial.", "Eastmarch"),
+            quests("Friend of the Jarl (Eastmarch)", "Assist the people of Eastmarch to become Thane.", "Eastmarch"),
+            
+            // ===== Falkreath Quests =====
+            quests("Kill the Giant (Skald)", "Assist Skald by killing a giant.", "Falkreath"),
+            quests("Pieces of the Past", "Visit the museum in Dawnstar to collect the pieces of Mehrunes’ Razor.", "Falkreath"),
+            quests("Waking Nightmare", "Investigate the nightmares plaguing Dawnstar.", "Falkreath"),
+            quests("Dungeon Delving (Frida)", "Find an item Frida lost in a dungeon.", "Falkreath"),
+            quests("Rare Gifts (Rustleif)", "Bring a rare gift to Rustleif.", "Falkreath"),
+            quests("Thane of the Pale", "Assist the Jarl of Dawnstar and become Thane.", "Falkreath"),
+            quests("A Daedra's Best Friend", "Join Barbas the dog to reunite him with his master.", "Falkreath"),
+            quests("Dark Ancestor", "Assist the priest of Arkay with a dangerous spirit.", "Falkreath"),
+            quests("Ill Met by Moonlight", "Participate in the Daedric quest of Hircine.", "Falkreath"),
+            quests("Kill the Bandit Leader (Siddgeir)", "Clear out a bandit hideout for Siddgeir.", "Falkreath"),
+            quests("Delivery (Thadgeir)", "Deliver a letter for Thadgeir.", "Falkreath"),
+            quests("Dungeon Delving (Runil)", "Retrieve an item from a dungeon for Runil.", "Falkreath"),
+            quests("Some Light Theft (Dengeir)", "Steal an item for Dengeir.", "Falkreath"),
+            quests("Rare Gifts (Siddgeir)", "Bring a rare gift to Siddgeir.", "Falkreath"),
+            quests("Thane of Falkreath", "Assist the Jarl of Falkreath and become Thane.", "Falkreath"),
+            
+            // ===== Haafingar Quests =====
+            quests("Lights Out!", "Help run a cargo ship aground.", "Haafingar"),
+            quests("The Man Who Cried Wolf", "Investigate reports of strange happenings in Wolfskull Cave.", "Haafingar"),
+            quests("The Wolf Queen Awakened", "Stop Potema’s return to power.", "Haafingar"),
+            quests("Friend of the Jarl (Haafingar)", "Finish The Wolf Queen Awakened and the Jarl’s task Elisif’s Tribute.", "Haafingar"),
+            quests("Friend of the Hold (Haafingar)", "Assist the people of the hold by completing five quests or objectives in Haafingar.", "Haafingar"),
+            quests("House in the City (Haafingar)", "Buy Proudspire Manor in Solitude.", "Haafingar"),
+            quests("No News is Good News", "Find out about the fate of Angeline Morrard's daughter from Captain Aldis.", "Haafingar"),
+            quests("Fit for a Jarl", "Speak to Taarie about clothing fit for a Jarl.", "Haafingar"),
+            quests("Return to Grace", "Convince Greta to return to the Temple of the Divines.", "Haafingar"),
+            quests("Delivery (Sorex)", "Deliver Sorex’s package to Falk Firebeard.", "Haafingar"),
+            quests("The Spiced Wine", "Convince Vittoria Vici to hand over a shipment for Evette.", "Haafingar"),
+            quests("Elisif's Tribute", "Place a tribute to Elisif’s late husband.", "Haafingar"),
+            quests("Item Retrieval (Noster’s Helmet)", "Return Noster One-Eye’s helmet to him.", "Haafingar"),
+            quests("Rare Item Hunt (Blocking Training)", "Help Captain Aldis train his men in blocking.", "Haafingar"),
+            quests("A Good Talking To (Octieve San)", "Talk to Irnskar about Octieve San’s gambling debts.", "Haafingar"),
+            quests("The Bandit Slayer (Ahtar)", "Help Ahtar kill a bandit leader who escaped Solitude’s jail.", "Haafingar"),
+            quests("The Vampire Slayer", "Clear out a vampire lair for Sybille Stentor.", "Haafingar"),
+            quests("Dragon’s Breath Mead", "Retrieve Dragon’s Breath Mead from Olda’s husband’s stash.", "Haafingar"),
+            
+            // ===== Hjaalmarch Quests =====
+            quests("Laid to Rest", "Investigate a tragic house fire, and uncover a plot against Morthal.", "Hjaalmarch"),
+            quests("Rising at Dawn", "Seek out Falion to cure yourself of vampirism.", "Hjaalmarch"),
+            quests("Friend of the Jarl (Hjaalmarch)", "Finish Laid to Rest or capture Hjaalmarch Hold as part of the Civil War.", "Hjaalmarch"),
+            quests("Friend of the Hold (Hjaalmarch)", "Assist the people of Hjaalmarch by completing three quests or objectives.", "Hjaalmarch"),
+            quests("Falion’s Nocturnal Habits", "Follow Falion northwest out of town at night.", "Hjaalmarch"),
+            quests("For the Good of Morthal", "Deliver Gorm’s letter to Captain Aldis.", "Hjaalmarch"),
+            quests("Rare Item Hunt (Lami’s Book)", "Help Lami find the childhood book she read when studying alchemy.", "Hjaalmarch"),
+            quests("Sparring Partners (Benor)", "Prove yourself in a fight against Benor, Morthal’s strongest warrior.", "Hjaalmarch"),
+            quests("Slow Shipments to Bryling", "Speak to Pactur on Bryling’s behalf about delayed mine shipments.", "Hjaalmarch"),
+            quests("The Ghost of Kjenstag Tomb", "Visit the site of the Kjenstag Tomb at night.", "Hjaalmarch"),
+            
+            // ===== The Pale Quests =====
+            quests("Friend of the Jarl (The Pale)", "Finish Waking Nightmare and the Jarl’s task, or capture The Pale Hold as part of the Civil War.", "The Pale"),
+            quests("Friend of the Hold (The Pale)", "Assist the people of The Pale by completing three quests or objectives.", "The Pale"),
+            quests("Salty Sea-Dogs", "Collect fine-cut void salts for Captain Wayfinder.", "The Pale"),
+            quests("Item Retrieval (Frida’s Ring)", "Return Frida’s Ring to her.", "The Pale"),
+            quests("Rare Item Hunt (Rustleif)", "Bring an item to Rustleif so he can read to his soon-to-be-born child.", "The Pale"),
+            quests("Jobs for the Jarls (Kill the Giant)", "Kill a giant for Jarl Skald the Elder.", "The Pale"),
+            quests("Special Delivery (Aeri’s Note)", "Deliver Aeri’s note to Jarl Skald the Elder.", "The Pale"),
+            
+            // ===== The Reach Quests =====
+            quests("The Forsworn Conspiracy", "Investigate a murder in Markarth and uncover a sinister Forsworn plot.", "The Reach"),
+            quests("No One Escapes Cidhna Mine", "Escape from Cidhna Mine!", "The Reach"),
+            quests("Friend of the Jarl (The Reach)", "Finish both of the Jarl’s tasks or capture The Reach as part of the Civil War.", "The Reach"),
+            quests("Friend of the Hold (The Reach)", "Assist the people of The Reach by completing five quests or objectives.", "The Reach"),
+            quests("House in the City (Vlindrel Hall)", "Buy Vlindrel Hall in Markarth.", "The Reach"),
+            quests("Neutralizing Nimhe", "Help Calcelmo by killing Nimhe, the giant Frostbite Spider in Nchuand-Zel.", "The Reach"),
+            quests("The Steward’s Potion", "Deliver the Stallion's Potion from Bothela to Steward Raerek.", "The Reach"),
+            quests("The Last Scabbard of Akrash", "Help Ghorza find a legendary Smithing book.", "The Reach"),
+            quests("Triumph Over Talos", "Assist Ondolemar by investigating Ogmund’s Talos worship.", "The Reach"),
+            quests("The Heart of the Matter", "Bring a Daedra Heart to Moth Gro-Bagol.", "The Reach"),
+            quests("Dibella’s Shine", "Retrieve a statue of Dibella taken by the Forsworn for Lisbet.", "The Reach"),
+            quests("Delivery to Calcelmo", "Deliver an item to Calcelmo for Kerah.", "The Reach"),
+            quests("Special Delivery (Idgrod’s Note)", "Bring Idgrod’s Note to Danica Pure-Spring.", "The Reach"),
+            quests("A Good Talking To (Mulush)", "Speak to Mulush about Omluag for his employer.", "The Reach"),
+            quests("Sparring Partners (Cosnach)", "Prove yourself by brawling with Cosnach.", "The Reach"),
+            quests("Jobs for the Jarls (Forsworn Leader)", "Kill a Forsworn leader for Jarl Igmund.", "The Reach"),
+            quests("Jobs for the Jarls (Hagraven)", "Kill a Hagraven for Jarl Igmund and retrieve his father’s shield.", "The Reach"),
+            quests("Buy Dwarven Artifact", "Bring a Dwarven artifact to Calcelmo in Markarth.", "The Reach"),
+            quests("Special Delivery (Banning’s Spiced Beef)", "Deliver Banning’s spiced beef to Voada.", "The Reach"),
+            quests("The Sword of Gharol", "Deliver Gharol’s sword to her daughter Lash gra-Dushnikh.", "The Reach"),
+            quests("Sparring Partners (Burguk)", "Test your strength against Burguk in a brawl.", "The Reach"),
+            quests("Sanuarach’s Mine!", "Help resolve the dispute over Sanuarach Mine.", "The Reach"),
+            quests("Kolskeggr Clear Out", "Clear the Forsworn from Kolskeggr Mine.", "The Reach"),
+            quests("The Ghost of Old Hroldan", "Stay in Tiber Septim’s room at the Old Hroldan Inn to uncover its haunting.", "The Reach"),
+            quests("Letter to Leontius", "Deliver a letter from Rogatus Salvius to his son Leontius.", "The Reach"),
+            quests("Making it Hole Again", "Help Perth clear out the Nordic crypt his mine tunneled into.", "The Reach"),
+            quests("Sparring Partners (Larak)", "Brawl with Larak to prove your strength.", "The Reach"),
+            
+            // ===== The Rift Quests =====
+            quests("Friend of the Jarl (The Rift)", "Finish both of the Jarl’s tasks or capture The Rift as part of the Civil War.", "The Rift"),
+            quests("Friend of the Hold (The Rift)", "Assist the people of The Rift by completing five quests or objectives.", "The Rift"),
+            quests("House in the City (Honeyside)", "Buy Honeyside in Riften.", "The Rift"),
+            quests("Jobs for the Jarls (Crime Boss)", "Kill a crime boss for Jarl Laila Law-Giver.", "The Rift"),
+            quests("Potion Delivery", "Deliver Wylandriah’s Satchel to her.", "The Rift"),
+            quests("Amulet of the Moon", "Bring an Amulet of Mara to Maramal.", "The Rift"),
+            quests("Bringing Home the Bound", "Deliver a mammoth tusk to Ysolda.", "The Rift"),
+            quests("Special Delivery (Black-Briar Mead)", "Deliver some Black-Briar Mead for Maven.", "The Rift"),
+            quests("Special Delivery (Black-Briar Reserve)", "Deliver a bottle of Black-Briar Reserve.", "The Rift"),
+            quests("Potion Research", "Bring Wylandriah’s ingredients for her research.", "The Rift"),
+            quests("Deliver Madesi’s Items", "Bring Madesi the items he needs for his jewelry.", "The Rift"),
+            quests("Dinya’s Tasks", "Help Dinya Balu spread Mara’s love by completing her tasks.", "The Rift"),
+            quests("Supply and Demand", "Help Wujeeta with her skooma addiction.", "The Rift"),
+            quests("Special Delivery (Riften Weapons)", "Deliver some weapons to Harrald Law-Giver.", "The Rift"),
+            quests("Special Delivery (Goldenglow Delivery)", "Deliver a special package for Maven Black-Briar.", "The Rift"),
+            quests("Fishing Contest", "Prove your thieving skills by completing a special fishing task.", "The Rift"),
+            quests("Love Triangle", "Deliver a letter for Haelga’s lover and stir up trouble.", "The Rift"),
+            quests("Supply Run (Elgrim)", "Collect Nirnroot for Elgrim’s Elixirs.", "The Rift"),
+            quests("Supply Run (Ingun)", "Collect Deathbell, Nirnroot, and Nightshade for Ingun Black-Briar.", "The Rift"),
+            quests("Supply Run (Hafjorg)", "Deliver Frost Salts to Hafjorg.", "The Rift"),
+            quests("Supply Run (Dravynea)", "Deliver Frost Salts to Dravynea the Stoneweaver.", "The Rift"),
+            quests("Supply Run (Enthir)", "Deliver a staff to Enthir in Winterhold.", "The Rift"),
+            quests("Supply Run (Florentus)", "Deliver a weapon to Florentus Baenius.", "The Rift"),
+            quests("Supply Run (Sybille)", "Deliver Frost Salts to Sybille Stentor.", "The Rift"),
+            quests("Supply Run (Farengar)", "Deliver Frost Salts to Farengar Secret-Fire.", "The Rift"),
+            
+            // ===== Whiterun Quests =====
+            quests("In My Time of Need", "Find the Redguard, Saadia, who is on the run from Hammerfell.", "Whiterun"),
+            quests("Missing In Action", "Rescue a missing Stormcloaks supporter from the Thalmor.", "Whiterun"),
+            quests("Friend of the Jarl (Whiterun)", "Finish Dragon Rising or capture Whiterun as part of the Civil War.", "Whiterun"),
+            quests("House in the City (Breezehome)", "Buy Breezehome (not required to become Thane of Whiterun).", "Whiterun"),
+            quests("Bully Braith", "Help Lars deal with being bullied by Braith.", "Whiterun"),
+            quests("Argonian Ale Extraction", "Brenuin the beggar longs for the taste of Argonian Ale.", "Whiterun"),
+            quests("Greatsword for a Great Man", "Adrianne has finished a sword for the Jarl.", "Whiterun"),
+            quests("Andur’s Arkay Amulet", "Andur has mislaid his amulet.", "Whiterun"),
+            quests("Salt for Arcadia", "Deliver the Frost Salts for Farengar.", "Whiterun"),
+            quests("Item Retrieval (Amren's Sword)", "Find Amren's Family Sword in a bandit camp.", "Whiterun"),
+            quests("Rare Item Hunt (Ysolda)", "Bring one Mammoth Tusk to Ysolda.", "Whiterun"),
+            quests("A Good Talking To (Carlotta)", "Talk to Mikael about Carlotta.", "Whiterun"),
+            quests("Sparring Partners (Uthgerd)", "Uthgerd the Unbroken wants to prove her strength.", "Whiterun"),
+            quests("The Golden Claw", "Retrieve a family heirloom from a bandit for a shopkeeper.", "Whiterun"),
+            quests("The Love Triangle", "Use a forged letter to resolve a love triangle.", "Whiterun"),
+            quests("Erik the Slayer", "Help Erik the Slayer become an adventurer.", "Whiterun"),
+            quests("The Words of Power", "Follow the Greybeards' advice to learn a Word of Power from a Word Wall.", "Whiterun"),
+            
+            // ===== Winterhold Quests =====
+            quests("Friend of the Jarl (Winterhold)", "Finish the Jarl’s task or capture Winterhold Hold as part of the Civil War.", "Winterhold"),
+            quests("Friend of the Hold (Winterhold)", "Assist the people of the hold by completing three quests or objectives in Winterhold.", "Winterhold"),
+            quests("Drowned Sorrows", "Find Isabelle, Ranmir's lost love.", "Winterhold"),
+            quests("Jobs for the Jarl (Winterhold)", "Retrieve the Helm of Winterhold for Jarl Korir.", "Winterhold"),
+            quests("A Good Talking To (Haran)", "Talk to Ranmir for Haran about his tavern tab.", "Winterhold"),
+            quests("A Little Light Thievery (Winterhold)", "Steal Nelacar’s Staff for Malur Seloth.", "Winterhold"),
+            
+            // ===== Blackreach Quests =====
+            quests("A Return To Your Roots (Blackreach)", "Go where a famous Alchemist could not in order to aid ground-breaking research.", "Blackreach"),
+            
+            // ===== Any Quests =====
+            quests("New Moon (Ahkari Caravan)", "Kharjo hopes that you’ll retrieve the Amulet of the Moon for him.", "Any"),
+            quests("The Forgemasters Fingers (Orc Strongholds)", "Find The Forgemaster's Fingers to gain favor with the Orcs.", "Any"),
+            
+            // ===== Bounty Quests =====
+            quests("Kill the bandit leader at...", "Eliminate a bandit leader for a bounty reward.", "Bounty"),
+            quests("Kill the dragon at...", "Kill a dragon in its lair.", "Bounty"),
+            quests("Kill the Forsworn leader of...", "Kill a Forsworn leader for a bounty reward.", "Bounty"),
+            quests("Kill the giant at...", "Kill a problematic giant for a bounty reward.", "Bounty"),
+            
+            // ===== Tasks =====
+            quests("Chopping Wood", "Find a Woodcutter’s Axe, a pile of wood, chop away, and sell the firewood.", "Tasks"),
+            quests("Mining Ore", "Find a Pickaxe, locate a vein, strike it, and sell the ore.", "Tasks"),
+            quests("Harvesting Crops", "Trek over to a farm and harvest crops for pay.", "Tasks"),
+            quests("The Gift Of Charity", "Give a piece of gold to a beggar.", "Tasks"),
+            quests("A Drunk’s Drink", "Purchase a drink for a friendly drunk, and expect a dance as your reward.", "Tasks"),
+            quests("Hide and Seek", "Play a round of Hiding and Seeking with some children in town.", "Tasks"),
+            quests("Tag, you're it!", "Play a round of Tag with the children of a city.", "Tasks"),
           ]},
+
         // ================== Base Game Factions ================== 
         {
           key: "baseGameFaction",
@@ -824,10 +956,10 @@
             collectibles("Unrelenting Force"),
             collectibles("Whirlwind Sprint")
           ]},
-          // ================== Stone of Berenziah ==================
+          // ================== Stones of Berenziah ==================
         {
           key: "stone",
-          label: "Stone of Berenziah",
+          label: "Stones of Berenziah",
           collectibles: [
             collectibles("Stony Creek Cave"),
             collectibles("Ansilvund"),
@@ -853,7 +985,118 @@
             collectibles("College of Winterhold"),
             collectibles("Hob's Fall Cave"),
             collectibles("Yngvild")
-          ]}
+          ]},
+        // ================== Bugs in a Jar ==================
+        {
+          key: "bug",
+          label: "Bugs in a Jar",
+          collectibles: [
+            collectibles("Bee in a Jar"),
+            collectibles("Butterfly in a Jar"),
+            collectibles("Dragonfly in a Jar"),
+            collectibles("Moth in a Jar"),
+            collectibles("Torchbug in a Jar")
+          ]}, 
+        // ================== Dragon Claws ==================
+        {
+          key: "claw",
+          label: "Dragon Claws",
+          collectibles: [
+            collectibles("Coral Dragon Claw"),
+            collectibles("Diamond Claw"),
+            collectibles("Ebony Claw"),
+            collectibles("Emerald Dragon Claw"),
+            collectibles("Glass Claw"),
+            collectibles("Golden Claw"),
+            collectibles("Iron Claw"),
+            collectibles("Ivory Dragon Claw"),
+            collectibles("Ruby Dragon Claw"),
+            collectibles("Sapphire Dragon Claw"),
+          ]},
+        // ================== Treasure Maps ==================
+        {
+          key: "map",
+          label: "Treasure Maps",
+          collectibles: [
+            collectibles("Treasure Map I"),
+            collectibles("Treasure Map II"),
+            collectibles("Treasure Map III"),
+            collectibles("Treasure Map IV"),
+            collectibles("Treasure Map V"),
+            collectibles("Treasure Map VI"),
+            collectibles("Treasure Map VII"),
+            collectibles("Treasure Map VIII"),
+            collectibles("Treasure Map IX"),
+            collectibles("Treasure Map X"),
+            collectibles("Fort Neugrad Treasure Map"),
+            collectibles("Velehk Sain's Treasure Map")
+          ]}, 
+        // ================== Misc Collectibles ==================
+        {
+          key: "misc",
+          label: "Misc Collectibles",
+          collectibles: [
+            collectibles("Amethyst Claw, Left Half (DB)"),
+            collectibles("Amethyst Claw, Right Half (DB)"),
+            collectibles("Ancient Traveler's Skull"),
+            collectibles("Aretino Family Heirloom"),
+            collectibles("Attunement Sphere"),
+            collectibles("Balbus's Fork"),
+            collectibles("Canticle Bark (DG)"),
+            collectibles("Control Cube (DB)"),
+            collectibles("Deathbrand Treasure Map (DB)"),
+            collectibles("Draw Knife (DG)"),
+            collectibles("Essence Extractor"),
+            collectibles("Exquisite Sapphire (DB)"),
+            collectibles("Firebrand Wine Case"),
+            collectibles("Glenmoril Witch Head"),
+            collectibles("Initiate's Ewer (DG)"),
+            collectibles("Kagrumez Resonance Gem"),
+            collectibles("Map of Dragon Burials"),
+            collectibles("Michaela's Flagon"),
+            collectibles("Olava's Token"),
+            collectibles("Pelagius' Hip Bone"),
+            collectibles("Right Eye of the Falmer"),
+            collectibles("Runed Lexicon"),
+            collectibles("Saerek's Skull Key"),
+            collectibles("Sigil Stone"),
+            collectibles("Skull (DB)"),
+            collectibles("The Dancer's Flute"),
+            collectibles("Torsten's Skull Key"),
+            collectibles("Ysgramor's Soup Spoon")
+          ]},
+        // ================== Paragons ==================
+        {
+          key: "paragon",
+          label: "Paragons",
+          collectibles: [
+            collectibles("Amethyst Paragon"),
+            collectibles("Diamond Paragon"),
+            collectibles("Emerald Paragon"),
+            collectibles("Ruby Paragon"),
+            collectibles("Sapphire Paragon")
+          ]},
+
+        // ================== Dragon Priest Masks ==================
+        {
+          key: "dragonPriestMask",
+          label: "Dragon Priest Masks",
+          collectibles: [
+            collectibles("Hevnoraak"),
+            collectibles("Krosis"),
+            collectibles("Morokei"),
+            collectibles("Nahkriin"),
+            collectibles("Otar"),
+            collectibles("Rahgot"),
+            collectibles("Vokun"),
+            collectibles("Volsung"),
+            collectibles("Konahrik"),
+            collectibles("Wooden Mask"),
+            collectibles("Mirrak"),
+            collectibles("Azhidal"),
+            collectibles("Dukaan"),
+            collectibles("Zahkriisos")
+          ]},
       ];
 
       // ================== Checklist Helpers ==================
@@ -1136,6 +1379,13 @@ function updateAllStats() {
   "Main Dragonborn Quest": "#FF8C00",
   "Side Dragonborn Quest": "#FFA500",
   "Shouts": "#FFA500",
+  "Stones of Berenziah": "#8A2BE2",
+  "Treasure Maps": "#FFD700",
+  "Paragons": "#00FFFF",
+  "Dragon Priest Masks": "#8B4513",
+  "Dragon Claws": "#9400D3",
+  "Bugs in a Jar": "#32CD32",
+  "Misc Collectibles": "#FF69B4",
   };
 
   combinedChart?.destroy();
