@@ -311,12 +311,12 @@
 
         <!-- Stats -->
         <div class="content" id="stats">
-          <h2>Quests Overview</h2>
+          <h2>Completion Overview</h2>
           <div class="scrollable-list">
             <div class="stats-chart"><canvas id="combinedChart" style="width:360px; max-height:360px;"></canvas></div>
             <div class="stats-layout">
               <div class="stats-text">
-                <div id="completed-by-type" style="margin-top:20px;"><h2>Completed</h2></div>
+                <div id="completed-by-type" style="margin-top:20px;"></div>
               </div>
             </div>
           </div>
@@ -1410,7 +1410,7 @@ function updateAllStats() {
   const questsDiv = document.createElement("div");
   questsDiv.classList.add("total-stats");
   questsDiv.style.marginBottom = "10px";
-  questsDiv.innerHTML = `<strong>Total quests:</strong> <span style="color:#aaa">${filteredQuests.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalQuestCompleted / filteredQuests.length) * 100).toFixed(1)}%</span>`;
+  questsDiv.innerHTML = `<h2>Quests</h2><strong>Total quests:</strong> <span style="color:#aaa">${filteredQuests.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalQuestCompleted / filteredQuests.length) * 100).toFixed(1)}%</span>`;
   container.appendChild(questsDiv);
 
   // Collectibles totals
@@ -1420,22 +1420,43 @@ function updateAllStats() {
     return localStorage.getItem(id) === "true";
   }).length;
 
-  const collectiblesDiv = document.createElement("div");
-  collectiblesDiv.classList.add("total-stats");
-  collectiblesDiv.style.marginBottom = "10px";
-  collectiblesDiv.innerHTML = `<strong>Total collectibles:</strong> <span style="color:#aaa">${allCollectibles.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalCollectibleCompleted / allCollectibles.length) * 100).toFixed(1)}%</span>`;
-  container.appendChild(collectiblesDiv);
+  // --- Category stats ---
 
-  // Category stats
-  Object.entries(tagStats).forEach(([tag, s]) => {
+  // Separate quests and collectibles
+  const questTags = Object.keys(tagStats).filter(tag =>
+    !["Shouts","Treasure Maps","Paragons","Dragon Priest Masks","Dragon Claws","Bugs in a Jar","Misc Collectibles","Stones of Berenziah"].includes(tag)
+  );
+
+  const collectibleTags = Object.keys(tagStats).filter(tag =>
+    ["Shouts","Treasure Maps","Paragons","Dragon Priest Masks","Dragon Claws","Bugs in a Jar","Misc Collectibles","Stones of Berenziah"].includes(tag)
+  );
+
+  // Quest categories
+  questTags.forEach(tag => {
+    const s = tagStats[tag];
     const percent = s.total ? (s.completed / s.total * 100).toFixed(1) : 0;
     const div = document.createElement("div");
     div.classList.add("category-stats");
-    div.style.marginBottom = "0px";
     div.innerHTML = `<strong>${tag}</strong>: ${s.completed} <span style="color:#aaa">(${percent}%)</span>`;
     container.appendChild(div);
   });
-}
+
+  // Gap between quest categories and collectible categories
+  const gap = document.createElement("div");
+  gap.style.margin = "20px 0";
+  gap.innerHTML = `<h2>Collectibles</h2><strong>Total collectibles:</strong> <span style="color:#aaa">${allCollectibles.length}</span> <br><strong>Completed:</strong> <span style="color:#aaa">${((totalCollectibleCompleted / allCollectibles.length) * 100).toFixed(1)}%</span>`;
+  container.appendChild(gap);
+
+  // Collectible categories
+  collectibleTags.forEach(tag => {
+    const s = tagStats[tag];
+    const percent = s.total ? (s.completed / s.total * 100).toFixed(1) : 0;
+    const div = document.createElement("div");
+    div.classList.add("category-stats");
+    div.innerHTML = `<strong>${tag}</strong>: ${s.completed} <span style="color:#aaa">(${percent}%)</span>`;
+    container.appendChild(div);
+  });
+  }
 
     </script>
 
@@ -1444,3 +1465,5 @@ function updateAllStats() {
 
   </body>
 </html>
+
+
